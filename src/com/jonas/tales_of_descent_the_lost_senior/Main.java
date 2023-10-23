@@ -7,8 +7,8 @@ public class Main {
             *
             * turn order
             *
-            *  description - where are the character now (based on class?)
             *  (Start:)
+            *  description - where are the character now (based on class?)
             *  //IF (room[floor.length - 1] == room[i]) description and descend.
             *  action menu - move deeper / search room / show Inventory / character stats / shop (only availeble at start, or search)
                 * move deeper:  -stamina , next room,
@@ -44,6 +44,45 @@ public class Main {
 
         * */
 
+        //Part of intro
+
+        String introPart3 = """
+                You just came throughout the waterfall opening you eyes. You take a few steps,
+                into the stripes of light that leaks from the cracked open ceiling.
+                you see a trail of lit torches along the walls. Now theres no turning back.
+                While flickering fire leads you down the hall, you suddenly notice an updraft wind, you stopped.
+                Slowly, you look down, and there is nothing there. nothing but an endless fall to death.
+                While thinking that you just consumed the last bit of luck, you attached your eyes to a ladder.
+                Wailing down in the deep, you realize, its also the only option to get to were you need.
+                                        
+                So you descend, the wooden craft you climbing feels pretty sturdy,
+                and you try to project comfort upon yourself by saying..
+                "this ain't so bad..."
+                but... *sniff* *sniff*
+                what is that?...
+                ... rotten meat?
+                                
+                Reaching solid ground, you turn around..
+                """;
+        System.out.println(introPart3);
+
+        //room description
+        String roomDesctiptionExample = """ 
+                Actions:
+                """;
+        System.out.println(roomDesctiptionExample);
+
+
+        //action menu
+        String actionMenu = """ 
+                Actions:
+                1. Move Deeper
+                2. Search Room
+                3. Inventory
+                4. Character Stats
+                                
+                """;
+        System.out.println(actionMenu);
 
     }
 }
