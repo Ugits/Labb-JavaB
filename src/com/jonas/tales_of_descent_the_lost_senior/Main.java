@@ -1,7 +1,13 @@
 package com.jonas.tales_of_descent_the_lost_senior;
 
+import com.jonas.tales_of_descent_the_lost_senior.resources.CustomString;
+
 public class Main {
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws InterruptedException {
+
+        CustomString print = new CustomString();
+
         /* TODO: 2023-10-23
             *
             *
@@ -44,45 +50,18 @@ public class Main {
 
         * */
 
-        //Part of intro
 
-        String introPart3 = """
-                You just came throughout the waterfall opening you eyes. You take a few steps,
-                into the stripes of light that leaks from the cracked open ceiling.
-                you see a trail of lit torches along the walls. Now theres no turning back.
-                While flickering fire leads you down the hall, you suddenly notice an updraft wind, you stopped.
-                Slowly, you look down, and there is nothing there. nothing but an endless fall to death.
-                While thinking that you just consumed the last bit of luck, you attached your eyes to a ladder.
-                Wailing down in the deep, you realize, its also the only option to get to were you need.
-                                        
-                So you descend, the wooden craft you climbing feels pretty sturdy,
-                and you try to project comfort upon yourself by saying..
-                "this ain't so bad..."
-                but... *sniff* *sniff*
-                what is that?...
-                ... rotten meat?
-                                
-                Reaching solid ground, you turn around..
-                """;
-        System.out.println(introPart3);
+
+        //Part of intro
+        System.out.println(print.introPart3);
 
         //room description
-        String roomDesctiptionExample = """ 
-                Actions:
-                """;
-        System.out.println(roomDesctiptionExample);
-
+        System.out.println(print.roomDesctiptionExample);
 
         //action menu
-        String actionMenu = """ 
-                Actions:
-                1. Move Deeper
-                2. Search Room
-                3. Inventory
-                4. Character Stats
-                                
-                """;
-        System.out.println(actionMenu);
+        System.out.println(print.actionMenu);
 
+        //combat menu
+        System.out.println(print.combatMenu);
     }
 }
