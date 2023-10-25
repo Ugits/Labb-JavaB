@@ -1,8 +1,11 @@
-package com.jonas.tales_of_descent_the_lost_senior.characters.heroes;
+package com.jonas.tales_of_descent_the_lost_senior.characters.monsters;
 
-import com.jonas.tales_of_descent_the_lost_senior.interaction.ICombat;
+public class NoMonster extends Monster {
 
-public class Ranger extends Hero{
+    public NoMonster() {
+        super("No monster", 0, 0, true);
+    }
+
 
     @Override
     public void attack() {

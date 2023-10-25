@@ -1,7 +1,7 @@
 package com.jonas.tales_of_descent_the_lost_senior;
 
-import com.jonas.tales_of_descent_the_lost_senior.enviorment.Room;
-import com.jonas.tales_of_descent_the_lost_senior.resources.CustomString;
+import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Map;
+
 
 public class Main {
 
@@ -51,15 +51,31 @@ public class Main {
 
         * */
 
-        CustomString print = new CustomString();
-        Room room1 = new Room();
-        System.out.println(room1.monster.getName());
-        System.out.println(room1.monster.getStamina());
-        System.out.println(room1.monster.getDamage());
-        System.out.println(room1.monster.isDead());
+        Map map = new Map();
+        System.out.println(map.getFloor7().get(4).getOnFloor());
+        System.out.println(map.getFloor7().get(4).getNum());
+        System.out.println(map.getFloor7().get(4).getVisibility());
+        System.out.println(map.getFloor7().get(4).getBreathability());
 
-        room1.monster.attack();
-        room1.monster.advancedAttack();
+
+        //System.out.println(map.getFloor1().get(0).getMonster().getName());
+
+
+
+
+
+
+        /**
+         * CustomString print = new CustomString();
+         Room room1 = new Room();
+         System.out.println(room1.monster.getName());
+         System.out.println(room1.monster.getStamina());
+         System.out.println(room1.monster.getDamage());
+         System.out.println(room1.monster.isDead());
+
+         room1.monster.attack();
+         room1.monster.advancedAttack();
+         */
         //Part of intro
         //System.out.println(print.introPart3);
 
