@@ -3,11 +3,12 @@ package com.jonas.tales_of_descent_the_lost_senior.enviorment;
 import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.Goblin;
 import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.Monster;
 import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.PackOfRats;
-import java.util.Random;
+import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 
-public class Room  {
 
-    public boolean hasMonster;
+public class Room {
+
+    //public boolean hasMonster;
     public Monster monster;
     public boolean hasStore;
     public boolean hasTreasure;
@@ -15,19 +16,27 @@ public class Room  {
     String description; // generate random description
 
     public Room() {
-        Random rand = new Random();
-        //roll for has monster
+        DiceSet roll = new DiceSet();
+        // roll for has monster, if true, assign monster
+        this.monster = (roll.d20() > 8) ? fetchMonster(roll.dCustom(2)) : null;
 
-        //roll what monster
-        this.monster = fetchMonster(rand);
+        // has store todo implement store
+
+        // has tressure todo modify with LUCK //
+        this.hasTreasure = roll.d20() > 16;
+
+
+
+
 
     }
 
 
-    public Monster fetchMonster(Random rand) {
-        int num = rand.nextInt(2)+1;
+    //roll what monster
+    public Monster fetchMonster(int roll) {
+
         Monster temp = null;
-        switch (num) {
+        switch (roll) {
             case 1 -> {temp = new PackOfRats();}
             case 2 -> {temp = new Goblin();}
             case 3 -> {System.out.println("next monster");}
@@ -35,5 +44,6 @@ public class Room  {
         }
         return temp;
     }
+
 
 }
