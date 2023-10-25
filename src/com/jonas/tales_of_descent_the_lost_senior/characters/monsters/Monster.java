@@ -1,13 +1,19 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.monsters;
-
 import com.jonas.tales_of_descent_the_lost_senior.interaction.ICombat;
 
 public abstract class Monster implements ICombat {
+
     private String name;
     private int stamina;
     private int damage;
     private boolean dead;
 
+    public Monster(String name, int stamina, int damage, boolean dead) {
+        this.name = name;
+        this.stamina = stamina;
+        this.damage = damage;
+        this.dead = dead;
+    }
 
     public String getName() {
         return name;

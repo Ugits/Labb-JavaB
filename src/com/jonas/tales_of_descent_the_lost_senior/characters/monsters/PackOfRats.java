@@ -2,21 +2,13 @@ package com.jonas.tales_of_descent_the_lost_senior.characters.monsters;
 
 public class PackOfRats extends Monster {
 
-    public String name = "Pack of Rats";
-    public int stamina = 5;
-    public int damage = 1;
-    public boolean dead = false;
-
     public PackOfRats() {
-       setName(this.name);
-       setStamina(this.stamina);
-       setDamage(this.damage);
-       setDead(this.dead);
+        super("Pack of Rats", 3, 1, false);
     }
 
     @Override
     public void attack() {
-        System.out.println("A rat jumps your leg, and bite!");
+        System.out.println("A rat jumps your leg, and bites!");
         //damage player
     }
 
