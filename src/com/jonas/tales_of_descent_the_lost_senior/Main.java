@@ -1,12 +1,13 @@
 package com.jonas.tales_of_descent_the_lost_senior;
 
+import com.jonas.tales_of_descent_the_lost_senior.enviorment.Room;
 import com.jonas.tales_of_descent_the_lost_senior.resources.CustomString;
 
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
 
-        CustomString print = new CustomString();
+
 
         /* TODO: 2023-10-23
             *
@@ -50,18 +51,25 @@ public class Main {
 
         * */
 
+        CustomString print = new CustomString();
+        Room room1 = new Room();
+        System.out.println(room1.monster.getName());
+        System.out.println(room1.monster.getStamina());
+        System.out.println(room1.monster.getDamage());
+        System.out.println(room1.monster.isDead());
 
-
+        room1.monster.attack();
+        room1.monster.advancedAttack();
         //Part of intro
-        System.out.println(print.introPart3);
+        //System.out.println(print.introPart3);
 
         //room description
-        System.out.println(print.roomDesctiptionExample);
+        //System.out.println(print.roomDescriptionExample);
 
         //action menu
-        System.out.println(print.actionMenu);
+        //System.out.println(print.actionMenu);
 
         //combat menu
-        System.out.println(print.combatMenu);
+        //System.out.println(print.combatMenu);
     }
 }
