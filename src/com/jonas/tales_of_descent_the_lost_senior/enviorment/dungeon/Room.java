@@ -6,6 +6,7 @@ import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.NoMonster;
 import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.PackOfRats;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.Atmosphere;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
+import com.jonas.tales_of_descent_the_lost_senior.resources.CustomString;
 
 
 public class Room extends Atmosphere {
@@ -19,17 +20,22 @@ public class Room extends Atmosphere {
     String description; // generate random description
 
     public Room(int floor, int num) {
+
         super(-floor, -floor);
         this.onFloor = floor;
         this.num = num;
         DiceSet roll = new DiceSet();
         // roll for has monster, if true, assign monster
-        this.monster = (roll.d20() > 12) ? fetchMonster(roll.dCustom(2)) : new NoMonster();
+        this.monster = (roll.d20() > 12) ? fetchMonster(roll.dCustom(2)) : new NoMonster(); // Abstract clas cant be null?
 
         // has store todo implement store
 
         // has tressure todo modify with LUCK //
         this.hasTreasure = roll.d20() > 16;
+
+        // set description
+        CustomString string = new CustomString();
+        this.description = string.roomDescriptionExample;
 
 
     }

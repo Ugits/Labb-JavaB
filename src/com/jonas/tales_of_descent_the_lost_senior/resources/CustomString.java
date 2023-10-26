@@ -26,7 +26,7 @@ public class CustomString extends StringManipulation {
 
     //MENUS
     public String roomDescriptionExample = """ 
-                Actions:
+                This is a room
                 """;
 
     public String actionMenu = """ 

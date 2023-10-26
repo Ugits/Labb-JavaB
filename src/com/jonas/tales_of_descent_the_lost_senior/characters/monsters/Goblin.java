@@ -28,4 +28,5 @@ public class Goblin extends Monster {
     public void parry() {
 
     }
+
 }

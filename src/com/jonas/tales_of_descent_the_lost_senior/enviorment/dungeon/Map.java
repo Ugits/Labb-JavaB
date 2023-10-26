@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
+// TODO: 2023-10-26  Iterate over 1 floor, add floorDifficulty by constructor
 public class Map {
     List<Room> floor1 = new ArrayList<>(5);
     List<Room> floor2 = new ArrayList<>(5);
@@ -15,6 +16,14 @@ public class Map {
     List<Room> floor8 = new ArrayList<>(5);
     List<Room> floor9 = new ArrayList<>(5);
     List<Room> floor10 = new ArrayList<>(5);
+
+   /**
+    *  public void iterateFloor(int floor) {
+         switch (floor) {
+            case1 -> System.out.println(floor1.forEach(room -> System.out.println(room.getMonster().getName())));
+         }
+     }
+    */
 
     public Map() {
         IntStream.range(0, 5).forEach(i -> this.floor1.add(new Room(1, i + 1)));

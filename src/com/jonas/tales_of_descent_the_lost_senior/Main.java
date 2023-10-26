@@ -1,6 +1,8 @@
 package com.jonas.tales_of_descent_the_lost_senior;
 
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Map;
+import com.jonas.tales_of_descent_the_lost_senior.resources.CustomString;
+
 
 
 public class Main {
@@ -51,41 +53,39 @@ public class Main {
 
         * */
 
+        CustomString string = new CustomString();
         Map map = new Map();
-        System.out.println(map.getFloor7().get(4).getOnFloor());
-        System.out.println(map.getFloor7().get(4).getNum());
-        System.out.println(map.getFloor7().get(4).getVisibility());
-        System.out.println(map.getFloor7().get(4).getBreathability());
-
-
-        //System.out.println(map.getFloor1().get(0).getMonster().getName());
 
 
 
-
-
-
-        /**
-         * CustomString print = new CustomString();
-         Room room1 = new Room();
-         System.out.println(room1.monster.getName());
-         System.out.println(room1.monster.getStamina());
-         System.out.println(room1.monster.getDamage());
-         System.out.println(room1.monster.isDead());
-
-         room1.monster.attack();
-         room1.monster.advancedAttack();
-         */
-        //Part of intro
-        //System.out.println(print.introPart3);
-
-        //room description
-        //System.out.println(print.roomDescriptionExample);
-
-        //action menu
-        //System.out.println(print.actionMenu);
-
-        //combat menu
-        //System.out.println(print.combatMenu);
     }
+
+
+
+
+
+
+    /**
+     * CustomString print = new CustomString();
+     Room room1 = new Room();
+     System.out.println(room1.monster.getName());
+     System.out.println(room1.monster.getStamina());
+     System.out.println(room1.monster.getDamage());
+     System.out.println(room1.monster.isDead());
+
+     room1.monster.attack();
+     room1.monster.advancedAttack();
+     */
+    //Part of intro
+    //System.out.println(print.introPart3);
+
+    //room description
+    //System.out.println(print.roomDescriptionExample);
+
+    //action menu
+    //System.out.println(print.actionMenu);
+
+    //combat menu
+    //System.out.println(print.combatMenu);
 }
+
