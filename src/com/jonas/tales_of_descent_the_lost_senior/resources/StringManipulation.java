@@ -2,7 +2,7 @@ package com.jonas.tales_of_descent_the_lost_senior.resources;
 
 import java.util.Random;
 
-public abstract class StringManipulation {
+public abstract class StringManipulation implements IColors {
 
     /**
      * <font color = #d77048>
@@ -39,7 +39,7 @@ public abstract class StringManipulation {
      *     <i>A switch that generates random Ansi colors</i>
      * @return ANSI escape code
      */
-    public String randomColorSwitch(){
+    public String randomColorSwitch (){
         Random rand = new Random();
 
         String escapeCode;

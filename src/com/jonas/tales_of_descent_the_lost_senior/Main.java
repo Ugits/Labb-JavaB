@@ -1,8 +1,14 @@
 package com.jonas.tales_of_descent_the_lost_senior;
 
-import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Map;
+import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Dungeon;
 import com.jonas.tales_of_descent_the_lost_senior.resources.CustomString;
+import com.jonas.tales_of_descent_the_lost_senior.resources.IColors;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.IntStream;
 
 
 public class Main {
@@ -54,15 +60,16 @@ public class Main {
         * */
 
         CustomString string = new CustomString();
-        Map map = new Map();
+
+        Dungeon map = new Dungeon();
+
+
+
+
 
 
 
     }
-
-
-
-
 
 
     /**

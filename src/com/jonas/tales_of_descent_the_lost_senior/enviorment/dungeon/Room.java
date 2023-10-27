@@ -12,21 +12,24 @@ import com.jonas.tales_of_descent_the_lost_senior.resources.CustomString;
 public class Room extends Atmosphere {
 
     //public boolean hasMonster;
+    public int difficulty;
     public int onFloor;
     public int num;
+    public boolean hasMonster;
     public Monster monster;
     public boolean hasStore;
     public boolean hasTreasure;
     String description; // generate random description
 
-    public Room(int floor, int num) {
+    public Room(int floorNum, int roomNum) {
+        super(-floorNum, -floorNum);
+        this.difficulty = floorNum;
+        this.onFloor = floorNum;
+        this.num = roomNum;
 
-        super(-floor, -floor);
-        this.onFloor = floor;
-        this.num = num;
         DiceSet roll = new DiceSet();
         // roll for has monster, if true, assign monster
-        this.monster = (roll.d20() > 12) ? fetchMonster(roll.dCustom(2)) : new NoMonster(); // Abstract clas cant be null?
+        this.monster = (roll.d20() > 12) ? fetchMonster(roll.dCustom(2)) : null; // Abstract clas cant be null?
 
         // has store todo implement store
 
@@ -43,7 +46,7 @@ public class Room extends Atmosphere {
 
     //roll what monster
     public Monster fetchMonster(int roll) {
-
+        this.hasMonster = true;
         Monster temp = null;
         switch (roll) {
             case 1 -> {
@@ -59,6 +62,14 @@ public class Room extends Atmosphere {
         }
 
         return temp;
+    }
+
+    public boolean isHasMonster() {
+        return hasMonster;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
     }
 
     public int getOnFloor() {
