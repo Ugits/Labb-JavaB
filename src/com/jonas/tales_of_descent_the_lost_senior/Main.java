@@ -1,19 +1,26 @@
 package com.jonas.tales_of_descent_the_lost_senior;
 
+import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Hero;
+import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Knight;
+import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Mage;
+import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Ranger;
+import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Dungeon;
-import com.jonas.tales_of_descent_the_lost_senior.resources.CustomString;
+import com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea.IntoTheDark;
+import com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea.TheThreeFriends;
+import com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea.Waterfall;
+import com.jonas.tales_of_descent_the_lost_senior.resources.CustomStrings;
 import com.jonas.tales_of_descent_the_lost_senior.resources.IColors;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.IntStream;
+import com.jonas.tales_of_descent_the_lost_senior.resources.InputProcessing;
 
 
-public class Main {
+public class Main implements IColors {
 
     public static void main(String[] args) throws InterruptedException {
+
+
+        Game start = new Game();
+        start.run();
 
 
 
@@ -59,14 +66,21 @@ public class Main {
 
         * */
 
-        CustomString string = new CustomString();
 
-        Dungeon map = new Dungeon();
-
+        
 
 
+        //System.out.println(scene1.getDescription());
 
+        //Scene scene2 = new Waterfall();
+        //scene2.setDescription("at the waterfall");
+        //System.out.println(scene2.getDescription());
 
+        //Scene scene3 = new IntoTheDark();
+        //scene3.setDescription("its dark in here");
+        //System.out.println(scene3.getDescription());
+
+        //scene1.dialogIterator();
 
 
     }

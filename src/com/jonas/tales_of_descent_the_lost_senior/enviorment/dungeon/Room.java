@@ -2,24 +2,21 @@ package com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon;
 
 import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.Goblin;
 import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.Monster;
-import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.NoMonster;
 import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.PackOfRats;
-import com.jonas.tales_of_descent_the_lost_senior.enviorment.Atmosphere;
+import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
-import com.jonas.tales_of_descent_the_lost_senior.resources.CustomString;
 
 
-public class Room extends Atmosphere {
+public class Room extends Scene {
 
     //public boolean hasMonster;
     public int difficulty;
     public int onFloor;
     public int num;
-    public boolean hasMonster;
-    public Monster monster;
     public boolean hasStore;
     public boolean hasTreasure;
-    String description; // generate random description
+    public boolean hasMonster;
+    public Monster monster;
 
     public Room(int floorNum, int roomNum) {
         super(-floorNum, -floorNum);
@@ -37,12 +34,16 @@ public class Room extends Atmosphere {
         this.hasTreasure = roll.d20() > 16;
 
         // set description
-        CustomString string = new CustomString();
-        this.description = string.roomDescriptionExample;
+        setDescription(roomDescriptionGenerator());
+
 
 
     }
 
+    @Override
+    public void runScene() {
+
+    }
 
     //roll what monster
     public Monster fetchMonster(int roll) {
@@ -64,35 +65,61 @@ public class Room extends Atmosphere {
         return temp;
     }
 
-    public boolean isHasMonster() {
-        return hasMonster;
-    }
-
     public int getDifficulty() {
         return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
     }
 
     public int getOnFloor() {
         return onFloor;
     }
 
+    public void setOnFloor(int onFloor) {
+        this.onFloor = onFloor;
+    }
+
     public int getNum() {
         return num;
     }
 
-    public Monster getMonster() {
-        return monster;
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public boolean isHasStore() {
         return hasStore;
     }
 
+    public void setHasStore(boolean hasStore) {
+        this.hasStore = hasStore;
+    }
+
     public boolean isHasTreasure() {
         return hasTreasure;
     }
 
-    public String getDescription() {
-        return description;
+    public void setHasTreasure(boolean hasTreasure) {
+        this.hasTreasure = hasTreasure;
     }
+
+    public boolean isHasMonster() {
+        return hasMonster;
+    }
+
+    public void setHasMonster(boolean hasMonster) {
+        this.hasMonster = hasMonster;
+    }
+
+    public Monster getMonster() {
+        return monster;
+    }
+
+    public void setMonster(Monster monster) {
+        this.monster = monster;
+    }
+
+
 }

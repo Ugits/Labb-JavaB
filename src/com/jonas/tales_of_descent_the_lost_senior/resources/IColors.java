@@ -14,6 +14,16 @@ public interface IColors {
         String CYAN = "\033[0;36m"; // CYAN
         String WHITE = "\033[0;37m"; // WHITE
 
+        // Italic
+        String BLACK_ITALIC = "\033[3;30m"; // BLACK
+        String RED_ITALIC = "\033[3;31m"; // RED
+        String GREEN_ITALIC = "\033[3;32m"; // GREEN
+        String YELLOW_ITALIC = "\033[3;33m"; // YELLOW
+        String BLUE_ITALIC = "\033[3;34m"; // BLUE
+        String PURPLE_ITALIC = "\033[3;35m"; // PURPLE
+        String CYAN_ITALIC = "\033[3;36m"; // CYAN
+        String WHITE_ITALIC = "\033[3;37m"; // WHITE
+
         // Bold
         String BLACK_BOLD = "\033[1;30m"; // BLACK
         String RED_BOLD = "\033[1;31m"; // RED

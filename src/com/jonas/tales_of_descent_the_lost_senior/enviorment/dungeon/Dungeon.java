@@ -1,15 +1,13 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon;
 
 import com.jonas.tales_of_descent_the_lost_senior.resources.IColors;
-import org.w3c.dom.ls.LSOutput;
 
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.IntStream;
 
 // TODO: 2023-10-26  Iterate over 1 floor, add floorDifficulty by constructor
 public class Dungeon implements IColors {
-    int floorNumber = 0;
+    int floorNum = 0;
     List<Room> floor = new ArrayList<>(5);
 
     /**
@@ -24,7 +22,23 @@ public class Dungeon implements IColors {
      * List<Room> floor9 = new ArrayList<>(5);
      * List<Room> floor10 = new ArrayList<>(5);
      */
-
+    public Dungeon() {
+        /**
+         * IntStream.range(0, 5).forEach(i -> this.floor1.add(new Room(1, i + 1)));
+         IntStream.range(0, 5).forEach(i -> this.floor2.add(new Room(2, i + 1)));
+         IntStream.range(0, 5).forEach(i -> this.floor3.add(new Room(3, i + 1)));
+         IntStream.range(0, 5).forEach(i -> this.floor4.add(new Room(4, i + 1)));
+         IntStream.range(0, 5).forEach(i -> this.floor5.add(new Room(5, i + 1)));
+         IntStream.range(0, 5).forEach(i -> this.floor6.add(new Room(6, i + 1)));
+         IntStream.range(0, 5).forEach(i -> this.floor7.add(new Room(7, i + 1)));
+         IntStream.range(0, 5).forEach(i -> this.floor8.add(new Room(8, i + 1)));
+         IntStream.range(0, 5).forEach(i -> this.floor9.add(new Room(9, i + 1)));
+         IntStream.range(0, 5).forEach(i -> this.floor10.add(new Room(10, i + 1)));
+         */
+        floorNum++;
+        //if floor is == 5 print story, ("starting to get closer")
+        IntStream.range(0, 5).forEach(i -> this.floor.add(new Room(floorNum, i + 1)));
+    }
     public void printMap() {
 
         List<String> mapOverview2 = new ArrayList<>(Arrays.asList("", "", "", "", ""));
@@ -68,26 +82,10 @@ public class Dungeon implements IColors {
          */
     }
 
-    public Dungeon() {
-        /**
-         * IntStream.range(0, 5).forEach(i -> this.floor1.add(new Room(1, i + 1)));
-         IntStream.range(0, 5).forEach(i -> this.floor2.add(new Room(2, i + 1)));
-         IntStream.range(0, 5).forEach(i -> this.floor3.add(new Room(3, i + 1)));
-         IntStream.range(0, 5).forEach(i -> this.floor4.add(new Room(4, i + 1)));
-         IntStream.range(0, 5).forEach(i -> this.floor5.add(new Room(5, i + 1)));
-         IntStream.range(0, 5).forEach(i -> this.floor6.add(new Room(6, i + 1)));
-         IntStream.range(0, 5).forEach(i -> this.floor7.add(new Room(7, i + 1)));
-         IntStream.range(0, 5).forEach(i -> this.floor8.add(new Room(8, i + 1)));
-         IntStream.range(0, 5).forEach(i -> this.floor9.add(new Room(9, i + 1)));
-         IntStream.range(0, 5).forEach(i -> this.floor10.add(new Room(10, i + 1)));
-         */
-        floorNumber++;
-        //if floor is == 5 print story, ("starting to get closer")
-        IntStream.range(0, 5).forEach(i -> this.floor.add(new Room(floorNumber, i + 1)));
-    }
 
-    public int getFloorNumber() {
-        return floorNumber;
+
+    public int getFloorNum() {
+        return floorNum;
     }
 
     public List<Room> getFloor() {
@@ -136,4 +134,5 @@ public class Dungeon implements IColors {
      return floor10;
      }
      */
+
 }

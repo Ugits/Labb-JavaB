@@ -15,6 +15,27 @@ public abstract class Monster implements ICombat {
         this.dead = dead;
     }
 
+
+    @Override
+    public void attack() {
+        System.out.println("Monster attack");
+    }
+
+    @Override
+    public void advancedAttack() {
+        System.out.println("Monster advanced attack");
+    }
+
+    @Override
+    public void flee() {
+        System.out.println("Monster flee");
+    }
+
+    @Override
+    public void parry() {
+        System.out.println("Monster parry");
+    }
+
     public String getName() {
         return name;
     }
