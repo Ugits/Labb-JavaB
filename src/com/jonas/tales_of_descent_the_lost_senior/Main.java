@@ -1,17 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior;
-
-import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Hero;
-import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Knight;
-import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Mage;
-import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Ranger;
-import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
-import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Dungeon;
-import com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea.IntoTheDark;
-import com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea.TheThreeFriends;
-import com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea.Waterfall;
-import com.jonas.tales_of_descent_the_lost_senior.resources.CustomStrings;
 import com.jonas.tales_of_descent_the_lost_senior.resources.IColors;
-import com.jonas.tales_of_descent_the_lost_senior.resources.InputProcessing;
+
 
 
 public class Main implements IColors {

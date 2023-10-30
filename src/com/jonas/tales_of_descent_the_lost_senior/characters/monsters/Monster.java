@@ -5,13 +5,13 @@ public abstract class Monster implements ICombat {
 
     private String name;
     private int stamina;
-    private int damage;
+    private int baseDmg;
     private boolean dead;
 
     public Monster(String name, int stamina, int damage, boolean dead) {
         this.name = name;
         this.stamina = stamina;
-        this.damage = damage;
+        this.baseDmg = damage;
         this.dead = dead;
     }
 
@@ -50,11 +50,11 @@ public abstract class Monster implements ICombat {
         this.stamina = stamina;
     }
 
-    public int getDamage() {
-        return damage;
+    public int getBaseDmg() {
+        return baseDmg;
     }
-    public void setDamage(int damage) {
-        this.damage = damage;
+    public void setBaseDmg(int baseDmg) {
+        this.baseDmg = baseDmg;
     }
 
     public boolean isDead() {

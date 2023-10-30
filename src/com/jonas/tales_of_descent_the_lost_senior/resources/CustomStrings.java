@@ -7,24 +7,28 @@ import java.util.*;
 public class CustomStrings extends OutputManipulation {
     // a class to print
     private final InputProcessing sc = new InputProcessing();
-    public final String sceneHead = YELLOW_BOLD + "Scene" + RESET;
-    public final String knightHead = RED_BOLD + "Knight" + RESET;
-    public final String mageHead = BLUE_BOLD + "Mage" + RESET;
-    public final String rangerHead = GREEN_BOLD + "Ranger" + RESET;
+    public final String sceneHead = YELLOW_ITALIC + "Scene" + RESET;
+    public final String knightHead = RED_BOLD + "The Knight" + RESET;
+    public final String mageHead = BLUE_BOLD + "The Mage" + RESET;
+    public final String rangerHead = GREEN_BOLD + "The Ranger" + RESET;
 
     //Intro
     // The Three Friends
-    public String theThreeFriendsDescription = """
-            [The Knight, Mage, and Ranger are gathered around the campfire in the forest.]
-            """;
+    public String theThreeFriendsDescription = YELLOW_ITALIC + """
+            [The Knight, Mage, and Ranger are gathered around the campfire in the forest]
+            """ + RESET;
     public List<String> theFriends = new ArrayList<>(Arrays.asList(
-            PURPLE_ITALIC + "'As the friends gather, a choice awaits. Whom will you take charge of in this quest?'" + RESET,
             knightHead, "The stalwart defender, skilled with the blade and armored against danger.",
             mageHead, "The wielder of arcane powers, knowledgeable in the mysteries of the world.",
             rangerHead, "The swift and skilled tracker, attuned to the secrets of the forest."));
 
+    // Waterfall
+    public String waterfallDescription = YELLOW_ITALIC + """
+            [The chosen character, having navigated alone, arrives at the base of the waterfall]
+            """ + RESET;
+
     //Into The Dark
-    public final String intoTheDark = """
+    public final String intoTheDarkDescription = """
             You just came throughout the waterfall opening you eyes. You take a few steps,
             into the stripes of light that leaks from the cracked open ceiling.
             you see a trail of lit torches along the walls. Now theres no turning back.

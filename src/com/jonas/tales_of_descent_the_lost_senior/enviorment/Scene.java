@@ -21,6 +21,8 @@ public abstract class Scene extends CustomStrings {
         System.out.println("this is a scene");
     }
 
+
+
     public String getDescription() {
         return description;
     }

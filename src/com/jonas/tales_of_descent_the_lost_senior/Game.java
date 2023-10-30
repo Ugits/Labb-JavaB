@@ -1,45 +1,37 @@
 package com.jonas.tales_of_descent_the_lost_senior;
-
-import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Hero;
-import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Knight;
-import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Mage;
-import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Ranger;
-import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
-import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Dungeon;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea.TheThreeFriends;
+import com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea.Waterfall;
+import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 import com.jonas.tales_of_descent_the_lost_senior.resources.CustomStrings;
 import com.jonas.tales_of_descent_the_lost_senior.resources.InputProcessing;
 
 public class Game {
-
-    Hero player = null;
+    InputProcessing sc = new InputProcessing();
+    CustomStrings print = new CustomStrings();
+    Player player = new Player();
 
     public void run() throws InterruptedException {
 
-        InputProcessing sc = new InputProcessing();
-        CustomStrings print = new CustomStrings();
+        TheThreeFriends scene1 = new TheThreeFriends();
+        scene1.description();
+        scene1.part1();
+        player.setHero(scene1.heroSwitch());
+        scene1.part2(player);
 
-        Scene scene1 = new TheThreeFriends();
-        scene1.runScene();
+        Waterfall scene2 = new Waterfall();
+        scene2.description();
 
-        //player choose Character
-        Hero player = null;
-        while (player == null) {
-            print.br();
-            System.out.print("I will choose, The.. ");
 
-            switch(sc.getScanner().nextLine()){
-                case "Knight", "knight", "1", "Red", "red" -> player = new Knight();
-                case "Mage", "mage", "2", "Blue", "blue" -> player = new Mage();
-                case "Ranger", "ranger", "3", "Green", "green" -> player = new Ranger();
-                default -> System.out.println("Turning their marshmallows, the heroes waiting your call. ");
-            }
-        }
-        System.out.println(player.getClass());
+
+
 
 
         //loop
 
     }
+
+
+
+
 
 }

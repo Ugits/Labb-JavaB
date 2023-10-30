@@ -8,8 +8,5 @@ public class IntoTheDark extends Scene {
         super(-1, -1);
     }
 
-    @Override
-    public void runScene() throws InterruptedException {
 
-    }
 }
