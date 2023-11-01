@@ -1,13 +1,9 @@
 package com.jonas.tales_of_descent_the_lost_senior.resources;
 
-import com.jonas.tales_of_descent_the_lost_senior.Game;
-import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Hero;
-import com.jonas.tales_of_descent_the_lost_senior.player.Player;
-
 import java.util.List;
 import java.util.Objects;
 
-public abstract class OutputManipulation implements IColors {
+public class OutputManipulation extends CustomStrings {
 
     /**
      * <font color = #d77048>
@@ -16,13 +12,13 @@ public abstract class OutputManipulation implements IColors {
      * @param string String to process
      * @throws InterruptedException Thrown if interrupted while sleeping.
      */
-    public void delayPrint(String string) throws InterruptedException {
+    public void delayPrint(int sleep, String string) throws InterruptedException {
 
         for (char c : string.toCharArray()) {
-
             System.out.print(c);
-            sleep(0);
+            sleep(sleep);
         }
+        br();
     }
 
     /**
@@ -48,29 +44,33 @@ public abstract class OutputManipulation implements IColors {
     public void dialogIterator(List<String> dialogList) throws InterruptedException {
         for (String s : dialogList) {
 
-            if (Objects.equals(s, RED_BOLD + "Knight" + RESET) || Objects.equals(s, BLUE_BOLD + "Mage" + RESET) || Objects.equals(s, GREEN_BOLD + "Ranger" + RESET)) {
-                System.out.print(s);
-                sleep(1000);
+            if (Objects.equals(s, knightHead) || Objects.equals(s, mageHead) || Objects.equals(s, rangerHead)) {
+                printHeader(s);
+                sleep(500);
 
             } else {
-                delayPrint(s);
+                delayPrint(0, s);
                 br();
             }
         }
     }
 
-    public void narrator(String narration) throws InterruptedException {
-
-        System.out.printf(narration);
+    public void printDescription(String description) throws InterruptedException {
+        delayPrint(0, YELLOW_ITALIC + "* " + (description) + YELLOW_ITALIC + " *" + RESET);
         sleep(1000);
+        br();
+
     }
 
-    public void scene(String scene) throws InterruptedException {
-
-        System.out.print(scene);
-        br();
+    public void printNarrative(String narration) throws InterruptedException {
+        delayPrint(0, PURPLE_ITALIC + "'" + narration + PURPLE_ITALIC + "'" + RESET);
         sleep(1000);
+        br();
+    }
 
+    public void printHeader(String scene) throws InterruptedException {
+        println(WHITE_BOLD + "[" + RESET + scene + WHITE_BOLD + "]" + RESET);
+        sleep(1000);
     }
 
 }

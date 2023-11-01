@@ -16,7 +16,7 @@ public abstract class Scene extends CustomStrings {
     // TODO: 2023-10-24 alternatively, make abstract class. with method to manipulate values with internal methods!!!!!!
 
     public void runScene() throws InterruptedException {
-        println(sceneHead);
+        System.out.println(sceneHead);
         Thread.sleep(1000);
         System.out.println("this is a scene");
     }

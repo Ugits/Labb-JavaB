@@ -1,4 +1,5 @@
 package com.jonas.tales_of_descent_the_lost_senior;
+
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea.TheThreeFriends;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea.Waterfall;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
@@ -12,16 +13,9 @@ public class Game {
 
     public void run() throws InterruptedException {
 
-        TheThreeFriends scene1 = new TheThreeFriends();
-        scene1.description();
-        scene1.part1();
-        player.setHero(scene1.heroSwitch());
-        scene1.part2(player);
 
-        Waterfall scene2 = new Waterfall();
-        scene2.description();
-
-
+        TheThreeFriends scene1 = new TheThreeFriends(player);
+        Waterfall scene2 = new Waterfall(player);
 
 
 
@@ -29,9 +23,6 @@ public class Game {
         //loop
 
     }
-
-
-
 
 
 }

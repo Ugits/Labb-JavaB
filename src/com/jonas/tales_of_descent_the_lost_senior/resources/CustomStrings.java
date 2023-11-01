@@ -2,9 +2,10 @@ package com.jonas.tales_of_descent_the_lost_senior.resources;
 
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 
+
 import java.util.*;
 
-public class CustomStrings extends OutputManipulation {
+public class CustomStrings implements IColors {
     // a class to print
     private final InputProcessing sc = new InputProcessing();
     public final String sceneHead = YELLOW_ITALIC + "Scene" + RESET;
@@ -13,19 +14,20 @@ public class CustomStrings extends OutputManipulation {
     public final String rangerHead = GREEN_BOLD + "The Ranger" + RESET;
 
     //Intro
-    // The Three Friends
-    public String theThreeFriendsDescription = YELLOW_ITALIC + """
-            [The Knight, Mage, and Ranger are gathered around the campfire in the forest]
-            """ + RESET;
+    // SCENE: The Three Friends
+    public String theThreeFriendsDescription() throws InterruptedException {
+        return YELLOW_ITALIC + knightHead + ", " + mageHead + YELLOW_ITALIC + " and " + rangerHead + YELLOW_ITALIC + " are gathered around the campfire in the forest" + RESET;
+    }
+
     public List<String> theFriends = new ArrayList<>(Arrays.asList(
             knightHead, "The stalwart defender, skilled with the blade and armored against danger.",
             mageHead, "The wielder of arcane powers, knowledgeable in the mysteries of the world.",
             rangerHead, "The swift and skilled tracker, attuned to the secrets of the forest."));
 
     // Waterfall
-    public String waterfallDescription = YELLOW_ITALIC + """
-            [The chosen character, having navigated alone, arrives at the base of the waterfall]
-            """ + RESET;
+    public String waterfallDescription(String hero) throws InterruptedException {
+        return YELLOW_ITALIC + hero + YELLOW_ITALIC + ", having navigated alone, arrives at the base of the waterfall" + RESET;
+    }
 
     //Into The Dark
     public final String intoTheDarkDescription = """
