@@ -39,6 +39,7 @@ public class Dungeon implements IColors {
         //if floor is == 5 print story, ("starting to get closer")
         IntStream.range(0, 5).forEach(i -> this.floor.add(new Room(floorNum, i + 1)));
     }
+
     public void printMap() {
 
         List<String> mapOverview2 = new ArrayList<>(Arrays.asList("", "", "", "", ""));

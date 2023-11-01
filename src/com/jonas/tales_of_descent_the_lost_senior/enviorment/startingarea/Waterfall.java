@@ -3,11 +3,13 @@ import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Knight;
 import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Mage;
 import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Ranger;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
+import com.jonas.tales_of_descent_the_lost_senior.objects.items.MysteryBox;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 import com.jonas.tales_of_descent_the_lost_senior.resources.InputProcessing;
 import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 
 import java.util.Locale;
+import java.util.Objects;
 
 public class Waterfall extends Scene {
     InputProcessing sc = new InputProcessing();
@@ -62,7 +64,12 @@ public class Waterfall extends Scene {
 
     public void pickUpMysteryBox(){
         System.out.println("You found a mystery box");
-        player.getInventory().put("Mystery Box", true);
+        player.pickUpItem("Mystery Box");
+
+        player.printOwnedItems();
+        player.printNotOwnedItems();
+
+
     }
 
 

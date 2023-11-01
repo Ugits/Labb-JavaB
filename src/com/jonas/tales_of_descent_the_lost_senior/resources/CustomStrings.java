@@ -36,12 +36,12 @@ public class CustomStrings implements IColors {
             you see a trail of lit torches along the walls. Now theres no turning back.
             While flickering fire leads you down the hall, you suddenly notice an updraft wind, you stopped.
             Slowly, you look down, and there is nothing there. nothing but an endless fall to death.
-            While thinking that you just consumed the last bit of luck, you see two poles sticking up by your feet. 
+            While thinking that you just consumed the last bit of luck, you see two poles sticking up by your feet.
             Trying to figure out how long a climb would be.
-            The ladder is fading out while  down the darkness, you realize, its also the only option to get to were you need.
+            The ladder is fading out while scooping down the darkness, you realize, its also the only option to get to were you need.
                                     
-            So you descend, the wooden craft you climbing feels pretty sturdy,
-            and you try to project comfort upon yourself by saying..
+            So you descend, the wooden craft you climb feels pretty sturdy.
+            As you emerge, you try to project comfort upon yourself by saying..
             "this ain't so bad..."
             but... *sniff* *sniff*
             what is that?...

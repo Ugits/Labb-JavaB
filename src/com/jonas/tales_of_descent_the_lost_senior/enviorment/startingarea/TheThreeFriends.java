@@ -23,8 +23,6 @@ public class TheThreeFriends extends Scene {
         part2();
     }
 
-
-
     public void description() throws InterruptedException {
         // "scene"
         console.printHeader(sceneHead);
