@@ -2,10 +2,21 @@ package com.jonas.tales_of_descent_the_lost_senior.characters.heroes;
 
 import com.jonas.tales_of_descent_the_lost_senior.interaction.ICombat;
 
+import static com.jonas.tales_of_descent_the_lost_senior.resources.IColors.*;
+
 public class Ranger extends Hero{
 
-    public Ranger(String name, int stamina, int baseDmg, boolean dead) {
-        super(name, stamina, baseDmg, dead);
+    public Ranger(String name) {
+        super(
+                name,
+                5,
+                5,
+                5,
+                50,
+                0,
+                1,
+                1,
+                false);
     }
 
     @Override
@@ -26,5 +37,10 @@ public class Ranger extends Hero{
     @Override
     public void parry() {
 
+    }
+
+    @Override
+    public String getLevelToStatus() {
+        return GREEN_BOLD + "         <Lvl " + getLevel() + ">" + RESET;
     }
 }

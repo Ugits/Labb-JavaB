@@ -2,9 +2,11 @@ package com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon;
 
 import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.Goblin;
 import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.Monster;
+import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.NoMonster;
 import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.PackOfRats;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
+import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 
 
 public class Room extends Scene {
@@ -18,15 +20,15 @@ public class Room extends Scene {
     public boolean hasMonster;
     public Monster monster;
 
-    public Room(int floorNum, int roomNum) {
-        super(-floorNum, -floorNum);
+    public Room(Player player, int floorNum, int roomNum) {
+        super(player, -floorNum, -floorNum);
         this.difficulty = floorNum;
         this.onFloor = floorNum;
         this.num = roomNum;
 
         DiceSet roll = new DiceSet();
         // roll for has monster, if true, assign monster
-        this.monster = (roll.d20() > 12) ? fetchMonster(roll.dCustom(2)) : null; // Abstract clas cant be null?
+        this.monster = (roll.d20() > 12) ? fetchMonster(roll.dCustom(2)) : new NoMonster(); // Abstract clas cant be null?
 
         // has store todo implement store
 

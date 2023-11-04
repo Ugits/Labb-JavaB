@@ -1,14 +1,16 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon;
 
-import com.jonas.tales_of_descent_the_lost_senior.resources.IColors;
+import com.jonas.tales_of_descent_the_lost_senior.player.Player;
+import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 
 import java.util.*;
 import java.util.stream.IntStream;
 
 // TODO: 2023-10-26  Iterate over 1 floor, add floorDifficulty by constructor
-public class Dungeon implements IColors {
+public class Dungeon extends OutputManipulation {
     int floorNum = 0;
     List<Room> floor = new ArrayList<>(5);
+    Player player;
 
     /**
      * List<Room> floor1 = new ArrayList<>(5);
@@ -22,7 +24,10 @@ public class Dungeon implements IColors {
      * List<Room> floor9 = new ArrayList<>(5);
      * List<Room> floor10 = new ArrayList<>(5);
      */
-    public Dungeon() {
+
+    public Dungeon(Player player) {
+        this.player = player;
+
         /**
          * IntStream.range(0, 5).forEach(i -> this.floor1.add(new Room(1, i + 1)));
          IntStream.range(0, 5).forEach(i -> this.floor2.add(new Room(2, i + 1)));
@@ -37,7 +42,9 @@ public class Dungeon implements IColors {
          */
         floorNum++;
         //if floor is == 5 print story, ("starting to get closer")
-        IntStream.range(0, 5).forEach(i -> this.floor.add(new Room(floorNum, i + 1)));
+        IntStream.range(0, 5).forEach(i -> this.floor.add(new Room(player, floorNum, i + 1)));
+
+        System.out.println("Welcome to the dungeon");
     }
 
     public void printMap() {
@@ -82,7 +89,6 @@ public class Dungeon implements IColors {
          System.out.println(String.join("", mapOverview));
          */
     }
-
 
 
     public int getFloorNum() {

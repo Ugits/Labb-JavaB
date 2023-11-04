@@ -1,53 +1,60 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea;
-
 import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Hero;
 import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Knight;
 import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Mage;
 import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Ranger;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
-import com.jonas.tales_of_descent_the_lost_senior.resources.InputProcessing;
-import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class TheThreeFriends extends Scene {
-    InputProcessing sc = new InputProcessing();
-    OutputManipulation console = new OutputManipulation();
-    Player player;
 
     public TheThreeFriends(Player player) throws InterruptedException {
-        super(0, 0);
-        this.player = player;
+        super(player,0, 0);
+        setDescription(theThreeFriendsDescription());
         description();
         part1();
-        this.player.setHero(heroSwitch());
+        getPlayer().setHero(heroSwitch());
         part2();
     }
 
+    @Override
     public void description() throws InterruptedException {
-        // "scene"
-        console.printHeader(sceneHead);
-        // scene description
-        console.printDescription(theThreeFriendsDescription());
+        getConsole().printHeader(sceneHead);
+        getConsole().printScene(getDescription());
     }
+
+    // SCENE: The Three Friends
+    public String theThreeFriendsDescription() throws InterruptedException {
+        return YELLOW_ITALIC + knightHead + ", " + mageHead + YELLOW_ITALIC + " and " + rangerHead + YELLOW_ITALIC + " are gathered around the campfire in the forest" + RESET;
+    }
+
+    public List<String> theFriends = new ArrayList<>(Arrays.asList(
+            knightHead, "The stalwart defender, skilled with the blade and armored against danger.",
+            mageHead, "The wielder of arcane powers, knowledgeable in the mysteries of the world.",
+            rangerHead, "The swift and skilled tracker, attuned to the secrets of the forest."));
+
 
     public void part1() throws InterruptedException {
         // friends by the fire
-        console.printNarrative(PURPLE_ITALIC + "As the friends gather, a choice awaits. Whom will you take charge of in this quest?" + RESET);
-
-        console.dialogIterator(theFriends);
+        getConsole().printNarrative(PURPLE_ITALIC + "As the friends gather, a choice awaits. Whom will you take charge of in this quest?" + RESET);
+        getConsole().dialogIterator(theFriends);
     }
 
     public Hero heroSwitch() throws InterruptedException {
         Hero temp = null;
         while (temp == null) {
 
-            console.delayPrint(80,"Choose wisely.. ");
+            getConsole().delayPrint(80,"Choose wisely.. ");
 
-            switch (sc.getScanner().nextLine()) {
-                case "The Knight", "the knight", "Knight", "knight", "1", "Red", "red" -> temp = new Knight(knightHead, 100, 10, false);
-                case "The Mage", "the mage", "Mage", "mage", "2", "Blue", "blue" -> temp = new Mage(mageHead, 100, 5, false);
-                case "The Ranger", "the ranger", "Ranger", "ranger", "3", "Green", "green" -> temp = new Ranger(rangerHead, 100, 5, false);
-                default -> console.printNarrative(PURPLE_ITALIC + "'Turning their marshmallows, the heroes waiting your call..'" + RESET);
+            switch (getSc().getScanner().nextLine()) {
+                case "The Knight", "the knight", "Knight", "knight", "1", "Red", "red" -> temp = new Knight(knightHead);
+                case "The Mage", "the mage", "Mage", "mage", "2", "Blue", "blue" -> temp = new Mage(mageHead);
+                case "The Ranger", "the ranger", "Ranger", "ranger", "3", "Green", "green" -> temp = new Ranger(rangerHead);
+                default -> getConsole().printNarrative(PURPLE_ITALIC + "'Turning their marshmallows, the heroes waiting your call..'" + RESET);
             }
         }
         return temp;
@@ -55,43 +62,41 @@ public class TheThreeFriends extends Scene {
 
     public void part2() throws InterruptedException {
         // dialog continues
-        console.br();
-        System.out.println(player.getHero().getName());
+        getConsole().br();
+        System.out.println(getPlayer().getHero().getName());
         System.out.println("I'll take the lead. Our Master's missing, and we need to find out why.");
-        console.br();
-        console.printNarrative(PURPLE_ITALIC + "The trio decides to cover more ground, splitting up to search for clues. You will head towards the waterfall." + RESET);
+        getConsole().br();
+        getConsole().printNarrative(PURPLE_ITALIC + "The trio decides to cover more ground, splitting up to search for clues. You will head towards the waterfall." + RESET);
 
-        assignFriendHeroes(player);
+        assignFriendHeroes(getPlayer());
 
-        console.printHeader(player.getFriend1().getName());
-        console.delayPrint(50,"Me and " + player.getFriend2().getName() + " will scout ahead.");
-        console.br();
+        getConsole().printHeader(getPlayer().getFriend1().getName());
+        getConsole().delayPrint(50,"Me and " + getPlayer().getFriend2().getName() + " will scout ahead.");
+        getConsole().br();
 
-        console.printHeader(player.getFriend2().getName());
-        console.delayPrint(50,"Let's meet back here later, be careful.");
-        console.br();
+        getConsole().printHeader(getPlayer().getFriend2().getName());
+        getConsole().delayPrint(50,"Let's meet back here later, be careful.");
+        getConsole().br();
 
-        console.printNarrative("You venture into the forest alone." + RESET);
+        getConsole().printNarrative("You venture into the forest alone." + RESET);
 
-        console.sleep(3000);
+        getConsole().sleep(3000);
     }
 
     public void assignFriendHeroes(Player player) {
         switch (player.getHero().getName()) {
             case knightHead -> {
-                player.setFriend1(new Mage(mageHead, 100, 5, false));
-                player.setFriend2(new Ranger(rangerHead, 100, 5, false));
+                player.setFriend1(new Mage(mageHead));
+                player.setFriend2(new Ranger(rangerHead));
             }
             case mageHead -> {
-                player.setFriend1(new Ranger(rangerHead, 100, 5, false));
-                player.setFriend2(new Knight(knightHead, 100, 10, false));
+                player.setFriend1(new Ranger(rangerHead));
+                player.setFriend2(new Knight(knightHead));
             }
             case rangerHead -> {
-                player.setFriend1(new Mage(mageHead, 100, 5, false));
-                player.setFriend2(new Knight(knightHead, 100, 10, false));
+                player.setFriend1(new Mage(mageHead));
+                player.setFriend2(new Knight(knightHead));
             }
         }
-
     }
-
 }

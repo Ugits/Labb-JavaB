@@ -1,16 +1,10 @@
 package com.jonas.tales_of_descent_the_lost_senior;
+
 import com.jonas.tales_of_descent_the_lost_senior.resources.IColors;
-
-import java.util.HashMap;
-
 
 public class Main implements IColors {
 
     public static void main(String[] args) throws InterruptedException {
-
-
-
-
 
 
         Game start = new Game();
@@ -59,9 +53,6 @@ public class Main implements IColors {
              *
 
         * */
-
-
-        
 
 
         //System.out.println(scene1.getDescription());

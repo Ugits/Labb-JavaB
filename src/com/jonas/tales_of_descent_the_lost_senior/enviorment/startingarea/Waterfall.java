@@ -1,77 +1,76 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea;
-import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Knight;
-import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Mage;
-import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Ranger;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
-import com.jonas.tales_of_descent_the_lost_senior.objects.items.MysteryBox;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
-import com.jonas.tales_of_descent_the_lost_senior.resources.InputProcessing;
-import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
-
-import java.util.Locale;
-import java.util.Objects;
 
 public class Waterfall extends Scene {
-    InputProcessing sc = new InputProcessing();
-    OutputManipulation console = new OutputManipulation();
-    Player player;
+
     public Waterfall(Player player) throws InterruptedException {
-        super(0, 0);
-        this.player = player;
+        super(player,0, 0, ); // TODO: 2023-11-04  fråga hampus hur han fick in metod i super constructor 
+        setDescription(waterfallDescription(getPlayer()));
         description();
         part1();
     }
 
+    @Override
     public void description() throws InterruptedException {
-        // "scene"
-        console.printHeader(sceneHead);
-        // scene description
-        console.printDescription(waterfallDescription(player.getHero().getName()));
+        getConsole().printHeader(sceneHead);
+        getConsole().printScene(getDescription());
+    }
+
+    // Waterfall
+    public String waterfallDescription(Player player) throws InterruptedException {
+        return YELLOW_ITALIC + player.getHero().getName() + YELLOW_ITALIC + ", having navigated alone, arrives at the base of the waterfall" + RESET;
     }
 
     public void part1() throws InterruptedException {
-        console.printNarrative("The cascade roars, shrouded in mystery. You find yourself standing alone before the powerful waterfall. The air is thick with the spray of the water, the ground damp beneath your feet.");
+        getConsole().printNarrative("The cascade roars, shrouded in mystery. You find yourself standing alone before the powerful waterfall. The air is thick with the spray of the water, the ground damp beneath your feet.");
 
-        console.printHeader(player.getHero().getName());
-        console.delayPrint(50,
+        getConsole().printHeader(getPlayer().getHero().getName());
+        getConsole().delayPrint(50,
                 """
                         This place is something else.\s
                         What lies beyond is a mystery.\s
                         I must proceed carefully.""");
-        console.br();
-        console.printNarrative("Wading through the water, feeling the mist on your face, cautiously approaching the edge of the waterfall...");
-        console.br();
-        console.printHeader(player.getHero().getName());
-        console.delayPrint(500,"...");
-        console.sleep(1000);
-        console.delayPrint(200,"what's that...");
-        console.br();
-        console.printNarrative("Gazing down through the shrouded surface, your eyes meets this shimmer of reflections...");
-        console.printNarrative("Is it something there?");
+        getConsole().br();
+        getConsole().printNarrative("Wading through the water, feeling the mist on your face, cautiously approaching the edge of the waterfall...");
+        getConsole().br();
+        getConsole().printHeader(getPlayer().getHero().getName());
+        getConsole().delayPrint(500, "...");
+        getConsole().sleep(1000);
+        getConsole().delayPrint(200, "what's that...");
+        getConsole().br();
+        getConsole().printNarrative("Gazing down through the shrouded surface, your eyes meets this shimmer of reflections...");
+        getConsole().printNarrative("Is it something there?");
 
-        console.printHeader(player.getHero().getName());
-        console.println("1. Reach down");
-        console.println("2. Don't bother");
-        switch (sc.getScanner().nextLine()) {
-            case "1", "reach down", "Reach down"  -> pickUpMysteryBox();
-            case "2", "Don't bother", "don't bother" -> {
-                console.printNarrative("Irrationally, you ignore the mystery, a mystery that might had been of importance... ");
-                console.printNarrative("anyway... lets continue!");
+        getConsole().printHeader(getPlayer().getHero().getName());
+        getConsole().println("1. Reach down");
+        getConsole().println("2. Don't bother");
+        switch (getSc().getScanner().nextLine()) {
+            case "1", "reach down", "Reach down" -> {
+                pickUpMysteryBox();
+                continueWithBox();
             }
-            default -> console.printNarrative(PURPLE_ITALIC + "Our hero, " + player.getHero().getName()+ ", seams almost paralyzed by the sight. What will he do?" + RESET);
+            case "2", "Don't bother", "don't bother" -> continueWithoutBox();
+            default ->
+                    getConsole().printNarrative(PURPLE_ITALIC + "Our hero, " + getPlayer().getHero().getName() + ", seams almost paralyzed by the sight. What will he do?" + RESET);
         }
+        getConsole().br();
+        getConsole().printNarrative("Your heart is racing with anticipation, you move closer to the concealed passage behind the waterfall, ready to uncover what lies beyond.");
     }
 
-    public void pickUpMysteryBox(){
-        System.out.println("You found a mystery box");
-        player.pickUpItem("Mystery Box");
-
-        player.printOwnedItems();
-        player.printNotOwnedItems();
-
-
+    public void pickUpMysteryBox() {
+        getPlayer().pickUpItem("Mystery Box");
     }
 
+    public void continueWithBox() throws InterruptedException {
+        getConsole().printNarrative("Fitting in your palm, you now hold a metallic silver cube, with flawless reflective surfaces, and surprisingly lightweight.");
+        getConsole().printHeader(getPlayer().getHero().getName());
+        getConsole().delayPrint(0, "Might this be a lead to my master..");
+    }
 
+    public void continueWithoutBox() throws InterruptedException {
+        getConsole().printNarrative("Irrationally, you ignore the mystery, a mystery that might had been of importance... ");
+        getConsole().printNarrative("anyway... lets continue!");
+    }
 
 }

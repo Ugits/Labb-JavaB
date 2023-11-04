@@ -1,18 +1,31 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.heroes;
 
 import com.jonas.tales_of_descent_the_lost_senior.interaction.ICombat;
-import com.jonas.tales_of_descent_the_lost_senior.resources.CustomStrings;
+import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
+
+import static com.jonas.tales_of_descent_the_lost_senior.resources.IColors.*;
 
 public abstract class Hero implements ICombat {
+    OutputManipulation console = new OutputManipulation();
 
-    private String name;
-    private int stamina;
-    private int baseDmg;
-    private boolean dead;
+    private String name;    // Namn
+    int strength;           // Styrka
+    int intelligence;       // Intelligens
+    int dexterity;            // Skicklighet/Snabbhet/Vighet
+    int stamina;            // Hälsa
+    int experience;         // Poäng till nästa nivå
+    int level;              // Utökar grund attributen: Styrka, intelligens och snabbhet
+    private int baseDmg;    // Grund skada
+    private boolean dead;   // is dead?
 
-    public Hero(String name, int stamina, int baseDmg, boolean dead) {
+    public Hero(String name, int strength, int intelligence, int dexterity, int stamina, int experience, int level, int baseDmg, boolean dead) {
         this.name = name;
+        this.strength = strength;
+        this.intelligence = intelligence;
+        this.dexterity = dexterity;
         this.stamina = stamina;
+        this.experience = experience;
+        this.level = level;
         this.baseDmg = baseDmg;
         this.dead = dead;
     }
@@ -40,20 +53,63 @@ public abstract class Hero implements ICombat {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public int getIntelligence() {
+        return intelligence;
+    }
+
+    public void setIntelligence(int intelligence) {
+        this.intelligence = intelligence;
+    }
+
+    public int getDexterity() {
+        return dexterity;
+    }
+
+    public void setDexterity(int dexterity) {
+        this.dexterity = dexterity;
     }
 
     public int getStamina() {
         return stamina;
     }
+
     public void setStamina(int stamina) {
         this.stamina = stamina;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public int getBaseDmg() {
         return baseDmg;
     }
+
     public void setBaseDmg(int baseDmg) {
         this.baseDmg = baseDmg;
     }
@@ -61,7 +117,42 @@ public abstract class Hero implements ICombat {
     public boolean isDead() {
         return dead;
     }
+
     public void setDead(boolean dead) {
         this.dead = dead;
+    }
+
+
+    public void getStatus() {
+        System.out.println(getName() + getLevelToStatus());
+        System.out.println(expMeter(getExperience()));
+        System.out.println("STR: " + getStrength());
+        System.out.println("INT: " + getIntelligence());
+        System.out.println("DEX: " + getDexterity());
+        System.out.println("STA: " + getStamina());
+        System.out.println("DMG: " + getBaseDmg());
+    }
+
+    private StringBuilder expMeter(int experience) {
+
+        double expTemp = (double) experience / 4;
+        StringBuilder meter = new StringBuilder();
+
+        meter.append(BLACK_BACKGROUND + BLACK_BOLD + "▐" + RESET);
+        for (int i = 0; i < 25; i++) {
+            if (expTemp > 0) {
+                meter.append(BLACK_BACKGROUND + GREEN_BOLD + "█" + RESET);
+                expTemp--;
+            } else {
+                meter.append(BLACK_BACKGROUND + WHITE_BOLD + "▒" + RESET);
+            }
+        }
+        meter.append(BLACK_BACKGROUND + BLACK_BOLD + "▐" + RESET);
+
+        return meter;
+    }
+
+    public String getLevelToStatus(){
+        return  "         <Lvl " + getLevel() + ">";
     }
 }

@@ -55,7 +55,7 @@ public class OutputManipulation extends CustomStrings {
         }
     }
 
-    public void printDescription(String description) throws InterruptedException {
+    public void printScene(String description) throws InterruptedException {
         delayPrint(0, YELLOW_ITALIC + "* " + (description) + YELLOW_ITALIC + " *" + RESET);
         sleep(1000);
         br();

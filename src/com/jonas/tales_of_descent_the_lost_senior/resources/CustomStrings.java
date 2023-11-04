@@ -13,44 +13,6 @@ public class CustomStrings implements IColors {
     public final String mageHead = BLUE_BOLD + "The Mage" + RESET;
     public final String rangerHead = GREEN_BOLD + "The Ranger" + RESET;
 
-    //Intro
-    // SCENE: The Three Friends
-    public String theThreeFriendsDescription() throws InterruptedException {
-        return YELLOW_ITALIC + knightHead + ", " + mageHead + YELLOW_ITALIC + " and " + rangerHead + YELLOW_ITALIC + " are gathered around the campfire in the forest" + RESET;
-    }
-
-    public List<String> theFriends = new ArrayList<>(Arrays.asList(
-            knightHead, "The stalwart defender, skilled with the blade and armored against danger.",
-            mageHead, "The wielder of arcane powers, knowledgeable in the mysteries of the world.",
-            rangerHead, "The swift and skilled tracker, attuned to the secrets of the forest."));
-
-    // Waterfall
-    public String waterfallDescription(String hero) throws InterruptedException {
-        return YELLOW_ITALIC + hero + YELLOW_ITALIC + ", having navigated alone, arrives at the base of the waterfall" + RESET;
-    }
-
-    //Into The Dark
-    public final String intoTheDarkDescription = """
-            You just came throughout the waterfall opening you eyes. You take a few steps,
-            into the stripes of light that leaks from the cracked open ceiling.
-            you see a trail of lit torches along the walls. Now theres no turning back.
-            While flickering fire leads you down the hall, you suddenly notice an updraft wind, you stopped.
-            Slowly, you look down, and there is nothing there. nothing but an endless fall to death.
-            While thinking that you just consumed the last bit of luck, you see two poles sticking up by your feet.
-            Trying to figure out how long a climb would be.
-            The ladder is fading out while scooping down the darkness, you realize, its also the only option to get to were you need.
-                                    
-            So you descend, the wooden craft you climb feels pretty sturdy.
-            As you emerge, you try to project comfort upon yourself by saying..
-            "this ain't so bad..."
-            but... *sniff* *sniff*
-            what is that?...
-            ... rotten meat?
-                            
-            Reaching solid ground, you turn around..
-            """;
-
-
     public String roomDescriptionGenerator() {
         DiceSet roll = new DiceSet();
 
