@@ -17,6 +17,7 @@ public abstract class Hero implements ICombat {
     int level;              // Utökar grund attributen: Styrka, intelligens och snabbhet
     private int baseDmg;    // Grund skada
     private boolean dead;   // is dead?
+    private boolean firstTimeInDungeon = true;
 
     public Hero(String name, int strength, int intelligence, int dexterity, int stamina, int experience, int level, int baseDmg, boolean dead) {
         this.name = name;
@@ -49,6 +50,45 @@ public abstract class Hero implements ICombat {
     public void parry() {
         System.out.println("Hero parry's");
     }
+
+
+
+
+    public void getStatus() {
+        System.out.println(getName() + getLevelToStatus());
+        System.out.println(expMeter(getExperience()));
+        System.out.println("STR: " + getStrength());
+        System.out.println("INT: " + getIntelligence());
+        System.out.println("DEX: " + getDexterity());
+        System.out.println("STA: " + getStamina());
+        System.out.println("DMG: " + getBaseDmg());
+    }
+
+    private StringBuilder expMeter(int experience) {
+
+        double expTemp = (double) experience / 4;
+        StringBuilder meter = new StringBuilder();
+
+        meter.append(BLACK_BACKGROUND + BLACK_BOLD + "▐" + RESET);
+        for (int i = 0; i < 25; i++) {
+            if (expTemp > 0) {
+                meter.append(BLACK_BACKGROUND + GREEN_BOLD + "█" + RESET);
+                expTemp--;
+            } else {
+                meter.append(BLACK_BACKGROUND + WHITE_BOLD + "▒" + RESET);
+            }
+        }
+        meter.append(BLACK_BACKGROUND + BLACK_BOLD + "▐" + RESET);
+
+        return meter;
+    }
+
+    public String getLevelToStatus(){
+        return  "         <Lvl " + getLevel() + ">";
+    }
+
+
+
 
     public String getName() {
         return name;
@@ -122,37 +162,11 @@ public abstract class Hero implements ICombat {
         this.dead = dead;
     }
 
-
-    public void getStatus() {
-        System.out.println(getName() + getLevelToStatus());
-        System.out.println(expMeter(getExperience()));
-        System.out.println("STR: " + getStrength());
-        System.out.println("INT: " + getIntelligence());
-        System.out.println("DEX: " + getDexterity());
-        System.out.println("STA: " + getStamina());
-        System.out.println("DMG: " + getBaseDmg());
+    public boolean isFirstTimeInDungeon() {
+        return firstTimeInDungeon;
     }
 
-    private StringBuilder expMeter(int experience) {
-
-        double expTemp = (double) experience / 4;
-        StringBuilder meter = new StringBuilder();
-
-        meter.append(BLACK_BACKGROUND + BLACK_BOLD + "▐" + RESET);
-        for (int i = 0; i < 25; i++) {
-            if (expTemp > 0) {
-                meter.append(BLACK_BACKGROUND + GREEN_BOLD + "█" + RESET);
-                expTemp--;
-            } else {
-                meter.append(BLACK_BACKGROUND + WHITE_BOLD + "▒" + RESET);
-            }
-        }
-        meter.append(BLACK_BACKGROUND + BLACK_BOLD + "▐" + RESET);
-
-        return meter;
-    }
-
-    public String getLevelToStatus(){
-        return  "         <Lvl " + getLevel() + ">";
+    public void setFirstTimeInDungeon(boolean firstTimeInDungeon) {
+        this.firstTimeInDungeon = firstTimeInDungeon;
     }
 }

@@ -27,10 +27,7 @@ public class TheThreeFriends extends Scene {
         getConsole().printScene(getDescription());
     }
 
-    // SCENE: The Three Friends
-    public String theThreeFriendsDescription() throws InterruptedException {
-        return YELLOW_ITALIC + knightHead + ", " + mageHead + YELLOW_ITALIC + " and " + rangerHead + YELLOW_ITALIC + " are gathered around the campfire in the forest" + RESET;
-    }
+
 
     public List<String> theFriends = new ArrayList<>(Arrays.asList(
             knightHead, "The stalwart defender, skilled with the blade and armored against danger.",

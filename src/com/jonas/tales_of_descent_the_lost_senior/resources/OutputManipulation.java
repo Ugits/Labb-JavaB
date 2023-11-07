@@ -1,5 +1,7 @@
 package com.jonas.tales_of_descent_the_lost_senior.resources;
 
+import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.Monster;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -56,7 +58,7 @@ public class OutputManipulation extends CustomStrings {
     }
 
     public void printScene(String description) throws InterruptedException {
-        delayPrint(0, YELLOW_ITALIC + "* " + (description) + YELLOW_ITALIC + " *" + RESET);
+        delayPrint(20, YELLOW_ITALIC + "* " + (description) + YELLOW_ITALIC + " *" + RESET);
         sleep(1000);
         br();
 
@@ -69,8 +71,12 @@ public class OutputManipulation extends CustomStrings {
     }
 
     public void printHeader(String scene) throws InterruptedException {
-        println(WHITE_BOLD + "[" + RESET + scene + WHITE_BOLD + "]" + RESET);
+        println(YELLOW_BOLD + "[ " + YELLOW_ITALIC + scene +RESET +YELLOW_BOLD + " ]" + RESET);
         sleep(1000);
     }
 
+    public void printMonster(Monster monster) throws InterruptedException {
+        delayPrint(0, RED + "-- You encountered a " + monster.getName() +" --"+ RESET);
+        br();
+    }
 }

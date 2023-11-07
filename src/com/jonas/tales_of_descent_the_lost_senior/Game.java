@@ -1,4 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior;
+
+import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Ranger;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Dungeon;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea.IntoTheDark;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea.TheThreeFriends;
@@ -17,14 +19,23 @@ public class Game {
 
     public void run() throws InterruptedException {
 
-        new TheThreeFriends(player);
-        new Waterfall(player);
-        new IntoTheDark(player);
-            //loop
+        //new TheThreeFriends(player);
+        //new Waterfall(player);
+        //new IntoTheDark(player);
+        //loop
+        //Dungeon map = new Dungeon(player);
+        //map.getFloor().forEach(room -> logic.fight(room.getPlayer(), room.getMonster()));
+
+        player.setHero(new Ranger(console.rangerHead));
         Dungeon map = new Dungeon(player);
-        map.getFloor().forEach(room -> logic.fight(room.getPlayer(), room.getMonster()));
 
+        map.getFloor().get(0).runScene();
+        map.getFloor().get(1).runScene();
+        map.getFloor().get(2).runScene();
+        map.getFloor().get(3).runScene();
+        map.getFloor().get(4).runScene();
 
+        // TODO: 2023-11-05
 
         //map.getFloor().forEach(room -> System.out.println(room.getMonster().getName()));
         //map.getFloor().forEach(room -> System.out.println(room.isHasMonster()));

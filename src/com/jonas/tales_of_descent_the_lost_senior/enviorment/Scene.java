@@ -3,15 +3,23 @@ package com.jonas.tales_of_descent_the_lost_senior.enviorment;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 import com.jonas.tales_of_descent_the_lost_senior.resources.CustomStrings;
 import com.jonas.tales_of_descent_the_lost_senior.resources.InputProcessing;
+import com.jonas.tales_of_descent_the_lost_senior.resources.MenuTool;
 import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 
-public abstract class Scene extends CustomStrings {
+public abstract class Scene extends MenuTool {
     InputProcessing sc = new InputProcessing();
     OutputManipulation console = new OutputManipulation();
     Player player;
     String description;
     int visibility = 10;
     int breathability = 10;
+
+    public Scene(Player player, int visibilityMod, int breathabilityMod) {
+        setPlayer(player);
+        setVisibility(visibilityMod);
+        setBreathability(breathabilityMod);
+
+    }
 
     public Scene(Player player,int visibilityMod, int breathabilityMod, String description) {
         setPlayer(player);
@@ -82,4 +90,6 @@ public abstract class Scene extends CustomStrings {
     public void setPlayer(Player player) {
         this.player = player;
     }
+
+
 }

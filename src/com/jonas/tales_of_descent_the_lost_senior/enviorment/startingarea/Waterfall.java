@@ -1,11 +1,12 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea;
+
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 
 public class Waterfall extends Scene {
 
     public Waterfall(Player player) throws InterruptedException {
-        super(player,0, 0, ); // TODO: 2023-11-04  fråga hampus hur han fick in metod i super constructor 
+        super(player, 0, 0);
         setDescription(waterfallDescription(getPlayer()));
         description();
         part1();
@@ -43,16 +44,23 @@ public class Waterfall extends Scene {
         getConsole().printNarrative("Is it something there?");
 
         getConsole().printHeader(getPlayer().getHero().getName());
-        getConsole().println("1. Reach down");
-        getConsole().println("2. Don't bother");
-        switch (getSc().getScanner().nextLine()) {
-            case "1", "reach down", "Reach down" -> {
-                pickUpMysteryBox();
-                continueWithBox();
+        boolean loop = true;
+        while (loop) {
+            getConsole().println("1. Reach down");
+            getConsole().println("2. Don't bother");
+            switch (getSc().getScanner().nextLine()) {
+                case "1", "reach down", "Reach down" -> {
+                    pickUpMysteryBox();
+                    continueWithBox();
+                    loop = false;
+                }
+                case "2", "Don't bother", "don't bother" -> {
+                    continueWithoutBox();
+                    loop = false;
+                }
+                default ->
+                        getConsole().printNarrative(PURPLE_ITALIC + "Our hero, " + getPlayer().getHero().getName() + PURPLE_ITALIC + ", seams almost paralyzed by the sight. What will he do?" + RESET);
             }
-            case "2", "Don't bother", "don't bother" -> continueWithoutBox();
-            default ->
-                    getConsole().printNarrative(PURPLE_ITALIC + "Our hero, " + getPlayer().getHero().getName() + ", seams almost paralyzed by the sight. What will he do?" + RESET);
         }
         getConsole().br();
         getConsole().printNarrative("Your heart is racing with anticipation, you move closer to the concealed passage behind the waterfall, ready to uncover what lies beyond.");

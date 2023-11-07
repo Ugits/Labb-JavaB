@@ -4,11 +4,12 @@ import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Hero;
 import com.jonas.tales_of_descent_the_lost_senior.objects.items.DungeonMap;
 import com.jonas.tales_of_descent_the_lost_senior.objects.items.Item;
 import com.jonas.tales_of_descent_the_lost_senior.objects.items.MysteryBox;
+import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 
 import java.util.*;
 
 public class Player {
-
+    OutputManipulation console = new OutputManipulation();
     Hero hero = null;
     Hero friend1 = null;
     Hero friend2 = null;
@@ -18,7 +19,7 @@ public class Player {
         initInventory();
     }
 
-    public void initInventory(){
+    public void initInventory() {
         inventory.add(new MysteryBox());
         inventory.add(new DungeonMap());
     }
@@ -55,46 +56,56 @@ public class Player {
         this.inventory = inventory;
     }
 
-    public void printOwnedItems(){
+    public void printOwnedItems() {
         sortPrioOwnedItems();
         int index = 1;
         for (Item item : getInventory()) {
-            if (item.isOwned()){
+            if (item.isOwned()) {
                 System.out.println(index + ". " + item.getName());
                 index++;
             }
         }
     }
 
-    public void printNotOwnedItems(){
+    public void printNotOwnedItems() {
         sortPrioNotOwnedItems();
         int index = 1;
-        for (Item item: getInventory()) {
-            if(!item.isOwned()){
+        for (Item item : getInventory()) {
+            if (!item.isOwned()) {
                 System.out.println(index + ". " + item.getName());
                 index++;
             }
         }
     }
 
-    public void pickUpItem(String stringItem){
-        getInventory().forEach(item -> {if (Objects.equals(item.getName(), stringItem)){
-            item.setOwned(true);
-        }
+    public void pickUpItem(String stringItem) {
+        getInventory().forEach(item -> {
+            if (Objects.equals(item.getName(), stringItem)) {
+                item.setOwned(true);
+            }
         });
     }
 
     //check whole list//player.getInventory().forEach(item -> System.out.println(item.getName()+item.isOwned()));
-    public void printInventory(){
+    public void printInventory() {
         getInventory().forEach(item -> System.out.println(item.getName() + " " + item.isOwned()));
     }
 
-    public void sortPrioOwnedItems(){
+    public void sortPrioOwnedItems() {
         getInventory().sort(Comparator.comparing(Item::isOwned).reversed());
     }
 
-    public void sortPrioNotOwnedItems(){
+    public void sortPrioNotOwnedItems() {
         getInventory().sort(Comparator.comparing(Item::isOwned));
     }
+
+    public OutputManipulation getConsole() {
+        return console;
+    }
+
+    public void setConsole(OutputManipulation console) {
+        this.console = console;
+    }
+
 
 }
