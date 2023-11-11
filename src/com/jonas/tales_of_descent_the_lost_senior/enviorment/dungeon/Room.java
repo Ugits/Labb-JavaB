@@ -8,6 +8,7 @@ import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 import com.jonas.tales_of_descent_the_lost_senior.resources.IColors;
+import com.jonas.tales_of_descent_the_lost_senior.resources.MenuTool;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +18,7 @@ import java.util.Objects;
 
 public class Room extends Scene {
     DiceSet roll = new DiceSet();
-
+    MenuTool menu;
     //public boolean hasMonster;
     public int difficulty;
     public int floorNum;
@@ -26,18 +27,16 @@ public class Room extends Scene {
     public boolean hasTreasure;
     public boolean hasMonster;
     public Monster monster;
-    // Menus
-    boolean active = false;
+
     public Room(Player player, int floorNum, int roomNum) {
         super(player, -floorNum, -floorNum);
         this.difficulty = floorNum;
         this.floorNum = floorNum;
         this.roomNum = roomNum;
-
-        DiceSet roll = new DiceSet();
+        setMenu(new MenuTool(getPlayer(), getMonster(), getRoomNum(), getFloorNum()));
 
         if (getPlayer().getHero().isFirstTimeInDungeon()) {
-            this.monster = new PackOfRats();
+            this.monster = new PackOfRats(); // inject floorNum for monster lvl
             setHasMonster(true);
             setDescription("Investigating the foul smell, you discover rats devouring a corpse. As you approach, the vermin abruptly turn their attention toward you, hissing in an unnerving standoff.");
             getPlayer().getHero().setFirstTimeInDungeon(false);
@@ -58,131 +57,21 @@ public class Room extends Scene {
     }
 
     @Override
-    public void runScene() throws InterruptedException {
+    public void runScene() {
         // Print scene
+
         getConsole().printHeader("Room " + getFloorNum() + "." + getRoomNum());
         getConsole().printScene(getDescription());
         if (hasMonster) {
             monsterEncounter();
         }
-        actionMenu();
+        getMenu().actionMenu();
     }
 
-    private void monsterEncounter() throws InterruptedException {
+
+    private void monsterEncounter() {
         getConsole().printMonster(getMonster());
-        combatMenu();
-    }
-
-    public void actionMenu() {
-        List<String> options = new ArrayList<>();
-        int num = 0;
-        getConsole().println("Actions:");
-
-        if (getRoomNum() != 1) {
-            addToOptionsAndPrint(options, num, "Move Back");    // set int i in for - loop to previous index
-            num++;
-        }
-        if (getRoomNum() != 5) {
-            addToOptionsAndPrint(options, num, "Move Forward");     // continue loop
-            num++;
-        }
-        if (getRoomNum() == 5) {
-            addToOptionsAndPrint(options, num, "Move to Floor " + (getFloorNum() + 1));     // Iterate new dungeon
-            num++;
-        }
-        addToOptionsAndPrint(options, num, "Search Room"); // roll for search + LUCK
-        num++;
-        addToOptionsAndPrint(options, num, "Inventory");   // call Inventory
-        num++;
-        addToOptionsAndPrint(options, num, "Hero Stats");   // call Stats
-        // TODO: 2023-11-07     //  if dungeonMap is requierd. (use Dungeon Map)
-        // TODO: 2023-11-07     //  if MysteryCube is used once. (use Mystery Cube)
-        userChoice(options);
-        getConsole().br();
-
-    }
-
-    public void addToOptionsAndPrint(List<String> options, int num, String print) {
-        options.add(num, print);
-    }
-
-    public void combatMenu() {
-        List<String> options = new ArrayList<>(Arrays.asList("", "", "", "", "", "", "", "", "", ""));
-        int num = 0;
-        getConsole().println(RED_BOLD + "Combat Menu: " + RESET);
-
-        addToOptionsAndPrint(options, num, "Hit");
-        num++;
-        addToOptionsAndPrint(options, num, "Inventory");
-        num++;
-        addToOptionsAndPrint(options, num, "Hero Stats");
-        num++;
-
-        if (getRoomNum() != 1) {
-            addToOptionsAndPrint(options, num, "Escape -> " + RED_BOLD + "[ " + RED_ITALIC + "Room " + getFloorNum() + "." + (getRoomNum() - 1) + RESET + RED_BOLD + " ]" + RESET);
-        }
-
-        userChoice(options);
-        getConsole().br();
-    }
-
-    public void userChoice(List<String> options) {
-
-        do {
-            active = false;
-
-            printMenu(options);
-            switch (getSc().getScanner().nextLine()) {
-                case "1" -> executeChoice(options.get(0));
-                case "2" -> executeChoice(options.get(1));
-                case "3" -> executeChoice(options.get(2));
-                case "4" -> executeChoice(options.get(3));
-                case "5" -> executeChoice(options.get(4));
-                case "6" -> executeChoice(options.get(5));
-                case "7" -> executeChoice(options.get(6));
-                case "8" -> executeChoice(options.get(7));
-                case "9" -> executeChoice(options.get(8));
-                case "10" -> executeChoice(options.get(9));
-                default -> System.out.println("Wrong input.. please try again   [ user Choice ]");
-            }
-        } while (active);
-
-    }
-
-    private static void printMenu(List<String> options) {
-        int num = 1;
-        for (String s : options) {
-            if (!Objects.equals(s, "")) {
-
-                System.out.println(num + ". " + s);
-                num++;
-            }
-        }
-    }
-
-    public void executeChoice(String option) {
-        switch (option) {
-            case "Hit" -> System.out.println("execute HIT");
-            case "Inventory" -> System.out.println("execute INVENTORY");
-            case "Hero Stats" -> getPlayer().getHero().getStatus();
-            case "Search Room" -> System.out.println("execute SEARCH");
-            case "Move Back" -> System.out.println("execute MOVE BACK");
-            case "Move Forward" -> System.out.println("execute FORWARD");
-
-            //case  -> System.out.println();
-            //case  -> System.out.println();
-            default -> {
-                if (option.equals("Move to Floor " + (getFloorNum() + 1))) {
-                    System.out.println("execute NEXT FLOOR");
-                }
-                if (option.equals("Escape -> " + RED_BOLD + "[ " + RED_ITALIC + "Room " + getFloorNum() + "." + (getRoomNum() - 1) + RESET + RED_BOLD + " ]" + RESET)) {
-                    System.out.println("execute ESCAPE");
-                } else {
-                    active = true;
-                    System.out.println("[DEBUG]    Fail in execute Choice    [DEBUG]");
-                }
-            }
-        }
+        getMenu().combatMenu();
     }
 
 
@@ -418,5 +307,13 @@ public class Room extends Scene {
 
     public int getRoomNum() {
         return roomNum;
+    }
+
+    public MenuTool getMenu() {
+        return menu;
+    }
+
+    public void setMenu(MenuTool menu) {
+        this.menu = menu;
     }
 }

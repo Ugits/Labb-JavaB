@@ -8,7 +8,9 @@ public class GameLogic {
 
     public void fight(Player player, Monster monster){
         System.out.println(player.getHero().getName() + " -VS- " + monster.getName());
+
     }
+
 
 
 }

@@ -1,14 +1,11 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment;
 
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
-import com.jonas.tales_of_descent_the_lost_senior.resources.CustomStrings;
-import com.jonas.tales_of_descent_the_lost_senior.resources.InputProcessing;
-import com.jonas.tales_of_descent_the_lost_senior.resources.MenuTool;
 import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 
-public abstract class Scene extends MenuTool {
-    InputProcessing sc = new InputProcessing();
+public abstract class Scene extends OutputManipulation {
     OutputManipulation console = new OutputManipulation();
+
     Player player;
     String description;
     int visibility = 10;
@@ -38,7 +35,7 @@ public abstract class Scene extends MenuTool {
     }
 
     public void description() throws InterruptedException {
-        console.printScene(description);
+        getConsole().printScene(description);
     }
 
 
@@ -59,13 +56,7 @@ public abstract class Scene extends MenuTool {
         return breathability;
     }
 
-    public OutputManipulation getConsole() {
-        return console;
-    }
 
-    public void setConsole(OutputManipulation console) {
-        this.console = console;
-    }
 
     public void setVisibility(int visibility) {
         this.visibility = visibility;
@@ -75,12 +66,12 @@ public abstract class Scene extends MenuTool {
         this.breathability = breathability;
     }
 
-    public InputProcessing getSc() {
-        return sc;
+    public OutputManipulation getConsole() {
+        return console;
     }
 
-    public void setSc(InputProcessing sc) {
-        this.sc = sc;
+    public void setConsole(OutputManipulation console) {
+        this.console = console;
     }
 
     public Player getPlayer() {

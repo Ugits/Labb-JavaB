@@ -41,6 +41,6 @@ public class Ranger extends Hero{
 
     @Override
     public String getLevelToStatus() {
-        return GREEN_BOLD + "         <Lvl " + getLevel() + ">" + RESET;
+        return GREEN_BOLD + "              <Lvl " + getLevel() + ">" + RESET;
     }
 }

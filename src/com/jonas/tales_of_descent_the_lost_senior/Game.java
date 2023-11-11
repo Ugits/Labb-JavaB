@@ -17,11 +17,12 @@ public class Game {
     Player player = new Player();
     GameLogic logic = new GameLogic();
 
-    public void run() throws InterruptedException {
+    public void run()  {
 
         //new TheThreeFriends(player);
         //new Waterfall(player);
         //new IntoTheDark(player);
+
         //loop
         //Dungeon map = new Dungeon(player);
         //map.getFloor().forEach(room -> logic.fight(room.getPlayer(), room.getMonster()));

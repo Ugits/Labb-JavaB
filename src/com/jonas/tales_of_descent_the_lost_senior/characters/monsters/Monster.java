@@ -1,14 +1,16 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.monsters;
+import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.ICombat;
 
-public abstract class Monster implements ICombat {
+public abstract class Monster extends Character implements ICombat {
 
     private String name;
     private int stamina;
     private int baseDmg;
     private boolean dead;
 
-    public Monster(String name, int stamina, int damage, boolean dead) {
+    public Monster(String name, int stamina, int damage, boolean dead, int level) {
+        super(level);
         this.name = name;
         this.stamina = stamina;
         this.baseDmg = damage;

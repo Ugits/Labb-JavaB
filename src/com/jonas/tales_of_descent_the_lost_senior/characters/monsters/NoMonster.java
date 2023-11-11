@@ -3,7 +3,7 @@ package com.jonas.tales_of_descent_the_lost_senior.characters.monsters;
 public class NoMonster extends Monster {
 
     public NoMonster() {
-        super("No monster", 0, 0, true);
+        super("No monster", 0, 0, true,0);
     }
 
 

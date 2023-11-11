@@ -3,7 +3,12 @@ package com.jonas.tales_of_descent_the_lost_senior.characters.monsters;
 public class PackOfRats extends Monster {
 
     public PackOfRats() {
-        super("Pack of Rats", 3, 1, false);
+        super(
+                "Pack of Rats",
+                3,
+                1,
+                false,
+                1);
     }
 
     @Override

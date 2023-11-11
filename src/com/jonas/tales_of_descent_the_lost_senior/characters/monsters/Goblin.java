@@ -3,7 +3,12 @@ package com.jonas.tales_of_descent_the_lost_senior.characters.monsters;
 public class Goblin extends Monster {
 
     public Goblin() {
-        super("Goblin", 7, 2, false);
+        super(
+                "Goblin",
+                7,
+                2,
+                false,
+                1);
     }
 
     @Override

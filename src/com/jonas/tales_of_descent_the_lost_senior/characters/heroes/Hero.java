@@ -1,11 +1,12 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.heroes;
 
+import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.ICombat;
 import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 
 import static com.jonas.tales_of_descent_the_lost_senior.resources.IColors.*;
 
-public abstract class Hero implements ICombat {
+public abstract class Hero extends Character implements ICombat {
     OutputManipulation console = new OutputManipulation();
 
     private String name;    // Namn
@@ -14,19 +15,19 @@ public abstract class Hero implements ICombat {
     int dexterity;            // Skicklighet/Snabbhet/Vighet
     int stamina;            // Hälsa
     int experience;         // Poäng till nästa nivå
-    int level;              // Utökar grund attributen: Styrka, intelligens och snabbhet
     private int baseDmg;    // Grund skada
     private boolean dead;   // is dead?
     private boolean firstTimeInDungeon = true;
 
     public Hero(String name, int strength, int intelligence, int dexterity, int stamina, int experience, int level, int baseDmg, boolean dead) {
+        super(level);
         this.name = name;
         this.strength = strength;
         this.intelligence = intelligence;
         this.dexterity = dexterity;
         this.stamina = stamina;
         this.experience = experience;
-        this.level = level;
+        this.setLevel(level);
         this.baseDmg = baseDmg;
         this.dead = dead;
     }
@@ -54,19 +55,25 @@ public abstract class Hero implements ICombat {
 
 
 
+
+
     public void getStatus() {
         System.out.println(getName() + getLevelToStatus());
-        System.out.println(expMeter(getExperience()));
+        System.out.println("XP : " + xpMeter(getExperience()));
+        System.out.println("STA: " + staminaMeter(getStamina()));
         System.out.println("STR: " + getStrength());
         System.out.println("INT: " + getIntelligence());
         System.out.println("DEX: " + getDexterity());
-        System.out.println("STA: " + getStamina());
         System.out.println("DMG: " + getBaseDmg());
     }
 
-    private StringBuilder expMeter(int experience) {
+    public void encounterStatus(){
 
-        double expTemp = (double) experience / 4;
+    }
+
+    private StringBuilder xpMeter(int exp) {
+
+        double expTemp = (double) exp / 4;
         StringBuilder meter = new StringBuilder();
 
         meter.append(BLACK_BACKGROUND + BLACK_BOLD + "▐" + RESET);
@@ -83,9 +90,7 @@ public abstract class Hero implements ICombat {
         return meter;
     }
 
-    public String getLevelToStatus(){
-        return  "         <Lvl " + getLevel() + ">";
-    }
+
 
 
 
@@ -136,14 +141,6 @@ public abstract class Hero implements ICombat {
 
     public void setExperience(int experience) {
         this.experience = experience;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
     }
 
     public int getBaseDmg() {
