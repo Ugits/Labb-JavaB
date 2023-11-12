@@ -1,6 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.player;
 
-import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Hero;
+import com.jonas.tales_of_descent_the_lost_senior.characters.Hero;
 import com.jonas.tales_of_descent_the_lost_senior.objects.Item;
 import com.jonas.tales_of_descent_the_lost_senior.objects.items.*;
 import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;

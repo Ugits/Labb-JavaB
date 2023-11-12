@@ -1,8 +1,9 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.heroes;
 
-import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
+import com.jonas.tales_of_descent_the_lost_senior.characters.Hero;
+import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
 
-public class Ranger extends Hero{
+public class Ranger extends Hero {
 
     public Ranger(String name) {
         super(
@@ -17,8 +18,14 @@ public class Ranger extends Hero{
     }
 
     @Override
-    public void attack() {
+    public void attack(Monster monster) {
         getOut().println(getName() + " fires an arrow!");
+        attackLogics(this, monster);
+    }
+
+    @Override
+    public void attack(Hero player) {
+
     }
 
     @Override

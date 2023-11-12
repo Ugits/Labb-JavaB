@@ -12,25 +12,27 @@ public abstract class Monster extends Character implements ICombat {
     }
 
 
-    @Override
-    public void attack() {
-        System.out.println("Monster attack");
-    }
+  /**
+   *   @Override
+     public void attack() {
+         System.out.println("Monster attack");
+     }
 
-    @Override
-    public void advancedAttack() {
-        System.out.println("Monster advanced attack");
-    }
+     @Override
+     public void advancedAttack() {
+         System.out.println("Monster advanced attack");
+     }
 
-    @Override
-    public void flee() {
-        System.out.println("Monster flee");
-    }
+     @Override
+     public void flee() {
+         System.out.println("Monster flee");
+     }
 
-    @Override
-    public void parry() {
-        System.out.println("Monster parry");
-    }
+     @Override
+     public void parry() {
+         System.out.println("Monster parry");
+     }
+   */
 
     @Override
     public String getLevelToStatus() {

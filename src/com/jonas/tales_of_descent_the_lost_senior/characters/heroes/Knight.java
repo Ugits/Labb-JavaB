@@ -1,5 +1,8 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.heroes;
 
+import com.jonas.tales_of_descent_the_lost_senior.characters.Hero;
+import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
+
 public class Knight extends Hero {
 
     public Knight(String name) {
@@ -15,8 +18,14 @@ public class Knight extends Hero {
     }
 
     @Override
-    public void attack() {
+    public void attack(Monster monster) {
         getOut().println(getName() + " swings his sword!");
+        attackLogics(this, monster);
+    }
+
+    @Override
+    public void attack(Hero player) {
+
     }
 
     @Override

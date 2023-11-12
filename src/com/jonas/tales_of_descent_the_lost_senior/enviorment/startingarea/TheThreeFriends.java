@@ -1,5 +1,5 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea;
-import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Hero;
+import com.jonas.tales_of_descent_the_lost_senior.characters.Hero;
 import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Knight;
 import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Mage;
 import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Ranger;

@@ -4,7 +4,7 @@ import com.jonas.tales_of_descent_the_lost_senior.logic.GameLogic;
 import com.jonas.tales_of_descent_the_lost_senior.resources.IColors;
 import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 
-public abstract class Character implements ICombat, IColors {
+public abstract class Character extends GameLogic implements ICombat, IColors {
     OutputManipulation out = new OutputManipulation();
 
     private String name;
@@ -89,8 +89,6 @@ public abstract class Character implements ICombat, IColors {
     public void setName(String name) {
         this.name = name;
     }
-
-
 
     public int getStrength() {
         return strength;

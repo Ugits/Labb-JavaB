@@ -1,5 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.monsters;
 
+import com.jonas.tales_of_descent_the_lost_senior.characters.Hero;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
 
 public class Goblin extends Monster {
@@ -17,9 +18,14 @@ public class Goblin extends Monster {
     }
 
     @Override
-    public void attack() {
+    public void attack(Hero hero) {
         System.out.println("The goblin swings his dagger");
         // damage player
+    }
+
+    @Override
+    public void attack(Monster monster) {
+
     }
 
     @Override
@@ -41,7 +47,8 @@ public class Goblin extends Monster {
 
     @Override
     public void dies() {
-
+        getOut().printNarrative("GOBLIN DIES");
+        setDead(true);
     }
 
 }

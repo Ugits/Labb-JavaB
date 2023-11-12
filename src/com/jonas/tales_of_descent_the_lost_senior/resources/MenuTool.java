@@ -15,12 +15,12 @@ public class MenuTool implements IColors {
     InputProcessing sc = new InputProcessing();
     GameLogic logic = new GameLogic();
     // Menus
-    int num;
-    boolean active;
-    Player player;
-    Monster monster;
-    int roomNum;
-    int floorNum;
+    private int num;
+    private boolean active;
+    private Player player;
+    private Monster monster;
+    private int roomNum;
+    private int floorNum;
 
     public MenuTool(Player player, Monster monster, int roomNum, int floorNum) {
         this.player = player;
@@ -145,8 +145,8 @@ public class MenuTool implements IColors {
 
         switch (option) {
             case "Hit" -> {
-                getPlayer().getHero().attack();
-                getLogic().attack(getPlayer().getHero(),getMonster());
+                getPlayer().getHero().attack(getMonster());
+
                 //if player dead, revive
                 //if Monster not dead, get logic(Monster, Hero)
 
@@ -244,4 +244,6 @@ public class MenuTool implements IColors {
     public void setLogic(GameLogic logic) {
         this.logic = logic;
     }
+
+
 }

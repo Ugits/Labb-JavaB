@@ -1,5 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.monsters;
 
+import com.jonas.tales_of_descent_the_lost_senior.characters.Hero;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
 
 public class NoMonster extends Monster {
@@ -18,7 +19,12 @@ public class NoMonster extends Monster {
 
 
     @Override
-    public void attack() {
+    public void attack(Monster monster) {
+
+    }
+
+    @Override
+    public void attack(Hero player) {
 
     }
 

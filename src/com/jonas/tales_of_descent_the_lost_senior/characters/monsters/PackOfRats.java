@@ -1,6 +1,8 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.monsters;
 
+import com.jonas.tales_of_descent_the_lost_senior.characters.Hero;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
+import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 
 
 public class PackOfRats extends Monster {
@@ -18,9 +20,15 @@ public class PackOfRats extends Monster {
     }
 
     @Override
-    public void attack() {
+    public void attack(Hero hero) {
         System.out.println("A rat jumps your leg, and bites!");
+        attackLogics(this, hero);
         //damage player
+    }
+
+    @Override
+    public void attack(Monster monster) {
+
     }
 
     @Override
@@ -42,6 +50,7 @@ public class PackOfRats extends Monster {
     @Override
     public void dies() {
         getOut().printNarrative("squeeeck.. you flatten the last rat under you boot");
+        setDead(true);
     }
 
 

@@ -1,4 +1,4 @@
-package com.jonas.tales_of_descent_the_lost_senior.characters.heroes;
+package com.jonas.tales_of_descent_the_lost_senior.characters;
 
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
@@ -11,7 +11,8 @@ public abstract class Hero extends Character {
     private int experience;         // Poäng till nästa nivå
     private boolean firstTimeInDungeon;
     private int baseDamage;
-
+    //private int damage = getBaseDamage() + (getMainAttribute()/2);
+    // TODO: 2023-11-12 move baseDMG
     public Hero(String name, int level, int staminaMax, int baseDamage, int strength, int intelligens, int dexterity, boolean dead) {
         super(name, level, staminaMax, strength, intelligens, dexterity, dead);
         this.experience = 0;
@@ -21,26 +22,7 @@ public abstract class Hero extends Character {
     }
 
 
-    @Override
-    public void attack() {
-        System.out.println("execute HIT");
-        System.out.println("Hero attack");
-    }
 
-    @Override
-    public void advancedAttack() {
-        System.out.println("Hero Advanced attack");
-    }
-
-    @Override
-    public void flee() {
-        System.out.println("Hero fled");
-    }
-
-    @Override
-    public void parry() {
-        System.out.println("Hero parry's");
-    }
 
     public void getStatus() {
         System.out.println(getName() + getLevelToStatus());
