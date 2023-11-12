@@ -1,40 +1,29 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.heroes;
 
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
-import com.jonas.tales_of_descent_the_lost_senior.interaction.ICombat;
-import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
-
-import static com.jonas.tales_of_descent_the_lost_senior.resources.IColors.*;
-
-public abstract class Hero extends Character implements ICombat {
-    OutputManipulation console = new OutputManipulation();
+import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
+import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 
 
-    int strength;           // Styrka
-    int intelligence;       // Intelligens
-    int dexterity;          // Skicklighet/Snabbhet/Vighet
-    int experience;         // Poäng till nästa nivå
-    private int baseDmg;    // Grund skada
-    private boolean dead;   // is dead?
-    private boolean firstTimeInDungeon = true;
+public abstract class Hero extends Character {
 
-    public Hero(String name, int strength, int intelligence, int dexterity, int stamina, int experience, int level, int baseDmg, boolean dead) {
-        super(
-                name,
-                stamina,
-                level);
+    private int luck;
+    private int experience;         // Poäng till nästa nivå
+    private boolean firstTimeInDungeon;
+    private int baseDamage;
 
-
-        this.strength = strength;
-        this.intelligence = intelligence;
-        this.dexterity = dexterity;
-        this.experience = experience;
-        this.baseDmg = baseDmg;
-        this.dead = dead;
+    public Hero(String name, int level, int staminaMax, int baseDamage, int strength, int intelligens, int dexterity, boolean dead) {
+        super(name, level, staminaMax, strength, intelligens, dexterity, dead);
+        this.experience = 0;
+        this.luck = 0;
+        this.firstTimeInDungeon = true;
+        this.baseDamage = baseDamage;
     }
+
 
     @Override
     public void attack() {
+        System.out.println("execute HIT");
         System.out.println("Hero attack");
     }
 
@@ -53,19 +42,14 @@ public abstract class Hero extends Character implements ICombat {
         System.out.println("Hero parry's");
     }
 
-
-
-
-
-
     public void getStatus() {
         System.out.println(getName() + getLevelToStatus());
         System.out.println("XP : " + xpMeter(getExperience()));
-        System.out.println("STA: " + staminaMeter(getStaminaCurrent(),getStaminaMax()));
+        System.out.println("STA: " + staminaMeter(getStaminaCurrent(), getStaminaMax()));
         System.out.println("STR: " + getStrength());
         System.out.println("INT: " + getIntelligence());
         System.out.println("DEX: " + getDexterity());
-        System.out.println("DMG: " + getBaseDmg());
+        System.out.println("DMG: " + getBaseDamage());
     }
 
     private StringBuilder xpMeter(int exp) {
@@ -87,28 +71,18 @@ public abstract class Hero extends Character implements ICombat {
         return meter;
     }
 
-    public int getStrength() {
-        return strength;
+    public int getMainAttribute() {
+
+        return 0;
+    }
+    // GET n SET
+
+    public int getLuck() {
+        return luck;
     }
 
-    public void setStrength(int strength) {
-        this.strength = strength;
-    }
-
-    public int getIntelligence() {
-        return intelligence;
-    }
-
-    public void setIntelligence(int intelligence) {
-        this.intelligence = intelligence;
-    }
-
-    public int getDexterity() {
-        return dexterity;
-    }
-
-    public void setDexterity(int dexterity) {
-        this.dexterity = dexterity;
+    public void setLuck(int luck) {
+        this.luck = luck;
     }
 
     public int getExperience() {
@@ -119,27 +93,36 @@ public abstract class Hero extends Character implements ICombat {
         this.experience = experience;
     }
 
-    public int getBaseDmg() {
-        return baseDmg;
-    }
-
-    public void setBaseDmg(int baseDmg) {
-        this.baseDmg = baseDmg;
-    }
-
-    public boolean isDead() {
-        return dead;
-    }
-
-    public void setDead(boolean dead) {
-        this.dead = dead;
-    }
-
     public boolean isFirstTimeInDungeon() {
         return firstTimeInDungeon;
     }
 
     public void setFirstTimeInDungeon(boolean firstTimeInDungeon) {
         this.firstTimeInDungeon = firstTimeInDungeon;
+    }
+
+    public int getBaseDamage() {
+        return baseDamage;
+    }
+
+    public void setBaseDamage(int baseDamage) {
+        this.baseDamage = baseDamage;
+    }
+
+    public int calculateDamage() {
+        DiceSet roll = new DiceSet();
+        //int mainAttMod = getMainAttribute() / 2;
+        //int test = roll.dCustom(mainAttMod);
+        //System.out.print(test);
+        //System.out.println(" Roll [CALCULATE]");
+        //System.out.println(mainAttMod + "  Main ATT Mod [CALCULATE]");
+        //System.out.print(test + mainAttMod);
+        //System.out.println("  Total [CALCULATE]");
+
+        return getBaseDamage() + roll.dCustom(getMainAttribute() / 2);
+    }
+
+    public void consumeStamina(int amount) {
+        setStaminaCurrent(getStaminaCurrent() - amount);
     }
 }

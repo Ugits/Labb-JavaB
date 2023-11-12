@@ -1,6 +1,8 @@
 package com.jonas.tales_of_descent_the_lost_senior.objects.items;
 
-public class MysteryBox extends Item{
+import com.jonas.tales_of_descent_the_lost_senior.objects.Item;
+
+public class MysteryBox extends Item {
 
 
     public MysteryBox() {

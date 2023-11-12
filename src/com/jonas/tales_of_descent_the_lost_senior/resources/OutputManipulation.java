@@ -1,7 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.resources;
-import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.Monster;
+import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
 
-import javax.print.DocFlavor;
 import java.util.List;
 import java.util.Objects;
 

@@ -5,6 +5,7 @@ import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Mage;
 import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Ranger;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
+import com.jonas.tales_of_descent_the_lost_senior.resources.CustomStrings;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +15,7 @@ public class TheThreeFriends extends Scene {
 
     public TheThreeFriends(Player player) throws InterruptedException {
         super(player,0, 0);
-        setDescription(theThreeFriendsDescription());
+        setDescription(getConsole().theThreeFriendsDescription());
         description();
         part1();
         getPlayer().setHero(heroSwitch());
@@ -23,16 +24,16 @@ public class TheThreeFriends extends Scene {
 
     @Override
     public void description() throws InterruptedException {
-        getConsole().printHeader(sceneHead);
+        getConsole().printHeader(getConsole().sceneHead);
         getConsole().printScene(getDescription());
     }
 
 
 
     public List<String> theFriends = new ArrayList<>(Arrays.asList(
-            knightHead, "The stalwart defender, skilled with the blade and armored against danger.",
-            mageHead, "The wielder of arcane powers, knowledgeable in the mysteries of the world.",
-            rangerHead, "The swift and skilled tracker, attuned to the secrets of the forest."));
+            getConsole().knightHead, "The stalwart defender, skilled with the blade and armored against danger.",
+            getConsole().mageHead, "The wielder of arcane powers, knowledgeable in the mysteries of the world.",
+            getConsole().rangerHead, "The swift and skilled tracker, attuned to the secrets of the forest."));
 
 
     public void part1() throws InterruptedException {
@@ -48,9 +49,9 @@ public class TheThreeFriends extends Scene {
             getConsole().delayPrint(80,"Choose wisely.. ");
 
             switch (getSc().getScanner().nextLine()) {
-                case "The Knight", "the knight", "Knight", "knight", "1", "Red", "red" -> temp = new Knight(knightHead);
-                case "The Mage", "the mage", "Mage", "mage", "2", "Blue", "blue" -> temp = new Mage(mageHead);
-                case "The Ranger", "the ranger", "Ranger", "ranger", "3", "Green", "green" -> temp = new Ranger(rangerHead);
+                case "The Knight", "the knight", "Knight", "knight", "1", "Red", "red" -> temp = new Knight(getConsole().knightHead);
+                case "The Mage", "the mage", "Mage", "mage", "2", "Blue", "blue" -> temp = new Mage(getConsole().mageHead);
+                case "The Ranger", "the ranger", "Ranger", "ranger", "3", "Green", "green" -> temp = new Ranger(getConsole().rangerHead);
                 default -> getConsole().printNarrative(PURPLE_ITALIC + "'Turning their marshmallows, the heroes waiting your call..'" + RESET);
             }
         }
@@ -81,18 +82,19 @@ public class TheThreeFriends extends Scene {
     }
 
     public void assignFriendHeroes(Player player) {
+        CustomStrings out = new CustomStrings();
         switch (player.getHero().getName()) {
-            case knightHead -> {
-                player.setFriend1(new Mage(mageHead));
-                player.setFriend2(new Ranger(rangerHead));
+            case RED_BOLD + "The Knight" + RESET -> {
+                player.setFriend1(new Mage(out.mageHead));
+                player.setFriend2(new Ranger(out.rangerHead));
             }
-            case mageHead -> {
-                player.setFriend1(new Ranger(rangerHead));
-                player.setFriend2(new Knight(knightHead));
+            case  BLUE_BOLD + "The Mage" + RESET -> {
+                player.setFriend1(new Ranger(out.rangerHead));
+                player.setFriend2(new Knight(out.knightHead));
             }
-            case rangerHead -> {
-                player.setFriend1(new Mage(mageHead));
-                player.setFriend2(new Knight(knightHead));
+            case GREEN_BOLD + "The Ranger" + RESET -> {
+                player.setFriend1(new Mage(out.mageHead));
+                player.setFriend2(new Knight(out.knightHead));
             }
         }
     }

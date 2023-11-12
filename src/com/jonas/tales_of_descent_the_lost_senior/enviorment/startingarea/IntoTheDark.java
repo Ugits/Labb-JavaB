@@ -15,7 +15,7 @@ public class IntoTheDark extends Scene {
 
     @Override
     public void description() throws InterruptedException {
-        getConsole().printHeader(sceneHead);
+        getConsole().printHeader(getConsole().sceneHead);
         getConsole().printScene(getDescription());
     }
 

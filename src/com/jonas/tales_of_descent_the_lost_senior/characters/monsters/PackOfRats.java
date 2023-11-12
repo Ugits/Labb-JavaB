@@ -1,6 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.monsters;
 
-import static com.jonas.tales_of_descent_the_lost_senior.resources.IColors.*;
+import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
 
 
 public class PackOfRats extends Monster {
@@ -8,10 +8,13 @@ public class PackOfRats extends Monster {
     public PackOfRats(int floorNum) {
         super(
                 "Pack of Rats",
+                floorNum,
+                10,
+                5,
+                2,
                 3,
-                1,
-                false,
-                floorNum);
+                8,
+                false);
     }
 
     @Override
@@ -35,5 +38,11 @@ public class PackOfRats extends Monster {
     public void parry() {
 
     }
+
+    @Override
+    public void dies() {
+        getOut().printNarrative("squeeeck.. you flatten the last rat under you boot");
+    }
+
 
 }

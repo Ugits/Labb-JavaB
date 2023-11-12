@@ -9,4 +9,6 @@ public interface ICombat {
     void flee();
 
     void parry();
+
+    void dies();
 }

@@ -1,11 +1,14 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment;
 
+import com.jonas.tales_of_descent_the_lost_senior.logic.GameLogic;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
+import com.jonas.tales_of_descent_the_lost_senior.resources.IColors;
+import com.jonas.tales_of_descent_the_lost_senior.resources.InputProcessing;
 import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 
-public abstract class Scene extends OutputManipulation {
+public abstract class Scene implements IColors{
     OutputManipulation console = new OutputManipulation();
-
+    InputProcessing sc = new InputProcessing();
     Player player;
     String description;
     int visibility = 10;
@@ -28,9 +31,9 @@ public abstract class Scene extends OutputManipulation {
     // TODO: 2023-10-24  can a interface variable be manipulated. is it final??!!
     // TODO: 2023-10-24 alternatively, make abstract class. with method to manipulate values with internal methods!!!!!!
 
-    public void runScene() throws InterruptedException {
-        System.out.println(sceneHead);
-        Thread.sleep(1000);
+    public void runScene() {
+        System.out.println(getConsole().sceneHead);
+        getConsole().sleep(1000);
         System.out.println("this is a scene");
     }
 
@@ -82,5 +85,11 @@ public abstract class Scene extends OutputManipulation {
         this.player = player;
     }
 
+    public InputProcessing getSc() {
+        return sc;
+    }
 
+    public void setSc(InputProcessing sc) {
+        this.sc = sc;
+    }
 }

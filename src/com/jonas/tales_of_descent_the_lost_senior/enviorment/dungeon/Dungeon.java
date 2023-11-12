@@ -25,7 +25,7 @@ public class Dungeon extends OutputManipulation {
      * List<Room> floor10 = new ArrayList<>(5);
      */
 
-    public Dungeon(Player player,int startingFloor) {
+    public Dungeon(Player player,int floor) {
         this.player = player;
 
         /**
@@ -42,7 +42,7 @@ public class Dungeon extends OutputManipulation {
          */
 
         //if floor is == 5 print story, ("starting to get closer")
-        IntStream.range(1, 6).forEach(i -> this.floor.add(new Room(player, startingFloor, i)));
+        IntStream.range(1, 6).forEach(i -> this.floor.add(new Room(player, floor, i)));
 
         System.out.println("creating floor"+ "[DEBUG]");
     }

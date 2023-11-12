@@ -33,13 +33,22 @@ public class Game {
         player.setFriend1(new Knight(console.knightHead));
         player.setFriend2(new Mage(console.mageHead));
 
-        Dungeon map = new Dungeon(player, 1);
+        for (int floor = 1; floor <= 5; floor++) {
 
-        map.getFloor().get(0).runScene();
-        map.getFloor().get(1).runScene();
-        map.getFloor().get(2).runScene();
-        map.getFloor().get(3).runScene();
-        map.getFloor().get(4).runScene();
+            Dungeon map = new Dungeon(player, floor);
+
+            for (int room = 0; room < 5; room++) {
+
+                map.getFloor().get(room).runScene();
+
+
+            }
+
+        }
+
+
+
+
 
 
         // TODO: 2023-11-05

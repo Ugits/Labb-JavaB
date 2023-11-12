@@ -1,12 +1,15 @@
 package com.jonas.tales_of_descent_the_lost_senior.player;
 
 import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Hero;
-import com.jonas.tales_of_descent_the_lost_senior.objects.items.DungeonMap;
-import com.jonas.tales_of_descent_the_lost_senior.objects.items.Item;
-import com.jonas.tales_of_descent_the_lost_senior.objects.items.MysteryBox;
+import com.jonas.tales_of_descent_the_lost_senior.objects.Item;
+import com.jonas.tales_of_descent_the_lost_senior.objects.items.*;
 import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
+
 
 public class Player {
     OutputManipulation console = new OutputManipulation();

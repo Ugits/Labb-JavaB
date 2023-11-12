@@ -1,14 +1,19 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.monsters;
 
+import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
+
 public class Goblin extends Monster {
 
     public Goblin(int floorNum) {
         super(
                 "Goblin",
-                7,
+                floorNum,
+                10,
+                5,
+                8,
                 2,
-                false,
-                floorNum);
+                5,
+                false);
     }
 
     @Override
@@ -31,6 +36,11 @@ public class Goblin extends Monster {
 
     @Override
     public void parry() {
+
+    }
+
+    @Override
+    public void dies() {
 
     }
 

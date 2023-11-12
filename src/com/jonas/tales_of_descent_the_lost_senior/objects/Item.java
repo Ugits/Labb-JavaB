@@ -1,4 +1,4 @@
-package com.jonas.tales_of_descent_the_lost_senior.objects.items;
+package com.jonas.tales_of_descent_the_lost_senior.objects;
 
 public abstract class Item {
     String name;

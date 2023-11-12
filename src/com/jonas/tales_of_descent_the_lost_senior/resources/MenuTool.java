@@ -1,6 +1,7 @@
 package com.jonas.tales_of_descent_the_lost_senior.resources;
 
-import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.Monster;
+import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
+import com.jonas.tales_of_descent_the_lost_senior.logic.GameLogic;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.Objects;
 public class MenuTool implements IColors {
     OutputManipulation console = new OutputManipulation();
     InputProcessing sc = new InputProcessing();
-
+    GameLogic logic = new GameLogic();
     // Menus
     int num;
     boolean active;
@@ -52,8 +53,6 @@ public class MenuTool implements IColors {
         num = 0;
 
         List<String> options = new ArrayList<>(Arrays.asList("", "", "", "", "", "", "", "", "", ""));
-        System.out.println(RED + getFloorNum() + RESET);
-        System.out.println(RED + getRoomNum() + RESET);
         getConsole().println("Actions:");
         switch (getRoomNum()) {
             case 1 -> {
@@ -101,10 +100,8 @@ public class MenuTool implements IColors {
     }
 
     public void addToOptions(List<String> options, String print) {
-        System.out.println(num);
         options.set(num, print);
         num++;
-
     }
 
     public void userChoice(List<String> options) {
@@ -145,9 +142,15 @@ public class MenuTool implements IColors {
     }
 
     public void executeChoice(String option) {
-        System.out.println(option);
+
         switch (option) {
-            case "Hit" -> System.out.println("execute HIT");
+            case "Hit" -> {
+                getPlayer().getHero().attack();
+                getLogic().attack(getPlayer().getHero(),getMonster());
+                //if player dead, revive
+                //if Monster not dead, get logic(Monster, Hero)
+
+            }
             case "Inventory" -> System.out.println("execute INVENTORY");
             case "Hero Stats" -> getPlayer().getHero().getStatus();
             case "Search Room" -> System.out.println("execute SEARCH");
@@ -223,5 +226,22 @@ public class MenuTool implements IColors {
 
     public void setMonster(Monster monster) {
         this.monster = monster;
+    }
+
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
+    public GameLogic getLogic() {
+        return logic;
+    }
+
+    public void setLogic(GameLogic logic) {
+        this.logic = logic;
     }
 }

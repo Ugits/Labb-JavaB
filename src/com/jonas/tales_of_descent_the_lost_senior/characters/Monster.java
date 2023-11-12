@@ -1,24 +1,14 @@
-package com.jonas.tales_of_descent_the_lost_senior.characters.monsters;
+package com.jonas.tales_of_descent_the_lost_senior.characters;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.ICombat;
 
-import static com.jonas.tales_of_descent_the_lost_senior.resources.IColors.*;
-
 public abstract class Monster extends Character implements ICombat {
 
+    int baseDamage;
 
-    private int baseDmg;
-    private boolean dead;
-
-    public Monster(String name, int stamina, int damage, boolean dead, int level) {
-        super(
-                RED_BOLD + name + RESET,
-                stamina,
-                level);
-
-
-        this.baseDmg = damage;
-        this.dead = dead;
+    public Monster(String name, int level, int staminaMax, int baseDamage, int strength, int intelligens, int dexterity, boolean dead) {
+        super(RED_BOLD + name + RESET, level, staminaMax, strength, intelligens, dexterity, dead);
+        this.baseDamage = baseDamage;
     }
 
 
@@ -47,17 +37,20 @@ public abstract class Monster extends Character implements ICombat {
         return RED_BOLD +" [" + getLevel() + "]" + RESET;
     }
 
-    public int getBaseDmg() {
-        return baseDmg;
-    }
-    public void setBaseDmg(int baseDmg) {
-        this.baseDmg = baseDmg;
+    public int getBaseDamage() {
+        return baseDamage;
     }
 
-    public boolean isDead() {
-        return dead;
+    public void setBaseDamage(int baseDamage) {
+        this.baseDamage = baseDamage;
     }
-    public void setDead(boolean dead) {
-        this.dead = dead;
+
+    public int calculateDamage() {
+        return getBaseDamage();
+    }
+    public void checkIfDead(){
+        if (isDead()){
+
+        }
     }
 }
