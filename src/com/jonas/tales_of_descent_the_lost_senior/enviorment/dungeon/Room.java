@@ -7,14 +7,7 @@ import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.PackOfRats
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
-import com.jonas.tales_of_descent_the_lost_senior.resources.IColors;
 import com.jonas.tales_of_descent_the_lost_senior.resources.MenuTool;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-
 
 public class Room extends Scene {
     DiceSet roll = new DiceSet();
@@ -28,6 +21,7 @@ public class Room extends Scene {
     public boolean hasMonster;
     public Monster monster;
 
+
     public Room(Player player, int floorNum, int roomNum) {
         super(player, -floorNum, -floorNum);
         this.difficulty = floorNum;
@@ -38,7 +32,7 @@ public class Room extends Scene {
         if (getPlayer().getHero().isFirstTimeInDungeon()) {
             this.monster = new PackOfRats(); // inject floorNum for monster lvl
             setHasMonster(true);
-            setDescription("Investigating the foul smell, you discover rats devouring a corpse. As you approach, the vermin abruptly turn their attention toward you, hissing in an unnerving standoff.");
+            setDescription("Investigating the foul smell, you discover rats devouring a corpse. \n As you approach, the vermin abruptly turn their attention toward you, hissing in an unnerving standoff.");
             getPlayer().getHero().setFirstTimeInDungeon(false);
 
         } else {
@@ -71,10 +65,33 @@ public class Room extends Scene {
 
     private void monsterEncounter() {
         getConsole().printMonster(getMonster());
+        encounterStatus();
         getMenu().combatMenu();
     }
 
 
+
+
+
+    public void encounterStatus() {
+        StringBuilder firstLine = new StringBuilder();
+        firstLine.append(" ")
+                .append(getPlayer().getHero().getName())
+                .append(getPlayer().getHero().getLevelToStatus());
+
+        while (firstLine.length() <= 55) firstLine.append(" ");
+
+        firstLine.append(getMonster().getName())
+                .append(getMonster().getLevelToStatus());
+
+        println(firstLine.toString());
+
+        print(getPlayer().getHero().staminaMeter(getPlayer().getHero().getStaminaCurrent(),getPlayer().getHero().getStaminaMax()));
+        print("  " + YELLOW_ITALIC + "VS" + RESET + "  ");
+        println(getMonster().staminaMeter(getMonster().getStaminaCurrent(),getMonster().getStaminaMax()));
+
+        br();
+    }
     //roll what monster
     public Monster fetchMonster(int roll) {
         this.hasMonster = true;

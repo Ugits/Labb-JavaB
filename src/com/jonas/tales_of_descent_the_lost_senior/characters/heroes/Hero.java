@@ -12,22 +12,19 @@ public abstract class Hero extends Character implements ICombat {
     private String name;    // Namn
     int strength;           // Styrka
     int intelligence;       // Intelligens
-    int dexterity;            // Skicklighet/Snabbhet/Vighet
-    int stamina;            // Hälsa
+    int dexterity;          // Skicklighet/Snabbhet/Vighet
     int experience;         // Poäng till nästa nivå
     private int baseDmg;    // Grund skada
     private boolean dead;   // is dead?
     private boolean firstTimeInDungeon = true;
 
     public Hero(String name, int strength, int intelligence, int dexterity, int stamina, int experience, int level, int baseDmg, boolean dead) {
-        super(level);
+        super(stamina,level);
         this.name = name;
         this.strength = strength;
         this.intelligence = intelligence;
         this.dexterity = dexterity;
-        this.stamina = stamina;
         this.experience = experience;
-        this.setLevel(level);
         this.baseDmg = baseDmg;
         this.dead = dead;
     }
@@ -60,15 +57,11 @@ public abstract class Hero extends Character implements ICombat {
     public void getStatus() {
         System.out.println(getName() + getLevelToStatus());
         System.out.println("XP : " + xpMeter(getExperience()));
-        System.out.println("STA: " + staminaMeter(getStamina()));
+        System.out.println("STA: " + staminaMeter(getStaminaCurrent(),getStaminaMax()));
         System.out.println("STR: " + getStrength());
         System.out.println("INT: " + getIntelligence());
         System.out.println("DEX: " + getDexterity());
         System.out.println("DMG: " + getBaseDmg());
-    }
-
-    public void encounterStatus(){
-
     }
 
     private StringBuilder xpMeter(int exp) {
@@ -89,11 +82,6 @@ public abstract class Hero extends Character implements ICombat {
 
         return meter;
     }
-
-
-
-
-
 
     public String getName() {
         return name;
@@ -125,14 +113,6 @@ public abstract class Hero extends Character implements ICombat {
 
     public void setDexterity(int dexterity) {
         this.dexterity = dexterity;
-    }
-
-    public int getStamina() {
-        return stamina;
-    }
-
-    public void setStamina(int stamina) {
-        this.stamina = stamina;
     }
 
     public int getExperience() {

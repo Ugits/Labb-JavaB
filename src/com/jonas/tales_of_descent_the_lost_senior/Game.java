@@ -1,5 +1,7 @@
 package com.jonas.tales_of_descent_the_lost_senior;
 
+import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Knight;
+import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Mage;
 import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Ranger;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Dungeon;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea.IntoTheDark;
@@ -28,6 +30,9 @@ public class Game {
         //map.getFloor().forEach(room -> logic.fight(room.getPlayer(), room.getMonster()));
 
         player.setHero(new Ranger(console.rangerHead));
+        player.setFriend1(new Knight(console.knightHead));
+        player.setFriend2(new Mage(console.mageHead));
+
         Dungeon map = new Dungeon(player);
 
         map.getFloor().get(0).runScene();

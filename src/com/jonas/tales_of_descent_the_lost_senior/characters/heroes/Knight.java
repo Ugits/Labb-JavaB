@@ -40,6 +40,6 @@ public class Knight extends Hero{
 
     @Override
     public String getLevelToStatus() {
-        return RED_BOLD + "         <Lvl " + getLevel() + ">" + RESET;
+        return RED_BOLD +" [" + getLevel() + "]"+RESET;
     }
 }

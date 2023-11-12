@@ -1,5 +1,8 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.monsters;
 
+import static com.jonas.tales_of_descent_the_lost_senior.resources.IColors.*;
+
+
 public class PackOfRats extends Monster {
 
     public PackOfRats() {

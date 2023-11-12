@@ -1,6 +1,7 @@
 package com.jonas.tales_of_descent_the_lost_senior.resources;
 import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.Monster;
 
+import javax.print.DocFlavor;
 import java.util.List;
 import java.util.Objects;
 
@@ -62,7 +63,7 @@ public class OutputManipulation extends CustomStrings {
     }
 
     public void printScene(String description)  {
-        delayPrint(20, YELLOW_ITALIC + "* " + (description) + YELLOW_ITALIC + " *" + RESET);
+        delayPrint(1, YELLOW_ITALIC + "* " + (description) + YELLOW_ITALIC + " *" + RESET);
         sleep(1000);
         br();
 
@@ -80,7 +81,7 @@ public class OutputManipulation extends CustomStrings {
     }
 
     public void printMonster(Monster monster)  {
-        delayPrint(0, RED + "-- You encountered a " + monster.getName() +" --"+ RESET);
+        delayPrint(0, RED + "-- You encountered a " + monster.getName() + RED + " --"+ RESET);
         br();
     }
 

@@ -41,6 +41,6 @@ public class Mage extends Hero{
 
     @Override
     public String getLevelToStatus() {
-        return BLUE_BOLD + "           <Lvl " + getLevel() + ">" + RESET;
+        return BLUE_BOLD +" [" + getLevel() + "]"+RESET;
     }
 }
