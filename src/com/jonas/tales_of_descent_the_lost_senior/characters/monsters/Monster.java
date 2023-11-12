@@ -6,13 +6,17 @@ import static com.jonas.tales_of_descent_the_lost_senior.resources.IColors.*;
 
 public abstract class Monster extends Character implements ICombat {
 
-    private String name;
+
     private int baseDmg;
     private boolean dead;
 
     public Monster(String name, int stamina, int damage, boolean dead, int level) {
-        super(stamina,level);
-        this.name = RED_BOLD + name + RESET;
+        super(
+                RED_BOLD + name + RESET,
+                stamina,
+                level);
+
+
         this.baseDmg = damage;
         this.dead = dead;
     }
@@ -41,13 +45,6 @@ public abstract class Monster extends Character implements ICombat {
     @Override
     public String getLevelToStatus() {
         return RED_BOLD +" [" + getLevel() + "]" + RESET;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getBaseDmg() {

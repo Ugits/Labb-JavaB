@@ -4,12 +4,13 @@ import static com.jonas.tales_of_descent_the_lost_senior.resources.IColors.*;
 import static com.jonas.tales_of_descent_the_lost_senior.resources.IColors.RESET;
 
 public abstract class Character {
-
+    public String name;
     public int staminaMax;
     public int staminaCurrent;
     public int level;              // Utökar grund attributen: Styrka, intelligens och snabbhet
 
-    public Character(int staminaMax, int level) {
+    public Character(String name, int staminaMax, int level) {
+        this.name = name;
         this.staminaMax = staminaMax;
         this.staminaCurrent = staminaMax;
         this.level = level;
@@ -69,5 +70,11 @@ public abstract class Character {
         this.staminaCurrent = staminaCurrent;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }

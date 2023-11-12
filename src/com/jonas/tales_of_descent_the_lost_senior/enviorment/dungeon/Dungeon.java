@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 
 // TODO: 2023-10-26  Iterate over 1 floor, add floorDifficulty by constructor
 public class Dungeon extends OutputManipulation {
-    int floorNum = 0;
+    //int floorNum;
     List<Room> floor = new ArrayList<>(5);
     Player player;
 
@@ -25,7 +25,7 @@ public class Dungeon extends OutputManipulation {
      * List<Room> floor10 = new ArrayList<>(5);
      */
 
-    public Dungeon(Player player) {
+    public Dungeon(Player player,int startingFloor) {
         this.player = player;
 
         /**
@@ -40,9 +40,9 @@ public class Dungeon extends OutputManipulation {
          IntStream.range(0, 5).forEach(i -> this.floor9.add(new Room(9, i + 1)));
          IntStream.range(0, 5).forEach(i -> this.floor10.add(new Room(10, i + 1)));
          */
-        floorNum++;
+
         //if floor is == 5 print story, ("starting to get closer")
-        IntStream.range(0, 5).forEach(i -> this.floor.add(new Room(player, floorNum, i + 1)));
+        IntStream.range(1, 6).forEach(i -> this.floor.add(new Room(player, startingFloor, i)));
 
         System.out.println("creating floor"+ "[DEBUG]");
     }
@@ -91,9 +91,7 @@ public class Dungeon extends OutputManipulation {
     }
 
 
-    public int getFloorNum() {
-        return floorNum;
-    }
+
 
     public List<Room> getFloor() {
         return floor;

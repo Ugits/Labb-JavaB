@@ -5,13 +5,13 @@ import static com.jonas.tales_of_descent_the_lost_senior.resources.IColors.*;
 
 public class PackOfRats extends Monster {
 
-    public PackOfRats() {
+    public PackOfRats(int floorNum) {
         super(
                 "Pack of Rats",
                 3,
                 1,
                 false,
-                1);
+                floorNum);
     }
 
     @Override

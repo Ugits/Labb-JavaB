@@ -9,7 +9,7 @@ import static com.jonas.tales_of_descent_the_lost_senior.resources.IColors.*;
 public abstract class Hero extends Character implements ICombat {
     OutputManipulation console = new OutputManipulation();
 
-    private String name;    // Namn
+
     int strength;           // Styrka
     int intelligence;       // Intelligens
     int dexterity;          // Skicklighet/Snabbhet/Vighet
@@ -19,8 +19,12 @@ public abstract class Hero extends Character implements ICombat {
     private boolean firstTimeInDungeon = true;
 
     public Hero(String name, int strength, int intelligence, int dexterity, int stamina, int experience, int level, int baseDmg, boolean dead) {
-        super(stamina,level);
-        this.name = name;
+        super(
+                name,
+                stamina,
+                level);
+
+
         this.strength = strength;
         this.intelligence = intelligence;
         this.dexterity = dexterity;
@@ -81,14 +85,6 @@ public abstract class Hero extends Character implements ICombat {
         meter.append(BLACK_BACKGROUND + BLACK_BOLD + "▐" + RESET);
 
         return meter;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getStrength() {

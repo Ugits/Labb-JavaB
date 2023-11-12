@@ -2,6 +2,7 @@ package com.jonas.tales_of_descent_the_lost_senior.resources;
 
 import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.Monster;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,14 +12,16 @@ import java.util.Objects;
 public class MenuTool implements IColors {
     OutputManipulation console = new OutputManipulation();
     InputProcessing sc = new InputProcessing();
+
     // Menus
+    int num;
     boolean active;
     Player player;
     Monster monster;
     int roomNum;
     int floorNum;
 
-    public MenuTool(Player player,Monster monster,int roomNum, int floorNum) {
+    public MenuTool(Player player, Monster monster, int roomNum, int floorNum) {
         this.player = player;
         this.monster = monster;
         this.roomNum = roomNum;
@@ -26,57 +29,82 @@ public class MenuTool implements IColors {
     }
 
 
-
     public void combatMenu() {
+        num = 0;
+
         List<String> options = new ArrayList<>(Arrays.asList("", "", "", "", "", "", "", "", "", ""));
-        int num = 0;
+
         getConsole().println(RED_BOLD + "Combat Menu: " + RESET);
-
-        addToOptionsAndPrint(options, num, "Hit");
-        num++;
-        addToOptionsAndPrint(options, num, "Inventory");
-        num++;
-        addToOptionsAndPrint(options, num, "Hero Stats");
-        num++;
+        addToOptions(options, "Hit");
+        addToOptions(options, "Inventory");
+        addToOptions(options, "Hero Stats");
 
         if (getRoomNum() != 1) {
-            addToOptionsAndPrint(options, num, "Escape -> " + RED_BOLD + "[ " + RED_ITALIC + "Room " + getFloorNum() + "." + (getRoomNum() - 1) + RESET + RED_BOLD + " ]" + RESET);
+            addToOptions(options, "Escape -> " + RED_BOLD + "[ " + RED_ITALIC + "Room " + getFloorNum() + "." + (getRoomNum() - 1) + RESET + RED_BOLD + " ]" + RESET);
         }
 
         userChoice(options);
         getConsole().br();
     }
+
     public void actionMenu() {
+
+        num = 0;
+
         List<String> options = new ArrayList<>(Arrays.asList("", "", "", "", "", "", "", "", "", ""));
-        int num = 0;
+        System.out.println(RED + getFloorNum() + RESET);
+        System.out.println(RED + getRoomNum() + RESET);
         getConsole().println("Actions:");
-        
-        if (getRoomNum() != 1) {
-            addToOptionsAndPrint(options, num, "Move Back");    // set int i in for - loop to previous index
-            num++;
+        switch (getRoomNum()) {
+            case 1 -> {
+                addToOptions(options, "Move Forward");     // continue loop
+                addToOptions(options, "Search Room"); // roll for search + LUCK
+                addToOptions(options, "Inventory");   // call Inventory
+                addToOptions(options, "Hero Stats");   // call Stats
+            }
+            case 2, 3, 4 -> {
+                addToOptions(options, "Move Back");    // set int i in for - loop to previous index
+                addToOptions(options, "Move Forward");     // continue loop
+                addToOptions(options, "Search Room"); // roll for search + LUCK
+                addToOptions(options, "Inventory");   // call Inventory
+                addToOptions(options, "Hero Stats");   // call Stats
+            }
+            case 5 -> {
+                addToOptions(options, "Move Back");    // set int i in for - loop to previous index
+                addToOptions(options, "Move to Next Floor");     // Iterate new dungeon
+                addToOptions(options, "Search Room"); // roll for search + LUCK
+                addToOptions(options, "Inventory");   // call Inventory
+                addToOptions(options, "Hero Stats");   // call Stats
+            }
         }
-        if (getRoomNum() != 5) {
-            addToOptionsAndPrint(options, num, "Move Forward");     // continue loop
-            num++;
-        }
-        if (getRoomNum() == 5) {
-            addToOptionsAndPrint(options, num, "Move to Floor " + (getFloorNum() + 1));     // Iterate new dungeon
-            num++;
-        }
-        addToOptionsAndPrint(options, num, "Search Room"); // roll for search + LUCK
-        num++;
-        addToOptionsAndPrint(options, num, "Inventory");   // call Inventory
-        num++;
-        addToOptionsAndPrint(options, num, "Hero Stats");   // call Stats
-        // TODO: 2023-11-07     //  if dungeonMap is requierd. (use Dungeon Map)
-        // TODO: 2023-11-07     //  if MysteryCube is used once. (use Mystery Cube)
+
+        /**
+         *       if (getRoomNum() != 1) {
+         addToOptions(options, "Move Back");    // set int i in for - loop to previous index
+         }
+         if (getRoomNum() != 5) {
+         addToOptions(options, "Move Forward");     // continue loop
+         }
+         if (getRoomNum() == 5) {
+         addToOptions(options, "Move to Next Floor");     // Iterate new dungeon
+         System.out.println(RED_BOLD+"inside == 5"+RESET);
+         }
+         addToOptions(options, "Search Room"); // roll for search + LUCK
+         addToOptions(options, "Inventory");   // call Inventory
+         addToOptions(options,  "Hero Stats");   // call Stats
+         // TODO: 2023-11-07     //  if dungeonMap is requierd. (use Dungeon Map)
+         // TODO: 2023-11-07     //  if MysteryCube is used once. (use Mystery Cube)
+         */
         userChoice(options);
         getConsole().br();
 
     }
 
-    public void addToOptionsAndPrint(List<String> options, int num, String print) {
-        options.add(num, print);
+    public void addToOptions(List<String> options, String print) {
+        System.out.println(num);
+        options.set(num, print);
+        num++;
+
     }
 
     public void userChoice(List<String> options) {
@@ -97,14 +125,15 @@ public class MenuTool implements IColors {
                 case "9" -> executeChoice(options.get(8));
                 case "10" -> executeChoice(options.get(9));
                 default -> {
-                   setActive(true);
+                    setActive(true);
                     System.out.println("Wrong input.. please try again   [ user Choice ]");
                 }
             }
         } while (active);
 
     }
-    private static void printMenu(List<String> options) {
+
+    private void printMenu(List<String> options) {
         int num = 1;
         for (String s : options) {
             if (!Objects.equals(s, "")) {
@@ -116,6 +145,7 @@ public class MenuTool implements IColors {
     }
 
     public void executeChoice(String option) {
+        System.out.println(option);
         switch (option) {
             case "Hit" -> System.out.println("execute HIT");
             case "Inventory" -> System.out.println("execute INVENTORY");
@@ -123,13 +153,12 @@ public class MenuTool implements IColors {
             case "Search Room" -> System.out.println("execute SEARCH");
             case "Move Back" -> System.out.println("execute MOVE BACK");
             case "Move Forward" -> System.out.println("execute FORWARD");
+            case "Move to Next Floor" -> System.out.println("execute NEXT FlOOR");
 
             //case  -> System.out.println();
             //case  -> System.out.println();
             default -> {
-                if (option.equals("Move to Floor " + (getFloorNum() + 1))) {
-                    System.out.println("execute NEXT FLOOR");
-                }
+
                 if (option.equals("Escape -> " + RED_BOLD + "[ " + RED_ITALIC + "Room " + getFloorNum() + "." + (getRoomNum() - 1) + RESET + RED_BOLD + " ]" + RESET)) {
                     System.out.println("execute ESCAPE");
                 } else {

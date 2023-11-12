@@ -30,7 +30,7 @@ public class Room extends Scene {
         setMenu(new MenuTool(getPlayer(), getMonster(), getRoomNum(), getFloorNum()));
 
         if (getPlayer().getHero().isFirstTimeInDungeon()) {
-            this.monster = new PackOfRats(); // inject floorNum for monster lvl
+            this.monster = new PackOfRats(floorNum);
             setHasMonster(true);
             setDescription("Investigating the foul smell, you discover rats devouring a corpse. \n As you approach, the vermin abruptly turn their attention toward you, hissing in an unnerving standoff.");
             getPlayer().getHero().setFirstTimeInDungeon(false);
@@ -54,7 +54,7 @@ public class Room extends Scene {
     public void runScene() {
         // Print scene
 
-        getConsole().printHeader("Room " + getFloorNum() + "." + getRoomNum());
+        getConsole().printHeader("Room " + getRoomNum() + RESET + YELLOW_BOLD + " -- " + YELLOW_ITALIC + "Floor " + getFloorNum());
         getConsole().printScene(getDescription());
         if (hasMonster) {
             monsterEncounter();
@@ -70,9 +70,6 @@ public class Room extends Scene {
     }
 
 
-
-
-
     public void encounterStatus() {
         StringBuilder firstLine = new StringBuilder();
         firstLine.append(" ")
@@ -86,22 +83,23 @@ public class Room extends Scene {
 
         println(firstLine.toString());
 
-        print(getPlayer().getHero().staminaMeter(getPlayer().getHero().getStaminaCurrent(),getPlayer().getHero().getStaminaMax()));
+        print(getPlayer().getHero().staminaMeter(getPlayer().getHero().getStaminaCurrent(), getPlayer().getHero().getStaminaMax()));
         print("  " + YELLOW_ITALIC + "VS" + RESET + "  ");
-        println(getMonster().staminaMeter(getMonster().getStaminaCurrent(),getMonster().getStaminaMax()));
+        println(getMonster().staminaMeter(getMonster().getStaminaCurrent(), getMonster().getStaminaMax()));
 
         br();
     }
+
     //roll what monster
     public Monster fetchMonster(int roll) {
         this.hasMonster = true;
         Monster temp = null;
         switch (roll) {
             case 1 -> {
-                temp = new PackOfRats();
+                temp = new PackOfRats(getFloorNum());
             }
             case 2 -> {
-                temp = new Goblin();
+                temp = new Goblin(getFloorNum());
             }
 
             default -> {
