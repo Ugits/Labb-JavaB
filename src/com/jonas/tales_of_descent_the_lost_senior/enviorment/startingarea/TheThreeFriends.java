@@ -49,9 +49,9 @@ public class TheThreeFriends extends Scene {
             getConsole().delayPrint(80,"Choose wisely.. ");
 
             switch (getSc().getScanner().nextLine()) {
-                case "The Knight", "the knight", "Knight", "knight", "1", "Red", "red" -> temp = new Knight(getConsole().knightHead);
-                case "The Mage", "the mage", "Mage", "mage", "2", "Blue", "blue" -> temp = new Mage(getConsole().mageHead);
-                case "The Ranger", "the ranger", "Ranger", "ranger", "3", "Green", "green" -> temp = new Ranger(getConsole().rangerHead);
+                case "The Knight", "the knight", "Knight", "knight", "1", "Red", "red" -> temp = new Knight();
+                case "The Mage", "the mage", "Mage", "mage", "2", "Blue", "blue" -> temp = new Mage();
+                case "The Ranger", "the ranger", "Ranger", "ranger", "3", "Green", "green" -> temp = new Ranger();
                 default -> getConsole().printNarrative(PURPLE_ITALIC + "'Turning their marshmallows, the heroes waiting your call..'" + RESET);
             }
         }
@@ -85,16 +85,16 @@ public class TheThreeFriends extends Scene {
         CustomStrings out = new CustomStrings();
         switch (player.getHero().getName()) {
             case RED_BOLD + "The Knight" + RESET -> {
-                player.setFriend1(new Mage(out.mageHead));
-                player.setFriend2(new Ranger(out.rangerHead));
+                player.setFriend1(new Mage());
+                player.setFriend2(new Ranger());
             }
             case  BLUE_BOLD + "The Mage" + RESET -> {
-                player.setFriend1(new Ranger(out.rangerHead));
-                player.setFriend2(new Knight(out.knightHead));
+                player.setFriend1(new Ranger());
+                player.setFriend2(new Knight());
             }
             case GREEN_BOLD + "The Ranger" + RESET -> {
-                player.setFriend1(new Mage(out.mageHead));
-                player.setFriend2(new Knight(out.knightHead));
+                player.setFriend1(new Mage());
+                player.setFriend2(new Knight());
             }
         }
     }

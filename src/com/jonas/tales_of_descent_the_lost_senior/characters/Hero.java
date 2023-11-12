@@ -1,39 +1,22 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters;
 
-import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
-import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 
 
 public abstract class Hero extends Character {
 
     private int luck;
-    private int experience;         // Poäng till nästa nivå
+    private int experience;
     private boolean firstTimeInDungeon;
-    private int baseDamage;
-    //private int damage = getBaseDamage() + (getMainAttribute()/2);
-    // TODO: 2023-11-12 move baseDMG
+
     public Hero(String name, int level, int staminaMax, int baseDamage, int strength, int intelligens, int dexterity, boolean dead) {
-        super(name, level, staminaMax, strength, intelligens, dexterity, dead);
+        super(name, level, staminaMax, strength, intelligens, dexterity,baseDamage, dead);
         this.experience = 0;
         this.luck = 0;
         this.firstTimeInDungeon = true;
-        this.baseDamage = baseDamage;
+
     }
-
-
-
-
-    public void getStatus() {
-        System.out.println(getName() + getLevelToStatus());
-        System.out.println("XP : " + xpMeter(getExperience()));
-        System.out.println("STA: " + staminaMeter(getStaminaCurrent(), getStaminaMax()));
-        System.out.println("STR: " + getStrength());
-        System.out.println("INT: " + getIntelligence());
-        System.out.println("DEX: " + getDexterity());
-        System.out.println("DMG: " + getBaseDamage());
-    }
-
+    //Hero methods
     private StringBuilder xpMeter(int exp) {
 
         double expTemp = (double) exp / 4;
@@ -53,12 +36,36 @@ public abstract class Hero extends Character {
         return meter;
     }
 
+    public void getStatus() {
+        System.out.println(getName() + getLevelToStatus());
+        System.out.println("XP : " + xpMeter(getExperience()));
+        System.out.println("STA: " + staminaMeter(getStaminaCurrent(), getStaminaMax()));
+        System.out.println("STR: " + getStrength());
+        System.out.println("INT: " + getIntelligence());
+        System.out.println("DEX: " + getDexterity());
+        System.out.println("DMG: " + getBaseDamage());
+    }
     public int getMainAttribute() {
-
         return 0;
     }
-    // GET n SET
 
+    public int calculateDamage() {
+        DiceSet roll = new DiceSet();
+        //int mainAttMod = getMainAttribute() / 2;
+        //int test = roll.dCustom(mainAttMod);
+        //System.out.print(test);
+        //System.out.println(" Roll [CALCULATE]");
+        //System.out.println(mainAttMod + "  Main ATT Mod [CALCULATE]");
+        //System.out.print(test + mainAttMod);
+        //System.out.println("  Total [CALCULATE]");
+        return getBaseDamage() + roll.dCustom(getMainAttribute() / 2);
+    }
+
+
+
+
+
+    // GET n SET
     public int getLuck() {
         return luck;
     }
@@ -83,28 +90,9 @@ public abstract class Hero extends Character {
         this.firstTimeInDungeon = firstTimeInDungeon;
     }
 
-    public int getBaseDamage() {
-        return baseDamage;
-    }
 
-    public void setBaseDamage(int baseDamage) {
-        this.baseDamage = baseDamage;
-    }
 
-    public int calculateDamage() {
-        DiceSet roll = new DiceSet();
-        //int mainAttMod = getMainAttribute() / 2;
-        //int test = roll.dCustom(mainAttMod);
-        //System.out.print(test);
-        //System.out.println(" Roll [CALCULATE]");
-        //System.out.println(mainAttMod + "  Main ATT Mod [CALCULATE]");
-        //System.out.print(test + mainAttMod);
-        //System.out.println("  Total [CALCULATE]");
 
-        return getBaseDamage() + roll.dCustom(getMainAttribute() / 2);
-    }
 
-    public void consumeStamina(int amount) {
-        setStaminaCurrent(getStaminaCurrent() - amount);
-    }
+
 }

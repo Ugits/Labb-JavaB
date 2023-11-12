@@ -29,9 +29,9 @@ public class Game {
         //Dungeon map = new Dungeon(player);
         //map.getFloor().forEach(room -> logic.fight(room.getPlayer(), room.getMonster()));
 
-        player.setHero(new Ranger(console.rangerHead));
-        player.setFriend1(new Knight(console.knightHead));
-        player.setFriend2(new Mage(console.mageHead));
+        player.setHero(new Ranger());
+        player.setFriend1(new Knight());
+        player.setFriend2(new Mage());
 
         for (int floor = 1; floor <= 5; floor++) {
 

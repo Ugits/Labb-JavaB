@@ -5,9 +5,9 @@ import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
 
 public class Ranger extends Hero {
 
-    public Ranger(String name) {
+    public Ranger() {
         super(
-                name,
+                GREEN_BOLD + "The Ranger" + RESET,
                 1,
                 100,
                 5,

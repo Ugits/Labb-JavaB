@@ -5,9 +5,9 @@ import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
 
 public class Mage extends Hero {
 
-    public Mage(String name) {
+    public Mage() {
         super(
-                name,
+                BLUE_BOLD + "The Mage" + RESET,
                 1,
                 100,
                 5,

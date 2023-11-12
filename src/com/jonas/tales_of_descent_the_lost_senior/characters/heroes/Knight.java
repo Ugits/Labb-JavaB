@@ -5,9 +5,9 @@ import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
 
 public class Knight extends Hero {
 
-    public Knight(String name) {
+    public Knight() {
         super(
-                name,
+                RED_BOLD + "The Knight" + RESET,
                 1,
                 100,
                 5,

@@ -14,9 +14,10 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     private int strength;           // Styrka // + Dmg
     private int intelligence;       // Intelligens // for casting intelligence
     private int dexterity;          // Skicklighet/Snabbhet/Vighet // hit chance/ dodge  DEX vs DEX
+    private int baseDamage;
     private boolean dead;
 
-    public Character(String name, int level, int staminaMax, int strength, int intelligence, int dexterity, boolean dead) {
+    public Character(String name, int level, int staminaMax, int strength, int intelligence, int dexterity,int baseDamage, boolean dead) {
         setName(name);
         setLevel(level);
         setStaminaMax(staminaMax);
@@ -24,9 +25,13 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
         setStrength(strength);
         setIntelligence(intelligence);
         setDexterity(dexterity);
+        setBaseDamage(baseDamage);
         setDead(dead);
     }
 
+    public void consumeStamina(int amount) {
+        setStaminaCurrent(getStaminaCurrent() - amount);
+    }
 
     public String staminaMeter(int staminaCurrent, int staminaMax) {
 
@@ -52,7 +57,6 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
 
         return meter.toString();
     }
-
     public String getLevelToStatus() {
         return "[ " + getLevel() + " ]";
     }
@@ -60,6 +64,18 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     public void takeDamage(int amount){
         setStaminaCurrent(getStaminaCurrent() - amount);
     }
+
+    public int calculateDamage(){
+        return getBaseDamage();
+    }
+
+
+
+
+
+
+
+
 
     // GET n SET
     public int getLevel() {
@@ -118,11 +134,17 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
         this.dead = dead;
     }
 
+    public int getBaseDamage() {
+        return baseDamage;
+    }
+    public void setBaseDamage(int baseDamage) {
+        this.baseDamage = baseDamage;
+    }
+
     public OutputManipulation getOut() {
         return out;
     }
-
-
-
-
+    public void setOut(OutputManipulation out) {
+        this.out = out;
+    }
 }
