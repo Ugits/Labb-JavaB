@@ -1,4 +1,5 @@
 package com.jonas.tales_of_descent_the_lost_senior.resources;
+import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
 
 import java.util.List;
@@ -79,7 +80,7 @@ public class OutputManipulation extends CustomStrings {
         sleep(1000);
     }
 
-    public void printMonster(Monster monster)  {
+    public void printMonster(Character monster)  {
         delayPrint(0, RED + "-- You encountered a " + monster.getName() + RED + " --"+ RESET);
         br();
     }

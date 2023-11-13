@@ -1,21 +1,89 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters;
 
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
+import com.jonas.tales_of_descent_the_lost_senior.objects.Item;
+import com.jonas.tales_of_descent_the_lost_senior.objects.items.DungeonMap;
+import com.jonas.tales_of_descent_the_lost_senior.objects.items.MysteryBox;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 
 
-public abstract class Hero extends Character {
+public abstract class Hero extends Character{
 
     private int luck;
     private int experience;
     private boolean firstTimeInDungeon;
+    List<Item> inventory = new ArrayList<>();
 
     public Hero(String name, int level, int staminaMax, int baseDamage, int strength, int intelligens, int dexterity, boolean dead) {
         super(name, level, staminaMax, strength, intelligens, dexterity,baseDamage, dead);
         this.experience = 0;
         this.luck = 0;
         this.firstTimeInDungeon = true;
-
+        initInventory();
     }
+
+    // Implements IInventory
+    @Override
+    public void initInventory() {
+        inventory.add(new MysteryBox());
+        inventory.add(new DungeonMap());
+    }
+
+    @Override
+    public void printOwnedItems() {
+        sortPrioOwnedItems();
+        int index = 1;
+        for (Item item : getInventory()) {
+            if (item.isOwned()) {
+                System.out.println(index + ". " + item.getName());
+                index++;
+            }
+        }
+    }
+
+    @Override
+    public void printNotOwnedItems() {
+        sortPrioNotOwnedItems();
+        int index = 1;
+        for (Item item : getInventory()) {
+            if (!item.isOwned()) {
+                System.out.println(index + ". " + item.getName());
+                index++;
+            }
+        }
+    }
+
+    @Override
+    public void pickUpItem(String stringItem) {
+        getInventory().forEach(item -> {
+            if (Objects.equals(item.getName(), stringItem)) {
+                item.setOwned(true);
+            }
+        });
+    }
+
+    @Override
+    public void printInventory() {
+        getInventory().forEach(item -> System.out.println(item.getName() + " " + item.isOwned()));
+    }
+
+    @Override
+    public void sortPrioOwnedItems() {
+        getInventory().sort(Comparator.comparing(Item::isOwned).reversed());
+    }
+
+    @Override
+    public void sortPrioNotOwnedItems() {
+        getInventory().sort(Comparator.comparing(Item::isOwned));
+    }
+
+
+
+
     //Hero methods
     private StringBuilder xpMeter(int exp) {
 
@@ -90,9 +158,11 @@ public abstract class Hero extends Character {
         this.firstTimeInDungeon = firstTimeInDungeon;
     }
 
+    public List<Item> getInventory() {
+        return inventory;
+    }
 
-
-
-
-
+    public void setInventory(List<Item> inventory) {
+        this.inventory = inventory;
+    }
 }

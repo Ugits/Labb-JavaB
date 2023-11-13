@@ -1,5 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.resources;
 
+import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
 import com.jonas.tales_of_descent_the_lost_senior.logic.GameLogic;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
@@ -17,14 +18,14 @@ public class MenuTool implements IColors {
     // Menus
     private int num;
     private boolean active;
-    private Player player;
-    private Monster monster;
+    private Character hero;
+    private Character monster;
     private int roomNum;
     private int floorNum;
 
-    public MenuTool(Player player, Monster monster, int roomNum, int floorNum) {
-        this.player = player;
-        this.monster = monster;
+    public MenuTool(Character hero, Character monster, int roomNum, int floorNum) {
+        setHero(hero);
+        setMonster(monster);
         this.roomNum = roomNum;
         this.floorNum = floorNum;
     }
@@ -145,14 +146,15 @@ public class MenuTool implements IColors {
 
         switch (option) {
             case "Hit" -> {
-                getPlayer().getHero().attack(getMonster());
+                getHero().attack(getMonster());
+
 
                 //if player dead, revive
                 //if Monster not dead, get logic(Monster, Hero)
 
             }
             case "Inventory" -> System.out.println("execute INVENTORY");
-            case "Hero Stats" -> getPlayer().getHero().getStatus();
+            case "Hero Stats" -> getHero().getStatus();
             case "Search Room" -> System.out.println("execute SEARCH");
             case "Move Back" -> System.out.println("execute MOVE BACK");
             case "Move Forward" -> System.out.println("execute FORWARD");
@@ -180,12 +182,12 @@ public class MenuTool implements IColors {
         this.active = active;
     }
 
-    public Player getPlayer() {
-        return player;
+    public Character getHero() {
+        return hero;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setHero(Character hero) {
+        this.hero = hero;
     }
 
     public int getRoomNum() {
@@ -220,11 +222,11 @@ public class MenuTool implements IColors {
         this.sc = sc;
     }
 
-    public Monster getMonster() {
+    public Character getMonster() {
         return monster;
     }
 
-    public void setMonster(Monster monster) {
+    public void setMonster(Character monster) {
         this.monster = monster;
     }
 

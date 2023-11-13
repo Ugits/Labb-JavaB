@@ -1,5 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.heroes;
 
+import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Hero;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
 
@@ -18,15 +19,18 @@ public class Ranger extends Hero {
     }
 
     @Override
-    public void attack(Monster monster) {
+    public void attack(Character monster) {
+
         getOut().println(getName() + " fires an arrow!");
+
+        System.out.println("consume 5 stamina");
+        consumeStamina(5); // Interface stamina consumption. eg. HIT = 5
+
         attackLogics(this, monster);
-    }
-
-    @Override
-    public void attack(Hero player) {
 
     }
+
+
 
     @Override
     public void advancedAttack() {

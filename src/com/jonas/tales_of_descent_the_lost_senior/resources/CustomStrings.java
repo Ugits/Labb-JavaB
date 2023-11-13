@@ -15,7 +15,7 @@ public class CustomStrings implements IColors {
     public final String rangerHead = GREEN_BOLD + "The Ranger" + RESET;
 
     // SCENE: The Three Friends
-    public String theThreeFriendsDescription() throws InterruptedException {
+    public String theThreeFriendsDescription()  {
         return YELLOW_ITALIC + knightHead + ", " + mageHead + YELLOW_ITALIC + " and " + rangerHead + YELLOW_ITALIC + " are gathered around the campfire in the forest" + RESET;
     }
 

@@ -19,15 +19,11 @@ public class Game {
     Player player = new Player();
     GameLogic logic = new GameLogic();
 
-    public void run()  {
+    public void run() {
 
-        //new TheThreeFriends(player);
-        //new Waterfall(player);
-        //new IntoTheDark(player);
-
-        //loop
-        //Dungeon map = new Dungeon(player);
-        //map.getFloor().forEach(room -> logic.fight(room.getPlayer(), room.getMonster()));
+       //new TheThreeFriends(player);
+       //new Waterfall(player);
+       //new IntoTheDark(player);
 
         player.setHero(new Ranger());
         player.setFriend1(new Knight());
@@ -35,15 +31,13 @@ public class Game {
 
         for (int floor = 1; floor <= 5; floor++) {
 
-            Dungeon map = new Dungeon(player, floor);
+            Dungeon map = new Dungeon(player.getHero(), floor);
 
             for (int room = 0; room < 5; room++) {
 
                 map.getFloor().get(room).runScene();
 
-
             }
-
         }
 
 

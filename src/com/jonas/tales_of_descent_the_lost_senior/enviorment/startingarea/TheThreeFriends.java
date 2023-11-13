@@ -1,4 +1,5 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea;
+import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Hero;
 import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Knight;
 import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Mage;
@@ -13,8 +14,11 @@ import java.util.List;
 
 public class TheThreeFriends extends Scene {
 
-    public TheThreeFriends(Player player) throws InterruptedException {
+    Player player;
+
+    public TheThreeFriends(Player player)  {
         super(player,0, 0);
+        setPlayer(player);
         setDescription(getConsole().theThreeFriendsDescription());
         description();
         part1();
@@ -23,7 +27,7 @@ public class TheThreeFriends extends Scene {
     }
 
     @Override
-    public void description() throws InterruptedException {
+    public void description() {
         getConsole().printHeader(getConsole().sceneHead);
         getConsole().printScene(getDescription());
     }
@@ -36,13 +40,13 @@ public class TheThreeFriends extends Scene {
             getConsole().rangerHead, "The swift and skilled tracker, attuned to the secrets of the forest."));
 
 
-    public void part1() throws InterruptedException {
+    public void part1() {
         // friends by the fire
         getConsole().printNarrative(PURPLE_ITALIC + "As the friends gather, a choice awaits. Whom will you take charge of in this quest?" + RESET);
         getConsole().dialogIterator(theFriends);
     }
 
-    public Hero heroSwitch() throws InterruptedException {
+    public Hero heroSwitch() {
         Hero temp = null;
         while (temp == null) {
 
@@ -58,7 +62,9 @@ public class TheThreeFriends extends Scene {
         return temp;
     }
 
-    public void part2() throws InterruptedException {
+    public void part2()  {
+
+        System.out.println(getPlayer().getHero().getName());
         // dialog continues
         getConsole().br();
         System.out.println(getPlayer().getHero().getName());
@@ -66,7 +72,7 @@ public class TheThreeFriends extends Scene {
         getConsole().br();
         getConsole().printNarrative(PURPLE_ITALIC + "The trio decides to cover more ground, splitting up to search for clues. You will head towards the waterfall." + RESET);
 
-        assignFriendHeroes(getPlayer());
+        assignFriendHeroes();
 
         getConsole().printHeader(getPlayer().getFriend1().getName());
         getConsole().delayPrint(50,"Me and " + getPlayer().getFriend2().getName() + " will scout ahead.");
@@ -81,21 +87,31 @@ public class TheThreeFriends extends Scene {
         getConsole().sleep(3000);
     }
 
-    public void assignFriendHeroes(Player player) {
-        CustomStrings out = new CustomStrings();
-        switch (player.getHero().getName()) {
+    public void assignFriendHeroes() {
+        switch (getPlayer().getHero().getName()) {
             case RED_BOLD + "The Knight" + RESET -> {
-                player.setFriend1(new Mage());
-                player.setFriend2(new Ranger());
+                getPlayer().setFriend1(new Mage());
+                getPlayer().setFriend2(new Ranger());
             }
             case  BLUE_BOLD + "The Mage" + RESET -> {
-                player.setFriend1(new Ranger());
-                player.setFriend2(new Knight());
+                getPlayer().setFriend1(new Ranger());
+                getPlayer().setFriend2(new Knight());
             }
             case GREEN_BOLD + "The Ranger" + RESET -> {
-                player.setFriend1(new Mage());
-                player.setFriend2(new Knight());
+                getPlayer().setFriend1(new Mage());
+                getPlayer().setFriend2(new Knight());
             }
         }
+    }
+
+
+    //GET n SET
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

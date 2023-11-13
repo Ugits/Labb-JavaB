@@ -1,5 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.heroes;
 
+import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Hero;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
 
@@ -18,15 +19,12 @@ public class Mage extends Hero {
     }
 
     @Override
-    public void attack(Monster monster) {
+    public void attack(Character monster) {
         getOut().println(getName() + " casts a fireball!");
         attackLogics(this, monster);
     }
 
-    @Override
-    public void attack(Hero player) {
 
-    }
 
     @Override
     public void advancedAttack() {

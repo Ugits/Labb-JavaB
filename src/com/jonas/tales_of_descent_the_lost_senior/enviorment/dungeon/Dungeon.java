@@ -1,5 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon;
 
+import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 
@@ -10,7 +11,7 @@ import java.util.stream.IntStream;
 public class Dungeon extends OutputManipulation {
     //int floorNum;
     List<Room> floor = new ArrayList<>(5);
-    Player player;
+    Character hero;
 
     /**
      * List<Room> floor1 = new ArrayList<>(5);
@@ -25,8 +26,8 @@ public class Dungeon extends OutputManipulation {
      * List<Room> floor10 = new ArrayList<>(5);
      */
 
-    public Dungeon(Player player,int floor) {
-        this.player = player;
+    public Dungeon(Character hero, int floor) {
+        setHero(hero);
 
         /**
          * IntStream.range(0, 5).forEach(i -> this.floor1.add(new Room(1, i + 1)));
@@ -42,7 +43,7 @@ public class Dungeon extends OutputManipulation {
          */
 
         //if floor is == 5 print story, ("starting to get closer")
-        IntStream.range(1, 6).forEach(i -> this.floor.add(new Room(player, floor, i)));
+        IntStream.range(1, 6).forEach(i -> this.floor.add(new Room(getHero(), floor, i)));
 
         System.out.println("creating floor"+ "[DEBUG]");
     }
@@ -93,9 +94,7 @@ public class Dungeon extends OutputManipulation {
 
 
 
-    public List<Room> getFloor() {
-        return floor;
-    }
+
 
 
     /**
@@ -140,4 +139,19 @@ public class Dungeon extends OutputManipulation {
      }
      */
 
+    //GET n SET
+
+    public void setFloor(List<Room> floor) {
+        this.floor = floor;
+    }
+    public List<Room> getFloor() {
+        return floor;
+    }
+
+    public Character getHero() {
+        return hero;
+    }
+    public void setHero(Character hero) {
+        this.hero = hero;
+    }
 }

@@ -1,5 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon;
 
+import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.Goblin;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
 import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.NoMonster;
@@ -20,21 +21,23 @@ public class Room extends Scene {
     public boolean hasStore;
     public boolean hasTreasure;
     public boolean hasMonster;
-    public Monster monster;
+    public Character monster;
+    public Character hero;
 
 
-    public Room(Player player, int floorNum, int roomNum) {
-        super(player, -floorNum, -floorNum);
+    public Room(Character hero, int floorNum, int roomNum) {
+        super(-floorNum, -floorNum);
+        this.hero = hero;
         this.difficulty = floorNum;
         this.floorNum = floorNum;
         this.roomNum = roomNum;
 
 
-        if (getPlayer().getHero().isFirstTimeInDungeon()) {
+        if (getHero().isFirstTimeInDungeon()) {
             this.monster = new PackOfRats(floorNum);
             setHasMonster(true);
             setDescription("Investigating the foul smell, you discover rats devouring a corpse. \n As you approach, the vermin abruptly turn their attention toward you, hissing in an unnerving standoff.");
-            getPlayer().getHero().setFirstTimeInDungeon(false);
+            getHero().setFirstTimeInDungeon(false);
 
         } else {
             this.monster = (roll.d20() > 12) ? fetchMonster(roll.dCustom(2)) : new NoMonster(); // Abstract clas cant be null?
@@ -48,7 +51,7 @@ public class Room extends Scene {
 
         // set description
 
-        setMenu(new MenuTool(getPlayer(), getMonster(), getRoomNum(), getFloorNum()));
+        setMenu(new MenuTool(getHero(), getMonster(), getRoomNum(), getFloorNum()));
     }
 
     @Override
@@ -66,11 +69,15 @@ public class Room extends Scene {
     private void monsterEncounter() {
         getConsole().printMonster(getMonster());
 
-        while (!getMonster().isDead() && !getPlayer().getHero().isDead()) {
+        while (!getMonster().isDead() && !getHero().isDead()) {
+
             encounterStatus();
             getMenu().combatMenu();
+
             if (!getMonster().isDead()) {
-                getMonster().attack(getPlayer().getHero());
+                //call Monster attack
+                getMonster().attack(getHero());
+
             }
         }
     }
@@ -79,8 +86,8 @@ public class Room extends Scene {
     public void encounterStatus() {
         StringBuilder firstLine = new StringBuilder();
         firstLine.append(" ")
-                .append(getPlayer().getHero().getName())
-                .append(getPlayer().getHero().getLevelToStatus());
+                .append(getHero().getName())
+                .append(getHero().getLevelToStatus());
 
         while (firstLine.length() <= 55) firstLine.append(" ");
 
@@ -89,7 +96,7 @@ public class Room extends Scene {
 
         getConsole().println(firstLine.toString());
 
-        getConsole().print(getPlayer().getHero().staminaMeter(getPlayer().getHero().getStaminaCurrent(), getPlayer().getHero().getStaminaMax()));
+        getConsole().print(getHero().staminaMeter(getHero().getStaminaCurrent(), getHero().getStaminaMax()));
         getConsole().print("  " + YELLOW_ITALIC + "VS" + RESET + "  ");
         getConsole().println(getMonster().staminaMeter(getMonster().getStaminaCurrent(), getMonster().getStaminaMax()));
 
@@ -318,13 +325,6 @@ public class Room extends Scene {
         this.hasMonster = hasMonster;
     }
 
-    public Monster getMonster() {
-        return monster;
-    }
-
-    public void setMonster(Monster monster) {
-        this.monster = monster;
-    }
 
     public int getRoomNum() {
         return roomNum;
@@ -336,5 +336,21 @@ public class Room extends Scene {
 
     public void setMenu(MenuTool menu) {
         this.menu = menu;
+    }
+
+    public void setMonster(Character monster) {
+        this.monster = monster;
+    }
+
+    public Character getMonster() {
+        return monster;
+    }
+
+    public Character getHero() {
+        return hero;
+    }
+
+    public void setHero(Character hero) {
+        this.hero = hero;
     }
 }

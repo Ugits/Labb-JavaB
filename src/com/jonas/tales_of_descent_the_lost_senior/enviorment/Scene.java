@@ -1,5 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment;
 
+import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.logic.GameLogic;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 import com.jonas.tales_of_descent_the_lost_senior.resources.IColors;
@@ -9,10 +10,11 @@ import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 public abstract class Scene implements IColors{
     OutputManipulation console = new OutputManipulation();
     InputProcessing sc = new InputProcessing();
-    Player player;
-    String description;
-    int visibility = 10;
-    int breathability = 10;
+
+    private Player player;
+    private String description;
+    private int visibility = 10;
+    private int breathability = 10;
 
     public Scene(Player player, int visibilityMod, int breathabilityMod) {
         setPlayer(player);
@@ -21,11 +23,10 @@ public abstract class Scene implements IColors{
 
     }
 
-    public Scene(Player player,int visibilityMod, int breathabilityMod, String description) {
-        setPlayer(player);
+    public Scene(int visibilityMod, int breathabilityMod) {
         setVisibility(visibilityMod);
         setBreathability(breathabilityMod);
-        setDescription(description);
+        //setDescription(description);
     }
 
     // TODO: 2023-10-24  can a interface variable be manipulated. is it final??!!
@@ -77,13 +78,6 @@ public abstract class Scene implements IColors{
         this.console = console;
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
 
     public InputProcessing getSc() {
         return sc;
@@ -91,5 +85,13 @@ public abstract class Scene implements IColors{
 
     public void setSc(InputProcessing sc) {
         this.sc = sc;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

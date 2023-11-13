@@ -6,7 +6,7 @@ import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 
 public class IntoTheDark extends Scene {
 
-    public IntoTheDark(Player player) throws InterruptedException {
+    public IntoTheDark(Player player) {
         super(player, -1, -1);
         setDescription(intoTheDarkDescription(player));
         description();
@@ -14,17 +14,17 @@ public class IntoTheDark extends Scene {
     }
 
     @Override
-    public void description() throws InterruptedException {
+    public void description() {
         getConsole().printHeader(getConsole().sceneHead);
         getConsole().printScene(getDescription());
     }
 
 
-    public String intoTheDarkDescription(Player player) throws InterruptedException {
+    public String intoTheDarkDescription(Player player) {
         return YELLOW_ITALIC + player.getHero().getName() + YELLOW_ITALIC + ", !!!!!!!!!!!!!!!!!!!!!!!" + RESET;
     }
 
-    public void part1() throws InterruptedException {
+    public void part1() {
         //Into The Dark
         /**
          * String intoTheDark = """

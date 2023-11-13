@@ -57,6 +57,7 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
 
         return meter.toString();
     }
+
     public String getLevelToStatus() {
         return "[ " + getLevel() + " ]";
     }
@@ -73,6 +74,19 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
 
 
 
+
+    // Implements IInventory
+    public void initInventory(){};
+    public void printOwnedItems(){};
+    public void printNotOwnedItems(){};
+    public void pickUpItem(String stringItem){};
+    public void printInventory(){};
+    public void sortPrioOwnedItems(){};
+    public void sortPrioNotOwnedItems(){};
+    public boolean isFirstTimeInDungeon() {
+        return false;
+    }
+    public void setFirstTimeInDungeon(boolean b) {}
 
 
 
@@ -147,4 +161,11 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     public void setOut(OutputManipulation out) {
         this.out = out;
     }
+    public void getStatus() {}
+
+
+
+
+
+
 }

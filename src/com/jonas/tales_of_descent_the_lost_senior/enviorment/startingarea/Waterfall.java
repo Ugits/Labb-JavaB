@@ -5,7 +5,7 @@ import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 
 public class Waterfall extends Scene {
 
-    public Waterfall(Player player) throws InterruptedException {
+    public Waterfall(Player player)  {
         super(player, 0, 0);
         setDescription(waterfallDescription(getPlayer()));
         description();
@@ -13,17 +13,17 @@ public class Waterfall extends Scene {
     }
 
     @Override
-    public void description() throws InterruptedException {
+    public void description() {
         getConsole().printHeader(getConsole().sceneHead);
         getConsole().printScene(getDescription());
     }
 
     // Waterfall
-    public String waterfallDescription(Player player) throws InterruptedException {
+    public String waterfallDescription(Player player) {
         return YELLOW_ITALIC + player.getHero().getName() + YELLOW_ITALIC + ", having navigated alone, arrives at the base of the waterfall" + RESET;
     }
 
-    public void part1() throws InterruptedException {
+    public void part1()  {
         getConsole().printNarrative("The cascade roars, shrouded in mystery. You find yourself standing alone before the powerful waterfall. The air is thick with the spray of the water, the ground damp beneath your feet.");
 
         getConsole().printHeader(getPlayer().getHero().getName());
@@ -67,16 +67,16 @@ public class Waterfall extends Scene {
     }
 
     public void pickUpMysteryBox() {
-        getPlayer().pickUpItem("Mystery Box");
+        getPlayer().getHero().pickUpItem("Mystery Box");
     }
 
-    public void continueWithBox() throws InterruptedException {
+    public void continueWithBox()  {
         getConsole().printNarrative("Fitting in your palm, you now hold a metallic silver cube, with flawless reflective surfaces, and surprisingly lightweight.");
         getConsole().printHeader(getPlayer().getHero().getName());
         getConsole().delayPrint(0, "Might this be a lead to my master..");
     }
 
-    public void continueWithoutBox() throws InterruptedException {
+    public void continueWithoutBox() {
         getConsole().printNarrative("Irrationally, you ignore the mystery, a mystery that might had been of importance... ");
         getConsole().printNarrative("anyway... lets continue!");
     }
