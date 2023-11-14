@@ -1,9 +1,7 @@
 package com.jonas.tales_of_descent_the_lost_senior.resources;
 
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
-import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
 import com.jonas.tales_of_descent_the_lost_senior.logic.GameLogic;
-import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +29,29 @@ public class MenuTool implements IColors {
     }
 
 
+    public void encounterStatus() {
+        StringBuilder firstLine = new StringBuilder();
+        firstLine.append(" ")
+                .append(getHero().getName())
+                .append(getHero().getLevelToStatus());
+
+        while (firstLine.length() <= 55) firstLine.append(" ");
+
+        firstLine.append(getMonster().getName())
+                .append(getMonster().getLevelToStatus());
+
+        getConsole().println(firstLine.toString());
+
+        getConsole().print(getHero().staminaMeter(getHero().getStaminaCurrent(), getHero().getStaminaMax()));
+        getConsole().print("  " + YELLOW_ITALIC + "VS" + RESET + "  ");
+        getConsole().println(getMonster().staminaMeter(getMonster().getStaminaCurrent(), getMonster().getStaminaMax()));
+
+        getConsole().br();
+    }
+
     public void combatMenu() {
+        encounterStatus();
+
         num = 0;
 
         List<String> options = new ArrayList<>(Arrays.asList("", "", "", "", "", "", "", "", "", ""));
@@ -153,8 +173,14 @@ public class MenuTool implements IColors {
                 //if Monster not dead, get logic(Monster, Hero)
 
             }
-            case "Inventory" -> System.out.println("execute INVENTORY");
-            case "Hero Stats" -> getHero().getStatus();
+            case "Inventory" -> {
+                System.out.println("execute INVENTORY");
+                combatMenu();
+            }
+            case "Hero Stats" -> {
+                getHero().getStatus();
+                combatMenu();
+            }
             case "Search Room" -> System.out.println("execute SEARCH");
             case "Move Back" -> System.out.println("execute MOVE BACK");
             case "Move Forward" -> System.out.println("execute FORWARD");

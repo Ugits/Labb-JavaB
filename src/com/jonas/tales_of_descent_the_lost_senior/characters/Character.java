@@ -1,4 +1,5 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters;
+import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.ICombat;
 import com.jonas.tales_of_descent_the_lost_senior.logic.GameLogic;
 import com.jonas.tales_of_descent_the_lost_senior.resources.IColors;
@@ -29,9 +30,11 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
         setDead(dead);
     }
 
-    public void consumeStamina(int amount) {
-        setStaminaCurrent(getStaminaCurrent() - amount);
-    }
+    /**
+     * public void consumeStamina(int amount) {
+         setStaminaCurrent(getStaminaCurrent() - amount);
+     }
+     */
 
     public String staminaMeter(int staminaCurrent, int staminaMax) {
 
@@ -67,7 +70,8 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     }
 
     public int calculateDamage(){
-        return getBaseDamage();
+        DiceSet roll = new DiceSet();
+        return roll.dCustom(getBaseDamage());
     }
 
 
@@ -164,8 +168,5 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     public void getStatus() {}
 
 
-
-
-
-
+    public void gainExp(int monsterLevel) {}
 }

@@ -1,27 +1,32 @@
-package com.jonas.tales_of_descent_the_lost_senior.characters.heroes;
+package com.jonas.tales_of_descent_the_lost_senior.characters.hero.models;
 
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
-import com.jonas.tales_of_descent_the_lost_senior.characters.Hero;
-import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
+import com.jonas.tales_of_descent_the_lost_senior.characters.hero.Hero;
 
-public class Mage extends Hero {
+public class Ranger extends Hero {
 
-    public Mage() {
+    public Ranger() {
         super(
-                BLUE_BOLD + "The Mage" + RESET,
+                GREEN_BOLD + "The Ranger" + RESET,
                 1,
                 100,
                 5,
+                8,
                 5,
                 12,
-                8,
                 false);
     }
 
     @Override
     public void attack(Character monster) {
-        getOut().println(getName() + " casts a fireball!");
+
+        getOut().println(getName() + " fires an arrow!");
+
+        System.out.println("consume 5 stamina");
+        consumeStamina(ATTACK);
+
         attackLogics(this, monster);
+
     }
 
 
@@ -48,11 +53,13 @@ public class Mage extends Hero {
 
     @Override
     public String getLevelToStatus() {
-        return BLUE_BOLD +" [" + getLevel() + "]"+RESET;
+        return GREEN_BOLD +" [" + getLevel() + "]"+RESET;
     }
 
     @Override
     public int getMainAttribute() {
-        return getIntelligence();
+        return getDexterity();
     }
+
+
 }

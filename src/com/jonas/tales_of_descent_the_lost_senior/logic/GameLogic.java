@@ -1,8 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.logic;
 
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
-import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
-import com.jonas.tales_of_descent_the_lost_senior.characters.Hero;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 

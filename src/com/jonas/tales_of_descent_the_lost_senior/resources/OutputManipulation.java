@@ -1,6 +1,5 @@
 package com.jonas.tales_of_descent_the_lost_senior.resources;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
-import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
 
 import java.util.List;
 import java.util.Objects;

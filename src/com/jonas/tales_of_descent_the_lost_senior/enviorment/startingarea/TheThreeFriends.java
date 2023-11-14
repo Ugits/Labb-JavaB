@@ -1,12 +1,10 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea;
-import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
-import com.jonas.tales_of_descent_the_lost_senior.characters.Hero;
-import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Knight;
-import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Mage;
-import com.jonas.tales_of_descent_the_lost_senior.characters.heroes.Ranger;
+import com.jonas.tales_of_descent_the_lost_senior.characters.hero.Hero;
+import com.jonas.tales_of_descent_the_lost_senior.characters.hero.models.Knight;
+import com.jonas.tales_of_descent_the_lost_senior.characters.hero.models.Mage;
+import com.jonas.tales_of_descent_the_lost_senior.characters.hero.models.Ranger;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
-import com.jonas.tales_of_descent_the_lost_senior.resources.CustomStrings;
 
 import java.util.ArrayList;
 import java.util.Arrays;

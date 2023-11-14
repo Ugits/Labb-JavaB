@@ -1,5 +1,6 @@
-package com.jonas.tales_of_descent_the_lost_senior.characters;
+package com.jonas.tales_of_descent_the_lost_senior.characters.hero;
 
+import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 import com.jonas.tales_of_descent_the_lost_senior.objects.Item;
 import com.jonas.tales_of_descent_the_lost_senior.objects.items.DungeonMap;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public abstract class Hero extends Character{
+public abstract class Hero extends Character implements IStaminaConsumption {
 
     private int luck;
     private int experience;
@@ -25,6 +26,13 @@ public abstract class Hero extends Character{
         this.firstTimeInDungeon = true;
         initInventory();
     }
+
+    //Implements IStaminaConsumption
+    @Override
+    public void consumeStamina(int staAmount) {
+        setStaminaCurrent(getStaminaCurrent() - staAmount);
+    }
+
 
     // Implements IInventory
     @Override
@@ -104,6 +112,12 @@ public abstract class Hero extends Character{
         return meter;
     }
 
+    @Override
+    public void gainExp(int monsterLevel) {
+        System.out.println("gained " + ((10 * monsterLevel)/2) +" + "+ ((25 / getLevel())/2) + " XP");
+        setExperience(getExperience() + ((10 * monsterLevel) + (25 / getLevel())));
+    }
+
     public void getStatus() {
         System.out.println(getName() + getLevelToStatus());
         System.out.println("XP : " + xpMeter(getExperience()));
@@ -128,6 +142,7 @@ public abstract class Hero extends Character{
         //System.out.println("  Total [CALCULATE]");
         return getBaseDamage() + roll.dCustom(getMainAttribute() / 2);
     }
+
 
 
 

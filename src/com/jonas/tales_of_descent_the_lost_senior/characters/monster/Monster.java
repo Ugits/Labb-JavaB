@@ -1,6 +1,6 @@
-package com.jonas.tales_of_descent_the_lost_senior.characters;
+package com.jonas.tales_of_descent_the_lost_senior.characters.monster;
 
-import com.jonas.tales_of_descent_the_lost_senior.interaction.ICombat;
+import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 
 public abstract class Monster extends Character {
 

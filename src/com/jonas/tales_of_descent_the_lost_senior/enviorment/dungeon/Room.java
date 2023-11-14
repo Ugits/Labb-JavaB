@@ -1,28 +1,26 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon;
 
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
-import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.Goblin;
-import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
-import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.NoMonster;
-import com.jonas.tales_of_descent_the_lost_senior.characters.monsters.PackOfRats;
+import com.jonas.tales_of_descent_the_lost_senior.characters.monster.models.Goblin;
+import com.jonas.tales_of_descent_the_lost_senior.characters.monster.Monster;
+import com.jonas.tales_of_descent_the_lost_senior.characters.monster.models.NoMonster;
+import com.jonas.tales_of_descent_the_lost_senior.characters.monster.models.PackOfRats;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
-import com.jonas.tales_of_descent_the_lost_senior.logic.GameLogic;
-import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 import com.jonas.tales_of_descent_the_lost_senior.resources.MenuTool;
 
 public class Room extends Scene {
     DiceSet roll = new DiceSet();
     MenuTool menu;
-    //public boolean hasMonster;
-    public int difficulty;
-    public int floorNum;
-    public int roomNum;
-    public boolean hasStore;
-    public boolean hasTreasure;
-    public boolean hasMonster;
-    public Character monster;
-    public Character hero;
+
+    private int difficulty;
+    private int floorNum;
+    private int roomNum;
+    private boolean hasStore;
+    private boolean hasTreasure;
+    private boolean hasMonster;
+    private Character monster;
+    private Character hero;
 
 
     public Room(Character hero, int floorNum, int roomNum) {
@@ -40,6 +38,7 @@ public class Room extends Scene {
             getHero().setFirstTimeInDungeon(false);
 
         } else {
+            setHasMonster(false);
             this.monster = (roll.d20() > 12) ? fetchMonster(roll.dCustom(2)) : new NoMonster(); // Abstract clas cant be null?
             setDescription(genDescription());
         }
@@ -71,37 +70,19 @@ public class Room extends Scene {
 
         while (!getMonster().isDead() && !getHero().isDead()) {
 
-            encounterStatus();
             getMenu().combatMenu();
 
             if (!getMonster().isDead()) {
                 //call Monster attack
                 getMonster().attack(getHero());
-
+            }else {
+                getHero().gainExp(getMonster().getLevel());
             }
         }
     }
 
 
-    public void encounterStatus() {
-        StringBuilder firstLine = new StringBuilder();
-        firstLine.append(" ")
-                .append(getHero().getName())
-                .append(getHero().getLevelToStatus());
 
-        while (firstLine.length() <= 55) firstLine.append(" ");
-
-        firstLine.append(getMonster().getName())
-                .append(getMonster().getLevelToStatus());
-
-        getConsole().println(firstLine.toString());
-
-        getConsole().print(getHero().staminaMeter(getHero().getStaminaCurrent(), getHero().getStaminaMax()));
-        getConsole().print("  " + YELLOW_ITALIC + "VS" + RESET + "  ");
-        getConsole().println(getMonster().staminaMeter(getMonster().getStaminaCurrent(), getMonster().getStaminaMax()));
-
-        getConsole().br();
-    }
 
     //roll what monster
     public Monster fetchMonster(int roll) {

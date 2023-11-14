@@ -1,8 +1,7 @@
-package com.jonas.tales_of_descent_the_lost_senior.characters.heroes;
+package com.jonas.tales_of_descent_the_lost_senior.characters.hero.models;
 
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
-import com.jonas.tales_of_descent_the_lost_senior.characters.Hero;
-import com.jonas.tales_of_descent_the_lost_senior.characters.Monster;
+import com.jonas.tales_of_descent_the_lost_senior.characters.hero.Hero;
 
 public class Knight extends Hero {
 

@@ -6,7 +6,7 @@ import java.util.Scanner;
  * <i>The `InputProcessing` class is responsible for handling user input
  *    and providing various input-related functionalities.</i>
  */
-public class InputProcessing {
+public class InputProcessing implements IColors {
 
     private Scanner scanner;
 
@@ -19,6 +19,8 @@ public class InputProcessing {
     }
 
     public void waitForEnter(){
+
+        System.out.println(YELLOW_ITALIC + "press enter" + RESET); // use some symbol
         getScanner().nextLine();
     }
 
