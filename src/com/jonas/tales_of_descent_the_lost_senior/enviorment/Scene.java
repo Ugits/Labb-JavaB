@@ -1,14 +1,12 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment;
 
-import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
-import com.jonas.tales_of_descent_the_lost_senior.logic.GameLogic;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 import com.jonas.tales_of_descent_the_lost_senior.resources.IColors;
 import com.jonas.tales_of_descent_the_lost_senior.resources.InputProcessing;
 import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 
 public abstract class Scene implements IColors{
-    OutputManipulation console = new OutputManipulation();
+    OutputManipulation out = new OutputManipulation();
     InputProcessing sc = new InputProcessing();
 
     private Player player;
@@ -33,13 +31,13 @@ public abstract class Scene implements IColors{
     // TODO: 2023-10-24 alternatively, make abstract class. with method to manipulate values with internal methods!!!!!!
 
     public void runScene() {
-        System.out.println(getConsole().sceneHead);
-        getConsole().sleep(1000);
+        System.out.println(getOut().sceneHead);
+        getOut().sleep(1000);
         System.out.println("this is a scene");
     }
 
     public void description() throws InterruptedException {
-        getConsole().printScene(description);
+        getOut().printScene(description);
     }
 
 
@@ -70,12 +68,12 @@ public abstract class Scene implements IColors{
         this.breathability = breathability;
     }
 
-    public OutputManipulation getConsole() {
-        return console;
+    public OutputManipulation getOut() {
+        return out;
     }
 
-    public void setConsole(OutputManipulation console) {
-        this.console = console;
+    public void setOut(OutputManipulation out) {
+        this.out = out;
     }
 
 

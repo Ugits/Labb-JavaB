@@ -20,7 +20,8 @@ public class Goblin extends Monster {
     @Override
     public void attack(Character hero) {
         System.out.println("The goblin swings his dagger");
-        attackLogics(this,hero);
+        attackLogics(hero,this,hero);
+        hero.setAttacking(true);
         // damage player
     }
 

@@ -1,6 +1,7 @@
 package com.jonas.tales_of_descent_the_lost_senior.resources;
 
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
+import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Room;
 import com.jonas.tales_of_descent_the_lost_senior.logic.GameLogic;
 
 import java.util.ArrayList;
@@ -10,16 +11,26 @@ import java.util.Objects;
 
 
 public class MenuTool implements IColors {
-    OutputManipulation console = new OutputManipulation();
+    OutputManipulation out = new OutputManipulation();
     InputProcessing sc = new InputProcessing();
     GameLogic logic = new GameLogic();
     // Menus
     private int num;
-    private boolean active;
     private Character hero;
     private Character monster;
     private int roomNum;
     private int floorNum;
+    private boolean userChoiceActive;
+    Room room;
+
+    public MenuTool(Room room) {
+        this.room = room;
+        setHero(room.getHero());
+        setMonster(room.getMonster());
+        this.roomNum = room.getRoomNum();
+        this.floorNum = room.getFloorNum();
+
+    }
 
     public MenuTool(Character hero, Character monster, int roomNum, int floorNum) {
         setHero(hero);
@@ -40,23 +51,24 @@ public class MenuTool implements IColors {
         firstLine.append(getMonster().getName())
                 .append(getMonster().getLevelToStatus());
 
-        getConsole().println(firstLine.toString());
+        getOut().println(firstLine.toString());
 
-        getConsole().print(getHero().staminaMeter(getHero().getStaminaCurrent(), getHero().getStaminaMax()));
-        getConsole().print("  " + YELLOW_ITALIC + "VS" + RESET + "  ");
-        getConsole().println(getMonster().staminaMeter(getMonster().getStaminaCurrent(), getMonster().getStaminaMax()));
+        getOut().print(getHero().staminaMeter(getHero().getStaminaCurrent(), getHero().getStaminaMax()));
+        getOut().print("  " + YELLOW_ITALIC + "VS" + RESET + "  ");
+        getOut().println(getMonster().staminaMeter(getMonster().getStaminaCurrent(), getMonster().getStaminaMax()));
 
-        getConsole().br();
+        getOut().br();
     }
 
     public void combatMenu() {
+
         encounterStatus();
 
         num = 0;
 
         List<String> options = new ArrayList<>(Arrays.asList("", "", "", "", "", "", "", "", "", ""));
 
-        getConsole().println(RED_BOLD + "Combat Menu: " + RESET);
+        getOut().println(RED_BOLD + "Combat Menu: " + RESET);
         addToOptions(options, "Hit");
         addToOptions(options, "Inventory");
         addToOptions(options, "Hero Stats");
@@ -66,7 +78,7 @@ public class MenuTool implements IColors {
         }
 
         userChoice(options);
-        getConsole().br();
+        getOut().br();
     }
 
     public void actionMenu() {
@@ -74,7 +86,7 @@ public class MenuTool implements IColors {
         num = 0;
 
         List<String> options = new ArrayList<>(Arrays.asList("", "", "", "", "", "", "", "", "", ""));
-        getConsole().println("Actions:");
+        getOut().println("Actions:");
         switch (getRoomNum()) {
             case 1 -> {
                 addToOptions(options, "Move Forward");     // continue loop
@@ -116,7 +128,7 @@ public class MenuTool implements IColors {
          // TODO: 2023-11-07     //  if MysteryCube is used once. (use Mystery Cube)
          */
         userChoice(options);
-        getConsole().br();
+        getOut().br();
 
     }
 
@@ -128,7 +140,7 @@ public class MenuTool implements IColors {
     public void userChoice(List<String> options) {
 
         do {
-            active = false;
+            userChoiceActive = false;
 
             printMenu(options);
             switch (getSc().getScanner().nextLine()) {
@@ -143,11 +155,11 @@ public class MenuTool implements IColors {
                 case "9" -> executeChoice(options.get(8));
                 case "10" -> executeChoice(options.get(9));
                 default -> {
-                    setActive(true);
+                    setUserChoiceActive(true);
                     System.out.println("Wrong input.. please try again   [ user Choice ]");
                 }
             }
-        } while (active);
+        } while (userChoiceActive);
 
     }
 
@@ -163,28 +175,37 @@ public class MenuTool implements IColors {
     }
 
     public void executeChoice(String option) {
+        getOut().br();
 
         switch (option) {
             case "Hit" -> {
+
                 getHero().attack(getMonster());
-
-
+                room.setCombatMenuActive(false);
                 //if player dead, revive
                 //if Monster not dead, get logic(Monster, Hero)
-
             }
             case "Inventory" -> {
                 System.out.println("execute INVENTORY");
-                combatMenu();
             }
             case "Hero Stats" -> {
                 getHero().getStatus();
-                combatMenu();
+                sc.waitForEnter();
             }
             case "Search Room" -> System.out.println("execute SEARCH");
             case "Move Back" -> System.out.println("execute MOVE BACK");
-            case "Move Forward" -> System.out.println("execute FORWARD");
-            case "Move to Next Floor" -> System.out.println("execute NEXT FlOOR");
+            case "Move Forward" -> {
+                getOut().printNarrative(getHero().getName() + " is moving on..");
+                room.setActionMenuActive(false);
+                sc.waitForEnter();
+
+            }
+            case "Move to Next Floor" -> {
+                getOut().printNarrative(getHero().getName() + " now descends to floor " + (getFloorNum() + 1));
+                room.setActionMenuActive(false);
+                sc.waitForEnter();
+
+            }
 
             //case  -> System.out.println();
             //case  -> System.out.println();
@@ -193,19 +214,19 @@ public class MenuTool implements IColors {
                 if (option.equals("Escape -> " + RED_BOLD + "[ " + RED_ITALIC + "Room " + getFloorNum() + "." + (getRoomNum() - 1) + RESET + RED_BOLD + " ]" + RESET)) {
                     System.out.println("execute ESCAPE");
                 } else {
-                    setActive(true);
+                    setUserChoiceActive(true);
                     System.out.println("[DEBUG]    Fail in execute Choice    [DEBUG]");
                 }
             }
         }
     }
 
-    public boolean isActive() {
-        return active;
+    public boolean isUserChoiceActive() {
+        return userChoiceActive;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setUserChoiceActive(boolean userChoiceActive) {
+        this.userChoiceActive = userChoiceActive;
     }
 
     public Character getHero() {
@@ -232,12 +253,12 @@ public class MenuTool implements IColors {
         this.floorNum = floorNum;
     }
 
-    public OutputManipulation getConsole() {
-        return console;
+    public OutputManipulation getOut() {
+        return out;
     }
 
-    public void setConsole(OutputManipulation console) {
-        this.console = console;
+    public void setOut(OutputManipulation out) {
+        this.out = out;
     }
 
     public InputProcessing getSc() {
@@ -272,6 +293,5 @@ public class MenuTool implements IColors {
     public void setLogic(GameLogic logic) {
         this.logic = logic;
     }
-
 
 }

@@ -20,7 +20,7 @@ public class Knight extends Hero {
     @Override
     public void attack(Character monster) {
         getOut().println(getName() + " swings his sword!");
-        attackLogics(this, monster);
+        attackLogics(this,this, monster);
     }
 
 
@@ -40,10 +40,7 @@ public class Knight extends Hero {
 
     }
 
-    @Override
-    public void dies() {
 
-    }
 
     @Override
     public String getLevelToStatus() {

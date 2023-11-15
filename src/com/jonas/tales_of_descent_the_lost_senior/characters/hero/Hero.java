@@ -11,28 +11,60 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-
 public abstract class Hero extends Character implements IStaminaConsumption {
 
     private int luck;
     private int experience;
     private boolean firstTimeInDungeon;
     List<Item> inventory = new ArrayList<>();
+    private boolean attacking;
 
     public Hero(String name, int level, int staminaMax, int baseDamage, int strength, int intelligens, int dexterity, boolean dead) {
-        super(name, level, staminaMax, strength, intelligens, dexterity,baseDamage, dead);
+        super(name, level, staminaMax, strength, intelligens, dexterity, baseDamage, dead);
         this.experience = 0;
         this.luck = 0;
         this.firstTimeInDungeon = true;
+        this.attacking = true;
         initInventory();
+    }
+
+    // gain xp definition
+    public void gainExp(int monsterLevel) {
+        int xpPerMob = 25;
+        if (monsterLevel >= getLevel()) {
+            // 100 ‰ XP of (xp/mob (25?))
+            //System.out.println("monster lvl: " + monsterLevel+ " will grant " + xpPerMob + " XP to Player lvl: " + playerLevel );
+            getOut().println(YELLOW_ITALIC + "+" + xpPerMob + " xp" + RESET);
+            setExperience(getExperience() + xpPerMob);
+        } else if (monsterLevel == (getLevel() - 1)) {
+            // 50 % xp
+            //System.out.println("monster lvl: " + monsterLevel + " will grant " + xpPerMob * 0.5 + " XP to Player lvl: " + playerLevel);
+            getOut().println(YELLOW_ITALIC + "+" + xpPerMob * 0.5 + " xp" + RESET);
+            setExperience(getExperience() + (int) (xpPerMob * 0.5));
+        } else if (monsterLevel == (getLevel() - 2)) {
+            // 20 % xp
+            //System.out.println("monster lvl: " + monsterLevel + " will grant " + xpPerMob * 0.2 + " XP to Player lvl: " + playerLevel);
+            getOut().println(YELLOW_ITALIC + "+" + xpPerMob * 0.2 + " xp" + RESET);
+            setExperience(getExperience() + (int) (xpPerMob * 0.2));
+        } else {
+            // 0 xp
+        }
+        /**
+         * System.out.println(YELLOW_ITALIC + "+ " + ((10 * monsterLevel) / 2) + " + " + ((25 / getLevel()) / 2) + " XP" + RESET);
+         setExperience(getExperience() + ((10 * monsterLevel) + (25 / getLevel())));
+         */
+    }
+
+    public void levelUp() {
+
     }
 
     //Implements IStaminaConsumption
     @Override
     public void consumeStamina(int staAmount) {
+        getOut().println(YELLOW_ITALIC + "  [ -" + staAmount + " stamina ]" + RESET);
         setStaminaCurrent(getStaminaCurrent() - staAmount);
     }
-
 
     // Implements IInventory
     @Override
@@ -90,8 +122,6 @@ public abstract class Hero extends Character implements IStaminaConsumption {
     }
 
 
-
-
     //Hero methods
     private StringBuilder xpMeter(int exp) {
 
@@ -113,9 +143,8 @@ public abstract class Hero extends Character implements IStaminaConsumption {
     }
 
     @Override
-    public void gainExp(int monsterLevel) {
-        System.out.println("gained " + ((10 * monsterLevel)/2) +" + "+ ((25 / getLevel())/2) + " XP");
-        setExperience(getExperience() + ((10 * monsterLevel) + (25 / getLevel())));
+    public void dies() {
+        setDead(true);
     }
 
     public void getStatus() {
@@ -127,6 +156,7 @@ public abstract class Hero extends Character implements IStaminaConsumption {
         System.out.println("DEX: " + getDexterity());
         System.out.println("DMG: " + getBaseDamage());
     }
+
     public int getMainAttribute() {
         return 0;
     }
@@ -142,10 +172,6 @@ public abstract class Hero extends Character implements IStaminaConsumption {
         //System.out.println("  Total [CALCULATE]");
         return getBaseDamage() + roll.dCustom(getMainAttribute() / 2);
     }
-
-
-
-
 
 
     // GET n SET
@@ -179,5 +205,13 @@ public abstract class Hero extends Character implements IStaminaConsumption {
 
     public void setInventory(List<Item> inventory) {
         this.inventory = inventory;
+    }
+
+    public boolean isAttacking() {
+        return attacking;
+    }
+
+    public void setAttacking(boolean attacking) {
+        this.attacking = attacking;
     }
 }

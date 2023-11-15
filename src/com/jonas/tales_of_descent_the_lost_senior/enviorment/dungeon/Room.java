@@ -21,7 +21,9 @@ public class Room extends Scene {
     private boolean hasMonster;
     private Character monster;
     private Character hero;
-
+    public boolean fighting;
+    public boolean actionMenuActive;
+    public boolean combatMenuActive;
 
     public Room(Character hero, int floorNum, int roomNum) {
         super(-floorNum, -floorNum);
@@ -36,7 +38,6 @@ public class Room extends Scene {
             setHasMonster(true);
             setDescription("Investigating the foul smell, you discover rats devouring a corpse. \n As you approach, the vermin abruptly turn their attention toward you, hissing in an unnerving standoff.");
             getHero().setFirstTimeInDungeon(false);
-
         } else {
             setHasMonster(false);
             this.monster = (roll.d20() > 12) ? fetchMonster(roll.dCustom(2)) : new NoMonster(); // Abstract clas cant be null?
@@ -50,57 +51,56 @@ public class Room extends Scene {
 
         // set description
 
-        setMenu(new MenuTool(getHero(), getMonster(), getRoomNum(), getFloorNum()));
+        setMenu(new MenuTool(this));
     }
 
     @Override
     public void runScene() {
         // Print scene
-        getConsole().printHeader("Room " + getRoomNum() + RESET + YELLOW_BOLD + " -- " + YELLOW_ITALIC + "Floor " + getFloorNum());
-        getConsole().printScene(getDescription());
+        getOut().printHeader("Room " + getRoomNum() + RESET + YELLOW_BOLD + " -- " + YELLOW_ITALIC + "Floor " + getFloorNum());
+        getOut().printScene(getDescription());
         if (hasMonster) {
+
             monsterEncounter();
+
         }
-        getMenu().actionMenu();
+        getMenu().setUserChoiceActive(true);
+        actionMenuActive = true;
+        while (actionMenuActive) {
+            getMenu().actionMenu();
+        }
     }
 
-
     private void monsterEncounter() {
-        getConsole().printMonster(getMonster());
 
-        while (!getMonster().isDead() && !getHero().isDead()) {
+        getOut().printMonster(getMonster());
+        setFighting(true);
+        getHero().setAttacking(true);
+        while (!getMonster().isDead()) {
 
             getMenu().combatMenu();
 
-            if (!getMonster().isDead()) {
-                //call Monster attack
+            if (!getMonster().isDead() && !getHero().isAttacking()) {
                 getMonster().attack(getHero());
-            }else {
-                getHero().gainExp(getMonster().getLevel());
+            }
+            if (getMonster().isDead()) {
+                fighting = false;
+            }
+            if (getHero().isDead()) {
+                getOut().printNarrative("The " + getHero().getName() + " is no more!");
+                fighting = false;
             }
         }
     }
 
-
-
-
-    //roll what monster
     public Monster fetchMonster(int roll) {
         this.hasMonster = true;
         Monster temp = null;
         switch (roll) {
-            case 1 -> {
-                temp = new PackOfRats(getFloorNum());
-            }
-            case 2 -> {
-                temp = new Goblin(getFloorNum());
-            }
-
-            default -> {
-                System.out.println("check random number in fetch Monster");
-            }
+            case 1 -> temp = new PackOfRats(getFloorNum());
+            case 2 -> temp = new Goblin(getFloorNum());
+            default -> System.out.println("check random number in fetch Monster");
         }
-
         return temp;
     }
 
@@ -333,5 +333,29 @@ public class Room extends Scene {
 
     public void setHero(Character hero) {
         this.hero = hero;
+    }
+
+    public boolean isFighting() {
+        return fighting;
+    }
+
+    public void setFighting(boolean fighting) {
+        this.fighting = fighting;
+    }
+
+    public boolean isActionMenuActive() {
+        return actionMenuActive;
+    }
+
+    public void setActionMenuActive(boolean actionMenuActive) {
+        this.actionMenuActive = actionMenuActive;
+    }
+
+    public boolean isCombatMenuActive() {
+        return combatMenuActive;
+    }
+
+    public void setCombatMenuActive(boolean combatMenuActive) {
+        this.combatMenuActive = combatMenuActive;
     }
 }

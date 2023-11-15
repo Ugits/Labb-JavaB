@@ -19,7 +19,6 @@ public class InputProcessing implements IColors {
     }
 
     public void waitForEnter(){
-
         System.out.println(YELLOW_ITALIC + "press enter" + RESET); // use some symbol
         getScanner().nextLine();
     }

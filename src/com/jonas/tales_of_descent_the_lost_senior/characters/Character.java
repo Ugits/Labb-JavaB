@@ -1,4 +1,5 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters;
+import com.jonas.tales_of_descent_the_lost_senior.characters.hero.IExpHandler;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.ICombat;
 import com.jonas.tales_of_descent_the_lost_senior.logic.GameLogic;
@@ -69,9 +70,19 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
         setStaminaCurrent(getStaminaCurrent() - amount);
     }
 
+
+    // for HERO-- can reach if I declare in Hero class
     public int calculateDamage(){
         DiceSet roll = new DiceSet();
         return roll.dCustom(getBaseDamage());
+    }
+
+    public void gainExp(int monsterLevel) {
+    }
+    public boolean isAttacking() {
+        return false;
+    }
+    public void setAttacking(boolean attacking) {
     }
 
 
@@ -168,5 +179,5 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     public void getStatus() {}
 
 
-    public void gainExp(int monsterLevel) {}
+
 }

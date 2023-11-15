@@ -71,7 +71,7 @@ public class OutputManipulation extends CustomStrings {
     public void printNarrative(String narration)  {
         delayPrint(0, PURPLE_ITALIC + "'" + narration + PURPLE_ITALIC + "'" + RESET);
         sleep(1000);
-        br();
+
     }
 
     public void printHeader(String scene)  {

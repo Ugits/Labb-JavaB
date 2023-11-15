@@ -20,7 +20,7 @@ public class Mage extends Hero {
     @Override
     public void attack(Character monster) {
         getOut().println(getName() + " casts a fireball!");
-        attackLogics(this, monster);
+        attackLogics(this,this, monster);
     }
 
 
@@ -40,10 +40,7 @@ public class Mage extends Hero {
 
     }
 
-    @Override
-    public void dies() {
 
-    }
 
     @Override
     public String getLevelToStatus() {

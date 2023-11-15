@@ -20,12 +20,11 @@ public class Ranger extends Hero {
     @Override
     public void attack(Character monster) {
 
-        getOut().println(getName() + " fires an arrow!");
-
-        System.out.println("consume 5 stamina");
+        getOut().print(getName() + " fires an arrow!");
         consumeStamina(ATTACK);
 
-        attackLogics(this, monster);
+        attackLogics(this,this, monster);
+        setAttacking(false);
 
     }
 
@@ -46,10 +45,7 @@ public class Ranger extends Hero {
 
     }
 
-    @Override
-    public void dies() {
 
-    }
 
     @Override
     public String getLevelToStatus() {

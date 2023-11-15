@@ -17,7 +17,7 @@ public class TheThreeFriends extends Scene {
     public TheThreeFriends(Player player)  {
         super(player,0, 0);
         setPlayer(player);
-        setDescription(getConsole().theThreeFriendsDescription());
+        setDescription(getOut().theThreeFriendsDescription());
         description();
         part1();
         getPlayer().setHero(heroSwitch());
@@ -26,35 +26,35 @@ public class TheThreeFriends extends Scene {
 
     @Override
     public void description() {
-        getConsole().printHeader(getConsole().sceneHead);
-        getConsole().printScene(getDescription());
+        getOut().printHeader(getOut().sceneHead);
+        getOut().printScene(getDescription());
     }
 
 
 
     public List<String> theFriends = new ArrayList<>(Arrays.asList(
-            getConsole().knightHead, "The stalwart defender, skilled with the blade and armored against danger.",
-            getConsole().mageHead, "The wielder of arcane powers, knowledgeable in the mysteries of the world.",
-            getConsole().rangerHead, "The swift and skilled tracker, attuned to the secrets of the forest."));
+            getOut().knightHead, "The stalwart defender, skilled with the blade and armored against danger.",
+            getOut().mageHead, "The wielder of arcane powers, knowledgeable in the mysteries of the world.",
+            getOut().rangerHead, "The swift and skilled tracker, attuned to the secrets of the forest."));
 
 
     public void part1() {
         // friends by the fire
-        getConsole().printNarrative(PURPLE_ITALIC + "As the friends gather, a choice awaits. Whom will you take charge of in this quest?" + RESET);
-        getConsole().dialogIterator(theFriends);
+        getOut().printNarrative(PURPLE_ITALIC + "As the friends gather, a choice awaits. Whom will you take charge of in this quest?" + RESET);
+        getOut().dialogIterator(theFriends);
     }
 
     public Hero heroSwitch() {
         Hero temp = null;
         while (temp == null) {
 
-            getConsole().delayPrint(80,"Choose wisely.. ");
+            getOut().delayPrint(80,"Choose wisely.. ");
 
             switch (getSc().getScanner().nextLine()) {
                 case "The Knight", "the knight", "Knight", "knight", "1", "Red", "red" -> temp = new Knight();
                 case "The Mage", "the mage", "Mage", "mage", "2", "Blue", "blue" -> temp = new Mage();
                 case "The Ranger", "the ranger", "Ranger", "ranger", "3", "Green", "green" -> temp = new Ranger();
-                default -> getConsole().printNarrative(PURPLE_ITALIC + "'Turning their marshmallows, the heroes waiting your call..'" + RESET);
+                default -> getOut().printNarrative(PURPLE_ITALIC + "'Turning their marshmallows, the heroes waiting your call..'" + RESET);
             }
         }
         return temp;
@@ -64,25 +64,25 @@ public class TheThreeFriends extends Scene {
 
         System.out.println(getPlayer().getHero().getName());
         // dialog continues
-        getConsole().br();
+        getOut().br();
         System.out.println(getPlayer().getHero().getName());
         System.out.println("I'll take the lead. Our Master's missing, and we need to find out why.");
-        getConsole().br();
-        getConsole().printNarrative(PURPLE_ITALIC + "The trio decides to cover more ground, splitting up to search for clues. You will head towards the waterfall." + RESET);
+        getOut().br();
+        getOut().printNarrative(PURPLE_ITALIC + "The trio decides to cover more ground, splitting up to search for clues. You will head towards the waterfall." + RESET);
 
         assignFriendHeroes();
 
-        getConsole().printHeader(getPlayer().getFriend1().getName());
-        getConsole().delayPrint(50,"Me and " + getPlayer().getFriend2().getName() + " will scout ahead.");
-        getConsole().br();
+        getOut().printHeader(getPlayer().getFriend1().getName());
+        getOut().delayPrint(50,"Me and " + getPlayer().getFriend2().getName() + " will scout ahead.");
+        getOut().br();
 
-        getConsole().printHeader(getPlayer().getFriend2().getName());
-        getConsole().delayPrint(50,"Let's meet back here later, be careful.");
-        getConsole().br();
+        getOut().printHeader(getPlayer().getFriend2().getName());
+        getOut().delayPrint(50,"Let's meet back here later, be careful.");
+        getOut().br();
 
-        getConsole().printNarrative("You venture into the forest alone." + RESET);
+        getOut().printNarrative("You venture into the forest alone." + RESET);
 
-        getConsole().sleep(3000);
+        getOut().sleep(3000);
     }
 
     public void assignFriendHeroes() {

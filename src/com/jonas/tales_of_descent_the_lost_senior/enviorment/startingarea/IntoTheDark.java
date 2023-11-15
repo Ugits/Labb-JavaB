@@ -15,8 +15,8 @@ public class IntoTheDark extends Scene {
 
     @Override
     public void description() {
-        getConsole().printHeader(getConsole().sceneHead);
-        getConsole().printScene(getDescription());
+        getOut().printHeader(getOut().sceneHead);
+        getOut().printScene(getDescription());
     }
 
 
@@ -48,7 +48,7 @@ public class IntoTheDark extends Scene {
          """;
          System.out.println(intoTheDark);
          */
-        getConsole().printNarrative("""
+        getOut().printNarrative("""
                 You step through the waterfall's opening, blinking as your
                 eyes adjust to the light filtering through the cracked ceiling.
                 With a few cautious steps forward, you notice a trail of flickering torches
@@ -72,12 +72,12 @@ public class IntoTheDark extends Scene {
                 the wooden rungs offering a sense of security as you navigate downwards.
                 Emerging from the ladder's descent, you attempt to reassure yourself, murmuring..""");
 
-        getConsole().br();
-        getConsole().printHeader(getPlayer().getHero().getName());
-        getConsole().delayPrint(30, "This isn't so bad...");
-        getConsole().br();
+        getOut().br();
+        getOut().printHeader(getPlayer().getHero().getName());
+        getOut().delayPrint(30, "This isn't so bad...");
+        getOut().br();
 
-        getConsole().printNarrative("""
+        getOut().printNarrative("""
                 However, a pungent odor disrupts your fragile sense of comfort.
                 You sniff the air, catching a whiff of something putrid and decayed
                 the stench of rotten meat permeating the space.
