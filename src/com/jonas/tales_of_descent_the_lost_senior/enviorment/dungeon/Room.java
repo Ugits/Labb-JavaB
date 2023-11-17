@@ -40,7 +40,7 @@ public class Room extends Scene {
             getHero().setFirstTimeInDungeon(false);
         } else {
             setHasMonster(false);
-            this.monster = (roll.d20() > 12) ? fetchMonster(roll.dCustom(2)) : new NoMonster(); // Abstract clas cant be null?
+            this.monster = (roll.d20() > 0) ? fetchMonster(roll.dCustom(2)) : new NoMonster(); // Abstract clas cant be null?
             setDescription(genDescription());
         }
 

@@ -11,9 +11,9 @@ public class Ranger extends Hero {
                 1,
                 100,
                 5,
-                8,
                 5,
-                12,
+                5,
+                8,
                 false);
     }
 
@@ -55,6 +55,10 @@ public class Ranger extends Hero {
     @Override
     public int getMainAttribute() {
         return getDexterity();
+    }
+
+    public void setMainAttribute(int newValue) {
+        setDexterity(newValue);
     }
 
 

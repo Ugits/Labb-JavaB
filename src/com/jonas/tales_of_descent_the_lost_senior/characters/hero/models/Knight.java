@@ -11,9 +11,9 @@ public class Knight extends Hero {
                 1,
                 100,
                 5,
-                12,
-                5,
                 8,
+                5,
+                5,
                 false);
     }
 
@@ -50,5 +50,9 @@ public class Knight extends Hero {
     @Override
     public int getMainAttribute() {
         return getStrength();
+    }
+
+    public void setMainAttribute(int newValue) {
+        setStrength(newValue);
     }
 }

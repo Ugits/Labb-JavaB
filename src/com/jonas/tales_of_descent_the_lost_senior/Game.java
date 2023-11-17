@@ -25,7 +25,7 @@ public class Game {
         player.setHero(new Ranger());
         player.setFriend1(new Knight());
         player.setFriend2(new Mage());
-        GameLogic logic = new GameLogic();
+        //GameLogic logic = new GameLogic();
         for (int floor = 1; floor <= 5; floor++) {
 
             Dungeon map = new Dungeon(player.getHero(), floor);
@@ -34,8 +34,9 @@ public class Game {
 
                 map.getFloor().get(room).runScene();
 
-            }
 
+
+            }
         }
 
 

@@ -12,8 +12,8 @@ public class Mage extends Hero {
                 100,
                 5,
                 5,
-                12,
                 8,
+                5,
                 false);
     }
 
@@ -50,5 +50,9 @@ public class Mage extends Hero {
     @Override
     public int getMainAttribute() {
         return getIntelligence();
+    }
+
+    public void setMainAttribute(int newValue) {
+        setIntelligence(newValue);
     }
 }

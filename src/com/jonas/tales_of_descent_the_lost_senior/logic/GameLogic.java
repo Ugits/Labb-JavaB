@@ -5,7 +5,7 @@ import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 import com.jonas.tales_of_descent_the_lost_senior.resources.InputProcessing;
 import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 
-import java.util.Objects;
+import static com.jonas.tales_of_descent_the_lost_senior.resources.IColors.RED_BOLD;
 
 public class GameLogic {
     DiceSet roll = new DiceSet();
@@ -19,6 +19,7 @@ public class GameLogic {
 
         // roll for hit
         int roll = this.roll.d20();
+        System.out.println(RED_BOLD + "[DEGUB] \n" + "ROLL: " + roll + "\nDEX-MOD: " + dexMod + "\nTOTAL: "+ (roll + dexMod) + "\nHit over Defender DEX: " + defender.getDexterity()+"\n[DEBUG]\n");
         if (roll == 1) {
             // Critical Miss = free counterattack from defender, 100% hit chans
             out.println(attacker.getName() + " fumbles..");
@@ -31,7 +32,7 @@ public class GameLogic {
             //attackLogics(defender, attacker);
             //defender.attack(attacker);
             //attacker.takeDamage(defender.getBaseDamage());
-        } else if (roll + dexMod > defender.getDexterity()) {  // + LUCK ??
+        } else if (roll + dexMod >= defender.getDexterity()) {  // + LUCK ??
             System.out.println("HIT!");
             int damage = attacker.calculateDamage();
             out.println(defender.getName() + " takes " + damage + " damage");
@@ -39,24 +40,22 @@ public class GameLogic {
             sc.waitForEnter();
         } else {
             System.out.println(attacker.getName() + " missed..");
+            sc.waitForEnter();
         }
 
         if (defender.getStaminaCurrent() <= 0) {
             defender.dies();
-            if (attacker == hero){
+            if (attacker == hero) {
                 attacker.gainExp(defender.getLevel());
                 sc.waitForEnter();
             }
         }
-        if(attacker.getStaminaCurrent() <= 0){
+        if (attacker.getStaminaCurrent() <= 0) {
             attacker.dies();
-            if (defender == hero){
+            if (defender == hero) {
                 defender.gainExp(attacker.getLevel());
                 sc.waitForEnter();
             }
         }
-
     }
-
-
 }

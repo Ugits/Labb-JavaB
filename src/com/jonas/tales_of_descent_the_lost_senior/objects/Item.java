@@ -4,7 +4,6 @@ public abstract class Item {
     String name;
     boolean owned;
 
-
     public Item(String name, boolean owned) {
         this.name = name;
         this.owned = owned;
@@ -29,6 +28,4 @@ public abstract class Item {
     public void setOwned(boolean owned) {
         this.owned = owned;
     }
-
-
 }

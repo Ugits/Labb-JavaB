@@ -39,16 +39,18 @@ public abstract class Hero extends Character implements IStaminaConsumption {
         } else if (monsterLevel == (getLevel() - 1)) {
             // 50 % xp
             //System.out.println("monster lvl: " + monsterLevel + " will grant " + xpPerMob * 0.5 + " XP to Player lvl: " + playerLevel);
-            getOut().println(YELLOW_ITALIC + "+" + xpPerMob * 0.5 + " xp" + RESET);
+            getOut().println(YELLOW_ITALIC + "+" + (int) (xpPerMob * 0.5) + " xp" + RESET);
             setExperience(getExperience() + (int) (xpPerMob * 0.5));
         } else if (monsterLevel == (getLevel() - 2)) {
             // 20 % xp
             //System.out.println("monster lvl: " + monsterLevel + " will grant " + xpPerMob * 0.2 + " XP to Player lvl: " + playerLevel);
-            getOut().println(YELLOW_ITALIC + "+" + xpPerMob * 0.2 + " xp" + RESET);
+            getOut().println(YELLOW_ITALIC + "+" + (int) (xpPerMob * 0.2) + " xp" + RESET);
             setExperience(getExperience() + (int) (xpPerMob * 0.2));
         } else {
             // 0 xp
         }
+
+        levelUp();
         /**
          * System.out.println(YELLOW_ITALIC + "+ " + ((10 * monsterLevel) / 2) + " + " + ((25 / getLevel()) / 2) + " XP" + RESET);
          setExperience(getExperience() + ((10 * monsterLevel) + (25 / getLevel())));
@@ -56,7 +58,22 @@ public abstract class Hero extends Character implements IStaminaConsumption {
     }
 
     public void levelUp() {
+        if (getExperience() >= 100) {
 
+            setLevel(getLevel() + 1);
+            setExperience(getExperience() % 100);
+
+            setStrength(getStrength() + ((getLevel()-1) * 2));
+            setIntelligence(getIntelligence() + ((getLevel()-1) * 2));
+            setDexterity(getDexterity() + ((getLevel()-1) * 2));
+            setMainAttribute(getMainAttribute() + 1);
+            setStaminaMax(getStaminaMax() + ((getLevel()-1) * 2));
+            setStaminaCurrent(getStaminaMax());
+            setBaseDamage(getBaseDamage() + (getLevel()-1));
+
+            getOut().println(YELLOW_ITALIC + "You reached level " + getLevel() + RESET);
+            getOut().println(YELLOW_ITALIC + "And you feel stronger and fresh" + RESET);
+        }
     }
 
     //Implements IStaminaConsumption
@@ -159,6 +176,10 @@ public abstract class Hero extends Character implements IStaminaConsumption {
 
     public int getMainAttribute() {
         return 0;
+    }
+
+    public void setMainAttribute(int newValue) {
+
     }
 
     public int calculateDamage() {

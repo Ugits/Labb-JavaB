@@ -31,6 +31,8 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
         setDead(dead);
     }
 
+
+
     /**
      * public void consumeStamina(int amount) {
          setStaminaCurrent(getStaminaCurrent() - amount);
