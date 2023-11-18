@@ -1,5 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.resources;
 
+import com.jonas.tales_of_descent_the_lost_senior.Game;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Room;
 import com.jonas.tales_of_descent_the_lost_senior.logic.GameLogic;
@@ -8,12 +9,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class MenuTool implements IColors {
     OutputManipulation out = new OutputManipulation();
     InputProcessing sc = new InputProcessing();
     GameLogic logic = new GameLogic();
+
     // Menus
     private int num;
     private Character hero;
@@ -22,9 +25,22 @@ public class MenuTool implements IColors {
     private int floorNum;
     private boolean userChoiceActive;
     Room room;
+    Game game;
 
-    public MenuTool(Room room) {
+    public MenuTool() {
+    }
+
+    /**
+     * public MenuTool(int roomIndex, int floorIndex){
+     * this.roomIndex = roomIndex;
+     * this.floorIndex = floorIndex;
+     * }
+     */
+
+
+    public MenuTool(Room room, Game game) {
         this.room = room;
+        this.game = game;
         setHero(room.getHero());
         setMonster(room.getMonster());
         this.roomNum = room.getRoomNum();
@@ -32,12 +48,14 @@ public class MenuTool implements IColors {
 
     }
 
-    public MenuTool(Character hero, Character monster, int roomNum, int floorNum) {
-        setHero(hero);
-        setMonster(monster);
-        this.roomNum = roomNum;
-        this.floorNum = floorNum;
-    }
+    /**
+     * public MenuTool(Character hero, Character monster, int roomNum, int floorNum) {
+     * setHero(hero);
+     * setMonster(monster);
+     * this.roomNum = roomNum;
+     * this.floorNum = floorNum;
+     * }
+     */
 
 
     public void encounterStatus() {
@@ -156,6 +174,7 @@ public class MenuTool implements IColors {
                 case "10" -> executeChoice(options.get(9));
                 default -> {
                     setUserChoiceActive(true);
+                    //Integer.parseInt()
                     System.out.println("Wrong input.. please try again   [ user Choice ]");
                 }
             }
@@ -175,25 +194,69 @@ public class MenuTool implements IColors {
     }
 
     public void executeChoice(String option) {
+
         getOut().br();
 
         switch (option) {
             case "Hit" -> {
-
                 getHero().attack(getMonster());
                 room.setCombatMenuActive(false);
-                //if player dead, revive
-                //if Monster not dead, get logic(Monster, Hero)
             }
             case "Inventory" -> {
-                System.out.println("execute INVENTORY");
+
+                System.out.println(YELLOW_ITALIC + "Inventory:" + RESET);
+                getHero().printInventoryHashOwned();
+
+                AtomicReference<String> choice = new AtomicReference<>();
+                int tempChoice = getSc().tryNextInt();
+                setNum(1);
+
+                getHero().getInventoryHash().forEach((s, item) -> {
+                    if (getNum() == tempChoice){
+                        choice.set(item.getName());
+                    }
+                    setNum(getNum()+1);
+                });
+
+                //execute item
+
+                switch (choice.toString()){
+                    case "Mystery Box" -> { System.out.println("execute MysteryBox");
+                    }
+                    case "Dungeon Map" -> {
+                        getOut().br();
+                        getGame().getMap().printMap();
+                        sc.getScanner().nextLine();
+                    }
+
+                }
+
+
+
+
+
+
+
+                sc.waitForEnter();
+
             }
             case "Hero Stats" -> {
                 getHero().getStatus();
                 sc.waitForEnter();
             }
-            case "Search Room" -> System.out.println("execute SEARCH");
-            case "Move Back" -> System.out.println("execute MOVE BACK");
+            case "Search Room" -> {
+
+                getHero().getItem("Dungeon Map").setOwned(true);
+                if (getHero().getItem("Dungeon Map").isOwned()) {
+                    game.getMap().printMap();
+                }
+            }
+            case "Move Back" -> {
+                getOut().printNarrative(getHero().getName() + " is heading back..");
+                game.setRoomIndex(game.getRoomIndex() - 2);
+                room.setActionMenuActive(false);
+                sc.waitForEnter();
+            }
             case "Move Forward" -> {
                 getOut().printNarrative(getHero().getName() + " is moving on..");
                 room.setActionMenuActive(false);
@@ -294,4 +357,11 @@ public class MenuTool implements IColors {
         this.logic = logic;
     }
 
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
 }

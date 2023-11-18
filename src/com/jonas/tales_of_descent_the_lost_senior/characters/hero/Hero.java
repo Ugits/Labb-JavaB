@@ -6,18 +6,17 @@ import com.jonas.tales_of_descent_the_lost_senior.objects.Item;
 import com.jonas.tales_of_descent_the_lost_senior.objects.items.DungeonMap;
 import com.jonas.tales_of_descent_the_lost_senior.objects.items.MysteryBox;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public abstract class Hero extends Character implements IStaminaConsumption {
 
     private int luck;
     private int experience;
     private boolean firstTimeInDungeon;
-    List<Item> inventory = new ArrayList<>();
+    private List<Item> inventory = new ArrayList<>();
+    public HashMap<String, Item> inventoryHash = new HashMap<>();
     private boolean attacking;
+    int itemNum = 0;
 
     public Hero(String name, int level, int staminaMax, int baseDamage, int strength, int intelligens, int dexterity, boolean dead) {
         super(name, level, staminaMax, strength, intelligens, dexterity, baseDamage, dead);
@@ -25,7 +24,8 @@ public abstract class Hero extends Character implements IStaminaConsumption {
         this.luck = 0;
         this.firstTimeInDungeon = true;
         this.attacking = true;
-        initInventory();
+        //initInventory();
+        initInventoryHash();
     }
 
     // gain xp definition
@@ -49,12 +49,7 @@ public abstract class Hero extends Character implements IStaminaConsumption {
         } else {
             // 0 xp
         }
-
         levelUp();
-        /**
-         * System.out.println(YELLOW_ITALIC + "+ " + ((10 * monsterLevel) / 2) + " + " + ((25 / getLevel()) / 2) + " XP" + RESET);
-         setExperience(getExperience() + ((10 * monsterLevel) + (25 / getLevel())));
-         */
     }
 
     public void levelUp() {
@@ -82,6 +77,36 @@ public abstract class Hero extends Character implements IStaminaConsumption {
         getOut().println(YELLOW_ITALIC + "  [ -" + staAmount + " stamina ]" + RESET);
         setStaminaCurrent(getStaminaCurrent() - staAmount);
     }
+
+    // Hash Inventory
+    public void initInventoryHash(){
+        inventoryHash.put("Mystery Box", new MysteryBox(true));
+        inventoryHash.put("Dungeon Map", new DungeonMap(true));
+    }
+
+    public void printInventoryHash(){
+        getInventoryHash().forEach((s, item) -> System.out.println(item.getName()));
+    }
+
+    public Item getItem(String item){
+        return getInventoryHash().get(item);
+    }
+
+
+    public void printInventoryHashOwned(){
+        itemNum = 0;
+        getInventoryHash().forEach((s,item) -> {
+            if (item.isOwned()) {
+                itemNum++;
+                System.out.println(itemNum + ". " +item.getName());
+            }
+        });
+    }
+
+
+
+
+
 
     // Implements IInventory
     @Override
@@ -136,6 +161,20 @@ public abstract class Hero extends Character implements IStaminaConsumption {
     @Override
     public void sortPrioNotOwnedItems() {
         getInventory().sort(Comparator.comparing(Item::isOwned));
+    }
+    @Override
+    public void searchRoom() {
+        DiceSet roll = new DiceSet();
+        inventory.forEach(item -> {
+            if (Objects.equals(item.getName(), DungeonMap.class.getName()) && item.isOwned()) {
+                System.out.println("DU ÄGER JONAS");
+            }else {
+                System.out.println("Tyvärrrrrr");
+            }
+        });
+        if (roll.d20() + getLuck() > 15){
+
+        }
     }
 
 
@@ -195,6 +234,7 @@ public abstract class Hero extends Character implements IStaminaConsumption {
     }
 
 
+
     // GET n SET
     public int getLuck() {
         return luck;
@@ -234,5 +274,13 @@ public abstract class Hero extends Character implements IStaminaConsumption {
 
     public void setAttacking(boolean attacking) {
         this.attacking = attacking;
+    }
+
+    public HashMap<String, Item> getInventoryHash() {
+        return inventoryHash;
+    }
+
+    public void setInventoryHash(HashMap<String, Item> inventoryHash) {
+        this.inventoryHash = inventoryHash;
     }
 }

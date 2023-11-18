@@ -1,17 +1,25 @@
 package com.jonas.tales_of_descent_the_lost_senior.objects;
 
-public abstract class Item {
-    String name;
-    boolean owned;
+import com.jonas.tales_of_descent_the_lost_senior.Game;
+import com.jonas.tales_of_descent_the_lost_senior.characters.hero.Hero;
+import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
+import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Dungeon;
+import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Room;
+import com.jonas.tales_of_descent_the_lost_senior.resources.MenuTool;
+
+public abstract class Item extends MenuTool {
+    private String name;
+    private boolean owned;
+
 
     public Item(String name, boolean owned) {
         this.name = name;
         this.owned = owned;
     }
 
-    public void use(){
-        System.out.println("use item");
+    public void use() {
     }
+
 
     public String getName() {
         return name;
@@ -28,4 +36,8 @@ public abstract class Item {
     public void setOwned(boolean owned) {
         this.owned = owned;
     }
+
+
 }
+
+

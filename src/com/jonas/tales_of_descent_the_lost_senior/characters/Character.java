@@ -1,10 +1,15 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters;
+
 import com.jonas.tales_of_descent_the_lost_senior.characters.hero.IExpHandler;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.ICombat;
 import com.jonas.tales_of_descent_the_lost_senior.logic.GameLogic;
+import com.jonas.tales_of_descent_the_lost_senior.objects.Item;
 import com.jonas.tales_of_descent_the_lost_senior.resources.IColors;
 import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
+
+import java.util.HashMap;
+import java.util.List;
 
 public abstract class Character extends GameLogic implements ICombat, IColors {
     OutputManipulation out = new OutputManipulation();
@@ -19,7 +24,7 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     private int baseDamage;
     private boolean dead;
 
-    public Character(String name, int level, int staminaMax, int strength, int intelligence, int dexterity,int baseDamage, boolean dead) {
+    public Character(String name, int level, int staminaMax, int strength, int intelligence, int dexterity, int baseDamage, boolean dead) {
         setName(name);
         setLevel(level);
         setStaminaMax(staminaMax);
@@ -30,14 +35,6 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
         setBaseDamage(baseDamage);
         setDead(dead);
     }
-
-
-
-    /**
-     * public void consumeStamina(int amount) {
-         setStaminaCurrent(getStaminaCurrent() - amount);
-     }
-     */
 
     public String staminaMeter(int staminaCurrent, int staminaMax) {
 
@@ -63,47 +60,55 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
 
         return meter.toString();
     }
-
     public String getLevelToStatus() {
         return "[ " + getLevel() + " ]";
     }
 
-    public void takeDamage(int amount){
+    public void takeDamage(int amount) {
         setStaminaCurrent(getStaminaCurrent() - amount);
     }
-
-
-    // for HERO-- can reach if I declare in Hero class
-    public int calculateDamage(){
+    public int calculateDamage() {
         DiceSet roll = new DiceSet();
         return roll.dCustom(getBaseDamage());
     }
 
+    // for HERO-- cant reach if I declare in Hero class
+
+    public void searchRoom() {
+    }
     public void gainExp(int monsterLevel) {
     }
-    public boolean isAttacking() {
-        return false;
+
+
+    // Heroes inventory
+    public void printInventoryHash() {
     }
-    public void setAttacking(boolean attacking) {
+    public Item getItem(String item){
+        return getInventoryHash().get(item);
+    }
+    public void printInventoryHashOwned() {
     }
 
 
 
 
-
-
-    // Implements IInventory
-    public void initInventory(){};
-    public void printOwnedItems(){};
-    public void printNotOwnedItems(){};
-    public void pickUpItem(String stringItem){};
-    public void printInventory(){};
-    public void sortPrioOwnedItems(){};
-    public void sortPrioNotOwnedItems(){};
-    public boolean isFirstTimeInDungeon() {
-        return false;
+    // Heroes Inventory
+    public void initInventory() {
     }
-    public void setFirstTimeInDungeon(boolean b) {}
+    public void printOwnedItems() {
+    }
+    public void printNotOwnedItems() {
+    }
+    public void pickUpItem(String stringItem) {
+    }
+    public void printInventory() {
+    }
+    public void sortPrioOwnedItems() {
+    }
+    public void sortPrioNotOwnedItems() {
+    }
+
+
 
 
 
@@ -112,6 +117,7 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     public int getLevel() {
         return level;
     }
+
     public void setLevel(int level) {
         this.level = level;
     }
@@ -119,6 +125,7 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     public int getStaminaMax() {
         return staminaMax;
     }
+
     public void setStaminaMax(int staminaMax) {
         this.staminaMax = staminaMax;
     }
@@ -126,6 +133,7 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     public int getStaminaCurrent() {
         return staminaCurrent;
     }
+
     public void setStaminaCurrent(int staminaCurrent) {
         this.staminaCurrent = staminaCurrent;
     }
@@ -133,6 +141,7 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -140,6 +149,7 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     public int getStrength() {
         return strength;
     }
+
     public void setStrength(int strength) {
         this.strength = strength;
     }
@@ -147,6 +157,7 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     public int getIntelligence() {
         return intelligence;
     }
+
     public void setIntelligence(int intelligence) {
         this.intelligence = intelligence;
     }
@@ -154,6 +165,7 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     public int getDexterity() {
         return dexterity;
     }
+
     public void setDexterity(int dexterity) {
         this.dexterity = dexterity;
     }
@@ -161,6 +173,7 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     public boolean isDead() {
         return dead;
     }
+
     public void setDead(boolean dead) {
         this.dead = dead;
     }
@@ -168,6 +181,7 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     public int getBaseDamage() {
         return baseDamage;
     }
+
     public void setBaseDamage(int baseDamage) {
         this.baseDamage = baseDamage;
     }
@@ -175,10 +189,29 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     public OutputManipulation getOut() {
         return out;
     }
+
     public void setOut(OutputManipulation out) {
         this.out = out;
     }
-    public void getStatus() {}
+
+    public boolean isAttacking() {
+        return false;
+    }
+    public void setAttacking(boolean attacking) {
+    }
+    public void setFirstTimeInDungeon(boolean b) {
+    }
+    public boolean isFirstTimeInDungeon() {
+        return false;
+    }
+    public void getStatus() {
+    }
+    public List<Item> getInventory() {
+        return null;
+    }
+    public HashMap<String, Item> getInventoryHash() {
+        return null;
+    }
 
 
 

@@ -1,5 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon;
 
+import com.jonas.tales_of_descent_the_lost_senior.Game;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.characters.monster.models.Goblin;
 import com.jonas.tales_of_descent_the_lost_senior.characters.monster.Monster;
@@ -21,11 +22,11 @@ public class Room extends Scene {
     private boolean hasMonster;
     private Character monster;
     private Character hero;
-    public boolean fighting;
     public boolean actionMenuActive;
     public boolean combatMenuActive;
+    public boolean beenHereBefore;
 
-    public Room(Character hero, int floorNum, int roomNum) {
+    public Room(Character hero, int floorNum, int roomNum, Game game) {
         super(-floorNum, -floorNum);
         this.hero = hero;
         this.difficulty = floorNum;
@@ -40,7 +41,7 @@ public class Room extends Scene {
             getHero().setFirstTimeInDungeon(false);
         } else {
             setHasMonster(false);
-            this.monster = (roll.d20() > 0) ? fetchMonster(roll.dCustom(2)) : new NoMonster(); // Abstract clas cant be null?
+            this.monster = (roll.d20() > 10) ? fetchMonster(roll.dCustom(2)) : new NoMonster(); // Abstract clas cant be null?
             setDescription(genDescription());
         }
 
@@ -51,20 +52,30 @@ public class Room extends Scene {
 
         // set description
 
-        setMenu(new MenuTool(this));
+        setMenu(new MenuTool(this, game));
     }
 
     @Override
     public void runScene() {
-        // Print scene
+
         getOut().printHeader("Room " + getRoomNum() + RESET + YELLOW_BOLD + " -- " + YELLOW_ITALIC + "Floor " + getFloorNum());
-        getOut().printScene(getDescription());
-        if (hasMonster) {
-
-            monsterEncounter();
-
+        getOut().br();
+        if (!beenHereBefore) {
+            getOut().printScene(getDescription());
+            getOut().br();
+            beenHereBefore = true;
         }
-        getMenu().setUserChoiceActive(true);
+    }
+
+    public void checkIfMonster() {
+
+        if (hasMonster) {
+            monsterEncounter();
+        }
+    }
+
+    public void runHeroAction() {
+
         actionMenuActive = true;
         while (actionMenuActive) {
             getMenu().actionMenu();
@@ -74,21 +85,23 @@ public class Room extends Scene {
     private void monsterEncounter() {
 
         getOut().printMonster(getMonster());
-        setFighting(true);
+
         getHero().setAttacking(true);
         while (!getMonster().isDead()) {
 
             getMenu().combatMenu();
 
+
+
             if (!getMonster().isDead() && !getHero().isAttacking()) {
                 getMonster().attack(getHero());
             }
             if (getMonster().isDead()) {
-                fighting = false;
+                setHasMonster(false);
             }
             if (getHero().isDead()) {
                 getOut().printNarrative("The " + getHero().getName() + " is no more!");
-                fighting = false;
+                // TODO: 2023-11-17
             }
         }
     }
@@ -333,14 +346,6 @@ public class Room extends Scene {
 
     public void setHero(Character hero) {
         this.hero = hero;
-    }
-
-    public boolean isFighting() {
-        return fighting;
-    }
-
-    public void setFighting(boolean fighting) {
-        this.fighting = fighting;
     }
 
     public boolean isActionMenuActive() {
