@@ -14,15 +14,15 @@ import java.util.*;
 
 public abstract class Hero extends Character {
 
-    int coins;
-    int revives;
+    private int coins;
+    private int revives;
     private int experience;
     private boolean firstTimeInDungeon;
     private List<Item> inventory = new ArrayList<>();
-    public HashMap<String, Item> inventoryHash = new HashMap<>();
+    private HashMap<String, Item> inventoryHash = new HashMap<>();
     private boolean attacking;
-    int itemNum = 0;
-    boolean fleeing;
+    private int itemNum = 0;
+    private boolean fleeing;
 
 
     public Hero(String name, int level, int staminaMax, int baseDamage, int strength, int intelligens, int dexterity, boolean dead) {
@@ -89,9 +89,9 @@ public abstract class Hero extends Character {
 
     // Hash Inventory
     public void initInventoryHash() {
-        inventoryHash.put("Dungeon Map", new DungeonMap());
-        inventoryHash.put("Stamina Potion", new StaminaPotion());
-        inventoryHash.put("Lucky Dice Set", new LuckyDiceSet());
+        getInventoryHash().put("Dungeon Map", new DungeonMap());
+        getInventoryHash().put("Stamina Potion", new StaminaPotion());
+        getInventoryHash().put("Lucky Dice Set", new LuckyDiceSet());
     }
 
     public void printInventoryHash() {
@@ -105,81 +105,33 @@ public abstract class Hero extends Character {
 
     public int printInventoryHashOwned() {
         System.out.println(YELLOW_ITALIC + "Inventory:" + RESET);
-        itemNum = 0;
+        setItemNum(0);
         getInventoryHash().forEach((s, item) -> {
             if (item.isOwned()) {
-                itemNum++;
-                System.out.println(itemNum + ". " + item.getName());
+                setItemNum(getItemNum()+1);
+                System.out.println(getItemNum() + ". " + item.getName());
             }
         });
-        return itemNum;
+        return getItemNum();
     }
 
     public int printStore() {
 
         System.out.println(BLUE_ITALIC + "What would you like to buy?" + RESET);
-        itemNum = 0;
+        setItemNum(0);
         getInventoryHash().forEach((s, item) -> {
             if (!item.isOwned()) {
-                itemNum++;
-                System.out.println(itemNum + ". " + item.getName() + "  " + YELLOW_BOLD + item.getPrice() + " c" + RESET);
+                setItemNum(getItemNum()+1);
+                System.out.println(getItemNum() + ". " + item.getName() + "  " + YELLOW_BOLD + item.getPrice() + " c" + RESET);
             }
         });
-        return itemNum;
+        return getItemNum();
 
     }
 
-/**
- *
- // Implements IInventory
- @Override public void initInventory() {
- inventory.add(new MysteryBox());
- inventory.add(new DungeonMap());
- }
 
- @Override public void printOwnedItems() {
- sortPrioOwnedItems();
- int index = 1;
- for (Item item : getInventory()) {
- if (item.isOwned()) {
- System.out.println(index + ". " + item.getName());
- index++;
- }
- }
- }
 
- @Override public void printNotOwnedItems() {
- sortPrioNotOwnedItems();
- int index = 1;
- for (Item item : getInventory()) {
- if (!item.isOwned()) {
- System.out.println(index + ". " + item.getName());
- index++;
- }
- }
- }
 
- @Override public void pickUpItem(String stringItem) {
- getInventory().forEach(item -> {
- if (Objects.equals(item.getName(), stringItem)) {
- item.setOwned(true);
- }
- });
- }
-
- @Override public void printInventory() {
- getInventory().forEach(item -> System.out.println(item.getName() + " " + item.isOwned()));
- }
-
- @Override public void sortPrioOwnedItems() {
- getInventory().sort(Comparator.comparing(Item::isOwned).reversed());
- }
-
- @Override public void sortPrioNotOwnedItems() {
- getInventory().sort(Comparator.comparing(Item::isOwned));
- }
-
- */
     /**
      * @Override public void searchRoom() {
      * DiceSet roll = new DiceSet();
@@ -382,5 +334,13 @@ public abstract class Hero extends Character {
 
     public void setFleeing(boolean fleeing) {
         this.fleeing = fleeing;
+    }
+
+    public int getItemNum() {
+        return itemNum;
+    }
+
+    public void setItemNum(int itemNum) {
+        this.itemNum = itemNum;
     }
 }

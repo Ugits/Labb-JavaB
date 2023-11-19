@@ -20,7 +20,7 @@ public class CombatLogic {
 
         // roll for hit
         int roll = this.roll.d20();
-        System.out.println(RED_BOLD + "[DEBUG] \n" + "ROLL: " + roll + "\nDEX-MOD: " + dexMod + "\nTOTAL: "+ (roll + dexMod) + "\nHit over Defender DEX: " + defender.getDexterity()+"\n[DEBUG]\n");
+        //System.out.println(RED_BOLD + "[DEBUG] \n" + "ROLL: " + roll + "\nDEX-MOD: " + dexMod + "\nTOTAL: "+ (roll + dexMod) + "\nHit over Defender DEX: " + defender.getDexterity()+"\n[DEBUG]\n");
         if (roll == 1) {
             // Critical Miss = free counterattack from defender, 100% hit chans
             out.println(attacker.getName() + " fumbles..");

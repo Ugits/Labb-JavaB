@@ -20,17 +20,17 @@ class GameTest {
 
     @Test
     void run() {
-        game.gameOver = false;
+        game.setGameOver(false);
         ranger.setDead(true);
         ranger.setRevives(0);
 
         if (ranger.isDead() && ranger.getRevives() <= 0) {
 
-            game.gameOver = true;
+            game.setGameOver(true);
 
         }
 
-        assertTrue(game.gameOver);
-        assertFalse(!game.gameOver);
+        assertTrue(game.isGameOver());
+        assertFalse(!game.isGameOver());
     }
 }

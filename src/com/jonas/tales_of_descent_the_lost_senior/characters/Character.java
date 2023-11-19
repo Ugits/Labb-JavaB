@@ -14,12 +14,12 @@ public abstract class Character extends CombatLogic implements ICombat, IColors 
     OutputManipulation out = new OutputManipulation();
 
     private String name;
-    private int level;              // Utökar grund attributen: Styrka, intelligens och snabbhet
+    private int level;
     private int staminaMax;
     private int staminaCurrent;
-    private int strength;           // Styrka // + Dmg
-    private int intelligence;       // Intelligens // for casting intelligence
-    private int dexterity;          // Skicklighet/Snabbhet/Vighet // hit chance/ dodge  DEX vs DEX
+    private int strength;
+    private int intelligence;
+    private int dexterity;
     private int baseDamage;
     private int luck;
     private boolean dead;

@@ -22,12 +22,8 @@ public class Knight extends Hero {
     public void attack(Character monster, Game game) {
         getOut().println(getName() + " swings his sword!");
         attackLogics(this,this, monster,game);
+        setAttacking(false);
     }
-
-
-
-
-
 
 
     @Override

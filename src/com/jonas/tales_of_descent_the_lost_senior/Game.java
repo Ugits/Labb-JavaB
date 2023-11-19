@@ -17,12 +17,12 @@ public class Game {
     InputProcessing sc = new InputProcessing();
     OutputManipulation out = new OutputManipulation();
 
-    Player player = new Player();
+    private Player player = new Player();
     private int floorIndex = 0;
     private int roomIndex = 0;
     private Dungeon map;
-    boolean gameOver;
-    boolean gameOn;
+    private boolean gameOver;
+    private boolean gameOn;
 
     public Game() {
 
@@ -40,58 +40,61 @@ public class Game {
 
     public void run() {
 
-        //new TheThreeFriends(this);
-        //new Waterfall(this);
-        //new IntoTheDark(this);
-
-        player.setHero(new Ranger());
-        player.setFriend1(new Knight());
-        player.setFriend2(new Mage());
+        new TheThreeFriends(this);
+        new Waterfall(this);
+        new IntoTheDark(this);
 
 
-        getPlayer().getHero().setCoins(1000);
         do {
 
-            while (!player.getHero().isDead()) {
+            while (!getPlayer().getHero().isDead()) {
 
-                for (floorIndex = 1; floorIndex <= 5; floorIndex++) {
-                    if (player.getHero().isDead() && player.getHero().getRevives() <= 0) {
-                        //End loop
-                        getOut().printNarrative("This time," + player.getHero().getName() + " wont wake up..");
-                        gameOver = true;
+                for (setFloorIndex(1); getFloorIndex() <= 5; setFloorIndex(getFloorIndex()+1)) {
+                    if (getPlayer().getHero().isDead() && getPlayer().getHero().getRevives() <= 0) {
+
+                        getOut().printNarrative("This time," + getPlayer().getHero().getName() + " wont wake up..");
+                        setGameOver(true);
                         break;
-                    } else if (player.getHero().isDead() && player.getHero().getRevives() > 0) {
 
-                        player.getHero().revive();
+                    } else if (getPlayer().getHero().isDead() && getPlayer().getHero().getRevives() > 0) {
+
+                        getPlayer().getHero().revive();
 
                     }
 
-                    setMap(new Dungeon(player.getHero(), floorIndex, this));
+                    setMap(new Dungeon(getPlayer().getHero(), getFloorIndex(), this));
 
-                    for (roomIndex = 0; roomIndex < 5; roomIndex++) {
-                        player.getHero().setFleeing(false);
-                        if (player.getHero().getItem("Lucky Dice Set").isOwned()) {
-                            player.getHero().setLuck(2);
-                            System.out.println("luck = 2     [ DEBUG ]");
+                    for (setRoomIndex(0); getRoomIndex() < 5; setRoomIndex(getRoomIndex()+1)) {
+                        getPlayer().getHero().setFleeing(false);
+                        if (getPlayer().getHero().getItem("Lucky Dice Set").isOwned()) {
+                            getPlayer().getHero().setLuck(2);
+                            //System.out.println("luck = 2     [ DEBUG ]");
                         }
                         //map.getHero().printInventoryHash();
-                        map.getFloor().get(roomIndex).runScene();
-                        map.getFloor().get(roomIndex).checkIfMonster();
+                        getMap().getFloor().get(getRoomIndex()).runScene();
+                        getMap().getFloor().get(getRoomIndex()).checkIfMonster();
 
-                        if (!player.getHero().isDead() && !player.getHero().isFleeing()) {
-                            map.getFloor().get(roomIndex).runHeroAction();
+                        if (!getPlayer().getHero().isDead() && !getPlayer().getHero().isFleeing()) {
+                            getMap().getFloor().get(getRoomIndex()).runHeroAction();
                         }
 
-                        if (player.getHero().isDead()){
-                            floorIndex = 0;
-                            roomIndex = 0;
+                        if (getPlayer().getHero().isDead()){
+                            setFloorIndex(0);
+                            setRoomIndex(0);
                             break;
                         }
+
                     }
+                    getOut().printNarrative("After wandering a while in the dungeon caves, you now see the light.");
+                    getOut().printNarrative("could it be?.. ");
+                    getOut().sleep(3);
+                    getOut().printNarrative("To be continued ;) ");
+                    break;
+
                 }
             }
 
-        } while (!gameOver);
+        } while (!isGameOver());
         System.out.println("Will we ever get to know what happened to our master\n");
 
     }
@@ -168,4 +171,5 @@ public class Game {
     public void setGameOn(boolean gameOn) {
         this.gameOn = gameOn;
     }
+
 }

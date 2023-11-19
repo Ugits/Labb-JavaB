@@ -6,9 +6,9 @@ import com.jonas.tales_of_descent_the_lost_senior.objects.Item;
 import static com.jonas.tales_of_descent_the_lost_senior.resources.IColors.*;
 
 public class MysteryBox extends Item {
-    int index;
-    boolean active;
-    int inStock;
+    private int index;
+    private boolean active;
+    private int inStock;
 
 
     public MysteryBox() {
@@ -33,13 +33,13 @@ public class MysteryBox extends Item {
 
         System.out.println(BLUE_ITALIC + "Welcome traveller!" + RESET);
 
-        active = true;
-        while (active) {
-            inStock = game.getPlayer().getHero().printStore();
+        setActive(true);
+        while (isActive()) {
+            setInStock(game.getPlayer().getHero().printStore());
 
-            if (inStock == 0) {
+            if (getInStock() == 0) {
                 getOut().printNarrative("-- Inventory empty --");
-                active = false;
+                setActive(false);
             } else {
                 System.out.println("0. Back");
                 System.out.println(YELLOW_BOLD + "Pouch: " + game.getPlayer().getHero().getCoins() + " Coins" + RESET);
@@ -58,10 +58,10 @@ public class MysteryBox extends Item {
                 });
             }
             getOut().br();
-            if (active) {
+            if (isActive()) {
                 System.out.println("Do you need something else?" + "  [Y / N]");
                 switch (getSc().nextAlphabeticalLine().toLowerCase()) {
-                    case "n", "no" -> active = false;
+                    case "n", "no" -> setActive(false);
                 }
             }
         }
@@ -91,6 +91,22 @@ public class MysteryBox extends Item {
 
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public int getInStock() {
+        return inStock;
+    }
+
+    public void setInStock(int inStock) {
+        this.inStock = inStock;
     }
 
     // build store

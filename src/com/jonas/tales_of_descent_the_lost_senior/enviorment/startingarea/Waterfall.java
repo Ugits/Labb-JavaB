@@ -72,11 +72,8 @@ public class Waterfall extends Scene {
     }
 
     public void pickUpMysteryBox() {
-        //getGame().getPlayer().getHero().getItem("Mystery Box").setOwned(true);
 
         getGame().getPlayer().getHero().getInventoryHash().put("Mystery Box", new MysteryBox());
-
-
         getOut().printItemPickUp("Mystery Box");
     }
 

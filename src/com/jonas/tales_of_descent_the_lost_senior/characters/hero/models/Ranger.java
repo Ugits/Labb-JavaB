@@ -21,10 +21,7 @@ public class Ranger extends Hero {
 
     @Override
     public void attack(Character monster, Game game) {
-
         getOut().println(getName() + " fires an arrow!");
-        //consumeStamina(ATTACK);
-
         attackLogics(this,this, monster, game);
         setAttacking(false);
     }

@@ -22,12 +22,8 @@ public class Mage extends Hero {
     public void attack(Character monster, Game game) {
         getOut().println(getName() + " casts a fireball!");
         attackLogics(this,this, monster,game);
+        setAttacking(false);
     }
-
-
-
-
-
 
 
     @Override

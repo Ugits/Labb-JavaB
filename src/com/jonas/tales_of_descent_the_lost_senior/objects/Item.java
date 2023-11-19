@@ -1,12 +1,7 @@
 package com.jonas.tales_of_descent_the_lost_senior.objects;
 
 import com.jonas.tales_of_descent_the_lost_senior.Game;
-import com.jonas.tales_of_descent_the_lost_senior.characters.hero.Hero;
-import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
-import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Dungeon;
-import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Room;
 import com.jonas.tales_of_descent_the_lost_senior.resources.InputProcessing;
-import com.jonas.tales_of_descent_the_lost_senior.resources.MenuTool;
 import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 
 public abstract class Item {
