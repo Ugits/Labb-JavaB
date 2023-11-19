@@ -21,9 +21,10 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     private int intelligence;       // Intelligens // for casting intelligence
     private int dexterity;          // Skicklighet/Snabbhet/Vighet // hit chance/ dodge  DEX vs DEX
     private int baseDamage;
+    private int luck;
     private boolean dead;
 
-    public Character(String name, int level, int staminaMax, int strength, int intelligence, int dexterity, int baseDamage, boolean dead) {
+    public Character(String name, int level, int staminaMax, int strength, int intelligence, int dexterity, int baseDamage,int luck, boolean dead) {
         setName(name);
         setLevel(level);
         setStaminaMax(staminaMax);
@@ -32,6 +33,7 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
         setIntelligence(intelligence);
         setDexterity(dexterity);
         setBaseDamage(baseDamage);
+        setLuck(0);
         setDead(dead);
     }
 
@@ -68,15 +70,29 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     }
     public int calculateDamage() {
         DiceSet roll = new DiceSet();
-        return roll.dCustom(getBaseDamage());
+        return getLevel() + roll.dCustom(getBaseDamage());
     }
 
     // for HERO-- cant reach if I declare in Hero class
 
+    public boolean isFleeing() {
+        return false;
+    }
+
+    public void setFleeing(boolean fleeing) {
+    }
+
+    public int getLuck() {
+        return luck;
+    }
+
+    public void setLuck(int luck) {
+        this.luck = luck;
+    }
+
     public void lootMonster() {
     }
-    public void searchRoom() {
-    }
+
     public void gainExp(int monsterLevel) {
     }
     public int getRevives() {
@@ -107,25 +123,27 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
 
 
 
+/**
+ *
+     // Heroes Inventory
+     public void initInventory() {
+     }
+     public void printOwnedItems() {
+     }
+     public void printNotOwnedItems() {
+     }
+     public void pickUpItem(String stringItem) {
+     }
+     public void printInventory() {
+     }
+     public void sortPrioOwnedItems() {
+     }
+     public void sortPrioNotOwnedItems() {
+     }
 
-    // Heroes Inventory
-    public void initInventory() {
-    }
-    public void printOwnedItems() {
-    }
-    public void printNotOwnedItems() {
-    }
-    public void pickUpItem(String stringItem) {
-    }
-    public void printInventory() {
-    }
-    public void sortPrioOwnedItems() {
-    }
-    public void sortPrioNotOwnedItems() {
-    }
 
 
-
+ */
 
 
 

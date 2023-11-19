@@ -13,7 +13,7 @@ public class StaminaPotion extends Item {
     public void use(Game game) {
         getOut().printNarrative("*glunk* *glunk* *glunk* *glunk*");
         getOut().printNarrative("Ahhh...");
-
+        setOwned(false);
         game.getPlayer().getHero().setStaminaCurrent(game.getPlayer().getHero().getStaminaMax());
     }
 }

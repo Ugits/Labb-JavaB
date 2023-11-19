@@ -18,29 +18,4 @@ public class NoMonster extends Monster {
                 true);
     }
 
-
-    @Override
-    public void attack(Character monster,Game game) {
-
-    }
-
-    @Override
-    public void advancedAttack() {
-
-    }
-
-    @Override
-    public void flee() {
-
-    }
-
-    @Override
-    public void parry() {
-
-    }
-
-    @Override
-    public void dies(Game game) {
-
-    }
 }

@@ -10,7 +10,7 @@ public class Mage extends Hero {
         super(
                 BLUE_BOLD + "The Mage" + RESET,
                 1,
-                100,
+                50,
                 5,
                 5,
                 8,
@@ -26,20 +26,7 @@ public class Mage extends Hero {
 
 
 
-    @Override
-    public void advancedAttack() {
 
-    }
-
-    @Override
-    public void flee() {
-
-    }
-
-    @Override
-    public void parry() {
-
-    }
 
 
 

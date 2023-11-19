@@ -2,6 +2,7 @@ package com.jonas.tales_of_descent_the_lost_senior.characters.hero;
 
 import com.jonas.tales_of_descent_the_lost_senior.Game;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
+import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Room;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 import com.jonas.tales_of_descent_the_lost_senior.objects.Item;
 import com.jonas.tales_of_descent_the_lost_senior.objects.items.DungeonMap;
@@ -15,24 +16,22 @@ public abstract class Hero extends Character {
 
     int coins;
     int revives;
-    private int luck;
     private int experience;
     private boolean firstTimeInDungeon;
     private List<Item> inventory = new ArrayList<>();
     public HashMap<String, Item> inventoryHash = new HashMap<>();
     private boolean attacking;
     int itemNum = 0;
-
+    boolean fleeing;
 
 
     public Hero(String name, int level, int staminaMax, int baseDamage, int strength, int intelligens, int dexterity, boolean dead) {
-        super(name, level, staminaMax, strength, intelligens, dexterity, baseDamage, dead);
+        super(name, level, staminaMax, strength, intelligens, dexterity, baseDamage, 0, dead);
         this.experience = 0;
-        this.luck = 0;
         this.firstTimeInDungeon = true;
         this.attacking = true;
         this.revives = 2;
-        //initInventory();
+
         initInventoryHash();
     }
 
@@ -123,83 +122,79 @@ public abstract class Hero extends Character {
         getInventoryHash().forEach((s, item) -> {
             if (!item.isOwned()) {
                 itemNum++;
-                System.out.println(itemNum + ". " + item.getName() + "  " + YELLOW_BOLD +item.getPrice() + " c"+RESET);
+                System.out.println(itemNum + ". " + item.getName() + "  " + YELLOW_BOLD + item.getPrice() + " c" + RESET);
             }
         });
         return itemNum;
 
     }
 
+/**
+ *
+ // Implements IInventory
+ @Override public void initInventory() {
+ inventory.add(new MysteryBox());
+ inventory.add(new DungeonMap());
+ }
 
-    // Implements IInventory
-    @Override
-    public void initInventory() {
-        inventory.add(new MysteryBox());
-        inventory.add(new DungeonMap());
-    }
+ @Override public void printOwnedItems() {
+ sortPrioOwnedItems();
+ int index = 1;
+ for (Item item : getInventory()) {
+ if (item.isOwned()) {
+ System.out.println(index + ". " + item.getName());
+ index++;
+ }
+ }
+ }
 
-    @Override
-    public void printOwnedItems() {
-        sortPrioOwnedItems();
-        int index = 1;
-        for (Item item : getInventory()) {
-            if (item.isOwned()) {
-                System.out.println(index + ". " + item.getName());
-                index++;
-            }
-        }
-    }
+ @Override public void printNotOwnedItems() {
+ sortPrioNotOwnedItems();
+ int index = 1;
+ for (Item item : getInventory()) {
+ if (!item.isOwned()) {
+ System.out.println(index + ". " + item.getName());
+ index++;
+ }
+ }
+ }
 
-    @Override
-    public void printNotOwnedItems() {
-        sortPrioNotOwnedItems();
-        int index = 1;
-        for (Item item : getInventory()) {
-            if (!item.isOwned()) {
-                System.out.println(index + ". " + item.getName());
-                index++;
-            }
-        }
-    }
+ @Override public void pickUpItem(String stringItem) {
+ getInventory().forEach(item -> {
+ if (Objects.equals(item.getName(), stringItem)) {
+ item.setOwned(true);
+ }
+ });
+ }
 
-    @Override
-    public void pickUpItem(String stringItem) {
-        getInventory().forEach(item -> {
-            if (Objects.equals(item.getName(), stringItem)) {
-                item.setOwned(true);
-            }
-        });
-    }
+ @Override public void printInventory() {
+ getInventory().forEach(item -> System.out.println(item.getName() + " " + item.isOwned()));
+ }
 
-    @Override
-    public void printInventory() {
-        getInventory().forEach(item -> System.out.println(item.getName() + " " + item.isOwned()));
-    }
+ @Override public void sortPrioOwnedItems() {
+ getInventory().sort(Comparator.comparing(Item::isOwned).reversed());
+ }
 
-    @Override
-    public void sortPrioOwnedItems() {
-        getInventory().sort(Comparator.comparing(Item::isOwned).reversed());
-    }
+ @Override public void sortPrioNotOwnedItems() {
+ getInventory().sort(Comparator.comparing(Item::isOwned));
+ }
 
-    @Override
-    public void sortPrioNotOwnedItems() {
-        getInventory().sort(Comparator.comparing(Item::isOwned));
-    }
-
-    @Override
-    public void searchRoom() {
-        DiceSet roll = new DiceSet();
-        inventory.forEach(item -> {
-            if (Objects.equals(item.getName(), DungeonMap.class.getName()) && item.isOwned()) {
-                System.out.println("DU ÄGER JONAS");
-            } else {
-                System.out.println("Tyvärrrrrr");
-            }
-        });
-        if (roll.d20() + getLuck() > 15) {
-
-        }
-    }
+ */
+    /**
+     * @Override public void searchRoom() {
+     * DiceSet roll = new DiceSet();
+     * inventory.forEach(item -> {
+     * if (Objects.equals(item.getName(), DungeonMap.class.getName()) && item.isOwned()) {
+     * System.out.println("DU ÄGER JONAS");
+     * } else {
+     * System.out.println("Tyvärrrrrr");
+     * }
+     * });
+     * if (roll.d20() + getLuck() > 15) {
+     * <p>
+     * }
+     * }
+     */
 
     //Hero methods
     private StringBuilder xpMeter() {
@@ -219,6 +214,47 @@ public abstract class Hero extends Character {
         meter.append(BLACK_BACKGROUND + BLACK_BOLD + "▐" + RESET);
 
         return meter;
+    }
+
+
+    @Override
+    public void attack(Character character, Game game) {
+
+    }
+
+    @Override
+    public void advancedAttack() {
+
+    }
+
+    @Override
+    public void parry() {
+
+    }
+
+    @Override
+    public void flee(Room room, Game game) {
+        int fleeCost = 5;
+        DiceSet roll = new DiceSet();
+        getOut().printNarrative(getName() + " tries to flee the enemy..");
+        System.out.println(YELLOW_ITALIC + "-" + fleeCost + " stamina");
+        game.getPlayer().getHero().setStaminaCurrent(getStaminaCurrent() - fleeCost);
+        getOut().sleep(1000);
+        switch (roll.d10() + getLuck()) {
+            case 1, 2, 3, 4, 5, 6 -> {
+                getOut().printNarrative("and succeeds!");
+                getOut().sleep(1000);
+                game.setRoomIndex(game.getRoomIndex() - 2);
+                room.combatOn = false;
+                game.getPlayer().getHero().setFleeing(true);
+            }
+            default -> {
+                getOut().printNarrative(".. but fails");
+            }
+
+
+        }
+        //game.setRoomIndex(game.getRoomIndex() + 1);
     }
 
     @Override
@@ -257,7 +293,11 @@ public abstract class Hero extends Character {
         System.out.println("DEX: " + getDexterity());
         System.out.println("DMG: " + getBaseDamage());
         System.out.println("REVIVES: " + displayRevives());
+        System.out.println(YELLOW_BOLD + "Pouch: " + getCoins() + " Coins" + RESET);
 
+        // debug
+        System.out.println("stamina: " + getStaminaCurrent());
+        // TODO: 2023-11-19
     }
 
 
@@ -265,7 +305,7 @@ public abstract class Hero extends Character {
     public void lootMonster() {
         DiceSet roll = new DiceSet();
         int loot = roll.d10() + 1;
-        System.out.println(YELLOW_ITALIC+ "+" +loot + " coins");
+        System.out.println(YELLOW_ITALIC + "+" + loot + " coins");
         setCoins(getCoins() + loot);
     }
 
@@ -279,18 +319,12 @@ public abstract class Hero extends Character {
 
     public int calculateDamage() {
         DiceSet roll = new DiceSet();
-        return getBaseDamage() + roll.dCustom(getMainAttribute() / 2);
+        return getBaseDamage() + getLuck() + roll.dCustom(getMainAttribute() / 2);
     }
 
 
     // GET n SET
-    public int getLuck() {
-        return luck;
-    }
 
-    public void setLuck(int luck) {
-        this.luck = luck;
-    }
 
     public int getExperience() {
         return experience;
@@ -346,5 +380,13 @@ public abstract class Hero extends Character {
 
     public void setCoins(int coins) {
         this.coins = coins;
+    }
+
+    public boolean isFleeing() {
+        return fleeing;
+    }
+
+    public void setFleeing(boolean fleeing) {
+        this.fleeing = fleeing;
     }
 }

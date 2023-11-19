@@ -11,7 +11,7 @@ public class PackOfRats extends Monster {
                 "Pack of Rats",
                 floorNum,
                 8,
-                3,
+                5,
                 2,
                 3,
                 8,
@@ -26,21 +26,6 @@ public class PackOfRats extends Monster {
         //damage player
     }
 
-    @Override
-    public void advancedAttack() {
-        System.out.println("The pack surrounds you, biting and scratching!");
-        //damage player
-    }
-
-    @Override
-    public void flee() {
-        System.out.println("They run away. The rats seams frightened by something,");
-    }
-
-    @Override
-    public void parry() {
-
-    }
 
     @Override
     public void dies(Game game) {

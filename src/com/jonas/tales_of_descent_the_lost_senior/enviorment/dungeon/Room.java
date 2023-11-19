@@ -23,7 +23,7 @@ public class Room extends Scene {
     private Character monster;
     private Character hero;
     public boolean actionMenuActive;
-    public boolean combatMenuActive;
+    public boolean combatOn;
     public boolean beenHereBefore;
 
     public Room(Character hero, int floorNum, int roomNum, Game game) {
@@ -45,10 +45,9 @@ public class Room extends Scene {
             setDescription(genDescription());
         }
 
-        // has store todo implement store
-        // has tressure todo modify with LUCK //
 
-        this.hasTreasure = roll.d20() > 16;
+
+        this.hasTreasure = roll.d20() > (12 - getHero().getLuck());
 
         // set description
 
@@ -83,18 +82,20 @@ public class Room extends Scene {
     }
 
     private void monsterEncounter() {
+
         if (hasMonster) {
             getOut().printMonster(getMonster());
         }
-
+        combatOn = true;
         getHero().setAttacking(true);
-        while (!getMonster().isDead() && !getHero().isDead()) {
+        while (!getMonster().isDead() && !getHero().isDead() && combatOn) {
 
             getMenu().combatMenu();
 
             if (!getMonster().isDead() && !getHero().isAttacking() && !getHero().isDead()) {
                 getMonster().attack(getHero(), getMenu().getGame());
             }
+
             if (getMonster().isDead()) {
                 setHasMonster(false);
             }
@@ -124,16 +125,34 @@ public class Room extends Scene {
         };
     }
 
-    public void loot() {
+    public void searchLoot() {
+        if (isHasTreasure()) {
+            DiceSet roll = new DiceSet();
+            switch (roll.d10()) {
+                case 1, 2, 3, 4, 5, 6, 7 -> {
+                    getOut().printNarrative("*clink*");
+                    getOut().printNarrative("It´s something there!!");
+                    loot();
+                    setHasTreasure(false);
+                }
+                case 8, 9, 10 -> getOut().printNarrative("Maybe somewhere else?.. or try again?");
 
+            }
+
+        } else {
+            getOut().printNarrative("Maybe somewhere else?.. or try again?");
+        }
+    }
+
+    public void loot() {
 
         DiceSet roll = new DiceSet();
         switch (roll.d10()) {
             case 1 -> {
                 // 10%    Lucky Dice Set  // +2 Luck -- mod to all rolls /ITEM
-                if (getHero().getItem("Lucky Dice Set").isOwned()){
+                if (getHero().getItem("Lucky Dice Set").isOwned()) {
                     coinBig();
-                }else{
+                } else {
                     getHero().getItem("Lucky Dice Set").setOwned(true);
                 }
             }
@@ -142,9 +161,9 @@ public class Room extends Scene {
                 coinBig();
             }
             case 4, 5, 6 -> {
-                if (getHero().getItem("Stamina Potion").isOwned()){
-                        coinSmall();
-                }else{
+                if (getHero().getItem("Stamina Potion").isOwned()) {
+                    coinSmall();
+                } else {
                     getHero().getItem("Stamina Potion").setOwned(true);
                 }
 
@@ -156,17 +175,17 @@ public class Room extends Scene {
         }
     }
 
-    public void coinSmall(){
-        int loot = roll.d10() + 1;
-        getOut().printItemPickUp(loot + " coins");
-        getHero().setCoins(getHero().getCoins() + loot);
-    }
-    public void coinBig(){
-        int loot = roll.dCustom(30) + 30;
+    public void coinSmall() {
+        int loot = roll.d10() + 1 + getHero().getLuck();
         getOut().printItemPickUp(loot + " coins");
         getHero().setCoins(getHero().getCoins() + loot);
     }
 
+    public void coinBig() {
+        int loot = roll.dCustom(30) + 30+ getHero().getLuck();
+        getOut().printItemPickUp(loot + " coins");
+        getHero().setCoins(getHero().getCoins() + loot);
+    }
 
 
     public String shallowFloors() {
@@ -398,11 +417,13 @@ public class Room extends Scene {
         this.actionMenuActive = actionMenuActive;
     }
 
-    public boolean isCombatMenuActive() {
-        return combatMenuActive;
-    }
+ /**
+  *    public boolean isCombatMenuActive() {
+         return combatMenuActive;
+     }
 
-    public void setCombatMenuActive(boolean combatMenuActive) {
-        this.combatMenuActive = combatMenuActive;
-    }
+     public void setCombatMenuActive(boolean combatMenuActive) {
+         this.combatMenuActive = combatMenuActive;
+     }
+  */
 }

@@ -36,16 +36,16 @@ public class Game {
 
     public void run() {
 
-        new TheThreeFriends(this);
-        new Waterfall(this);
-        new IntoTheDark(this);
+        //new TheThreeFriends(this);
+        //new Waterfall(this);
+        //new IntoTheDark(this);
 
-        //player.setHero(new Ranger());
-        //player.setFriend1(new Knight());
-        //player.setFriend2(new Mage());
+        player.setHero(new Ranger());
+        player.setFriend1(new Knight());
+        player.setFriend2(new Mage());
 
-        //player.getHero().getItem("Mystery Box").use(this);
-            getPlayer().getHero().setCoins(1000);
+
+        getPlayer().getHero().setCoins(1000);
         do {
 
             while (!player.getHero().isDead()) {
@@ -65,14 +65,21 @@ public class Game {
                     setMap(new Dungeon(player.getHero(), floorIndex, this));
 
                     for (roomIndex = 0; roomIndex < 5; roomIndex++) {
-
+                        player.getHero().setFleeing(false);
+                        if (player.getHero().getItem("Lucky Dice Set").isOwned()) {
+                            player.getHero().setLuck(2);
+                            System.out.println("luck = 2     [ DEBUG ]");
+                        }
                         //map.getHero().printInventoryHash();
                         map.getFloor().get(roomIndex).runScene();
                         map.getFloor().get(roomIndex).checkIfMonster();
 
-                        if (!player.getHero().isDead()) {
+                        if (!player.getHero().isDead() && !player.getHero().isFleeing()) {
                             map.getFloor().get(roomIndex).runHeroAction();
-                        } else {
+
+                        }
+
+                        if (player.getHero().isDead()){
                             floorIndex = 0;
                             roomIndex = 0;
                             break;

@@ -31,7 +31,7 @@ public class GameLogic {
             attacker.takeDamage(dmg);
             sc.waitForEnter();
 
-        } else if (roll + dexMod >= defender.getDexterity()) {  // + LUCK ??
+        } else if (roll + dexMod + attacker.getLuck() >= defender.getDexterity()) {  // + LUCK ??
             System.out.println("HIT!");
             int damage = attacker.calculateDamage();
             out.println(defender.getName() + " takes " + damage + " damage");

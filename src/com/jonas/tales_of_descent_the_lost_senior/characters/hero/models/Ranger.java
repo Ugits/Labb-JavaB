@@ -3,6 +3,7 @@ package com.jonas.tales_of_descent_the_lost_senior.characters.hero.models;
 import com.jonas.tales_of_descent_the_lost_senior.Game;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.characters.hero.Hero;
+import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 
 public class Ranger extends Hero {
 
@@ -10,7 +11,7 @@ public class Ranger extends Hero {
         super(
                 GREEN_BOLD + "The Ranger" + RESET,
                 1,
-                100,
+                50,
                 5,
                 5,
                 5,
@@ -27,24 +28,6 @@ public class Ranger extends Hero {
         attackLogics(this,this, monster, game);
         setAttacking(false);
     }
-
-
-
-    @Override
-    public void advancedAttack() {
-
-    }
-
-    @Override
-    public void flee() {
-
-    }
-
-    @Override
-    public void parry() {
-
-    }
-
 
 
     @Override

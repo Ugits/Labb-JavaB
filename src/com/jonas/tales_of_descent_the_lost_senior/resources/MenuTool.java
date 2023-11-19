@@ -201,17 +201,16 @@ public class MenuTool extends Scene implements IColors {
         switch (option) {
             case "Hit" -> {
                 getHero().attack(getMonster(), getGame());
-                room.setCombatMenuActive(false);
+                //room.setCombatMenuActive(false);
             }
             case "Inventory" -> {
 
                 int items = getHero().printInventoryHashOwned();
+
                 if (items == 0) {
-
                     getOut().printNarrative("-- Inventory empty --");
-
                 } else {
-
+                    System.out.println("0. Back");
                     AtomicReference<String> choice = new AtomicReference<>();
                     int tempChoice = getSc().tryNextInt();
 
@@ -232,16 +231,14 @@ public class MenuTool extends Scene implements IColors {
                         case "Dungeon Map" -> {
                             getHero().getItem("Dungeon Map").use(getGame());
                         }
-                        case "Lucky Dice Set" ->{
+                        case "Lucky Dice Set" -> {
                             getHero().getItem("Lucky Dice Set").use(getGame());
                         }
-                        case "Stamina Potion"-> {
+                        case "Stamina Potion" -> {
                             getHero().getItem("Stamina Potion").use(getGame());
                         }
-                        default -> System.out.println("choose something you own..");
+                        default -> System.out.println();
                     }
-
-
                     sc.waitForEnter();
                     sc.getScanner().nextLine();
                 }
@@ -252,7 +249,10 @@ public class MenuTool extends Scene implements IColors {
                 sc.waitForEnter();
             }
             case "Search Room" -> {
-
+                int digCost = 5;
+                getHero().setStaminaCurrent(getHero().getStaminaCurrent() - digCost);
+                System.out.println(YELLOW_ITALIC + "-" + digCost + " stamina");
+                room.searchLoot();
             }
             case "Move Back" -> {
                 getOut().printNarrative(getHero().getName() + " is heading back..");
@@ -271,12 +271,10 @@ public class MenuTool extends Scene implements IColors {
                 sc.waitForEnter();
             }
 
-            //case  -> System.out.println();
-            //case  -> System.out.println();
             default -> {
 
                 if (option.equals("Escape -> " + RED_BOLD + "[ " + RED_ITALIC + "Room " + getFloorNum() + "." + (getRoomNum() - 1) + RESET + RED_BOLD + " ]" + RESET)) {
-                    System.out.println("execute ESCAPE");
+                    getHero().flee(room,getGame());
                 } else {
                     setUserChoiceActive(true);
                     System.out.println("[DEBUG]    Fail in execute Choice    [DEBUG]");

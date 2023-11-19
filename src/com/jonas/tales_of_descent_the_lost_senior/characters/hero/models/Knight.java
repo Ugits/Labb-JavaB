@@ -10,7 +10,7 @@ public class Knight extends Hero {
         super(
                 RED_BOLD + "The Knight" + RESET,
                 1,
-                100,
+                50,
                 5,
                 8,
                 5,
@@ -26,20 +26,7 @@ public class Knight extends Hero {
 
 
 
-    @Override
-    public void advancedAttack() {
 
-    }
-
-    @Override
-    public void flee() {
-
-    }
-
-    @Override
-    public void parry() {
-
-    }
 
 
 

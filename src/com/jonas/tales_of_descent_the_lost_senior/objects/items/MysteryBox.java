@@ -21,6 +21,7 @@ public class MysteryBox extends Item {
 
         getOut().printNarrative("description for the magic cube unfolds");
         magicShop(game);
+
         //Trigger store
         // TODO: 2023-11-18 Build store
         // init all items in hero
@@ -35,11 +36,12 @@ public class MysteryBox extends Item {
         active = true;
         while (active) {
             inStock = game.getPlayer().getHero().printStore();
+
             if (inStock == 0) {
                 getOut().printNarrative("-- Inventory empty --");
                 active = false;
             } else {
-
+                System.out.println("0. Back");
                 System.out.println(YELLOW_BOLD + "Pouch: " + game.getPlayer().getHero().getCoins() + " Coins" + RESET);
 
                 int tempChoice = getSc().tryNextInt();
@@ -52,6 +54,7 @@ public class MysteryBox extends Item {
                             dealOrNot(game, item);
                         }
                     }
+
                 });
             }
             getOut().br();
