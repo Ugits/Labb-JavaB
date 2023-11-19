@@ -10,7 +10,7 @@ public class Ranger extends Hero {
         super(
                 GREEN_BOLD + "The Ranger" + RESET,
                 1,
-                1,
+                100,
                 5,
                 5,
                 5,
@@ -26,7 +26,6 @@ public class Ranger extends Hero {
 
         attackLogics(this,this, monster, game);
         setAttacking(false);
-
     }
 
 

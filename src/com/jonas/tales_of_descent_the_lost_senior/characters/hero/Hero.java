@@ -5,7 +5,9 @@ import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 import com.jonas.tales_of_descent_the_lost_senior.objects.Item;
 import com.jonas.tales_of_descent_the_lost_senior.objects.items.DungeonMap;
+import com.jonas.tales_of_descent_the_lost_senior.objects.items.LuckyDiceSet;
 import com.jonas.tales_of_descent_the_lost_senior.objects.items.MysteryBox;
+import com.jonas.tales_of_descent_the_lost_senior.objects.items.StaminaPotion;
 
 import java.util.*;
 
@@ -20,6 +22,7 @@ public abstract class Hero extends Character {
     public HashMap<String, Item> inventoryHash = new HashMap<>();
     private boolean attacking;
     int itemNum = 0;
+
 
 
     public Hero(String name, int level, int staminaMax, int baseDamage, int strength, int intelligens, int dexterity, boolean dead) {
@@ -87,8 +90,9 @@ public abstract class Hero extends Character {
 
     // Hash Inventory
     public void initInventoryHash() {
-
         inventoryHash.put("Dungeon Map", new DungeonMap());
+        inventoryHash.put("Stamina Potion", new StaminaPotion());
+        inventoryHash.put("Lucky Dice Set", new LuckyDiceSet());
     }
 
     public void printInventoryHash() {
@@ -253,6 +257,16 @@ public abstract class Hero extends Character {
         System.out.println("DEX: " + getDexterity());
         System.out.println("DMG: " + getBaseDamage());
         System.out.println("REVIVES: " + displayRevives());
+
+    }
+
+
+    @Override
+    public void lootMonster() {
+        DiceSet roll = new DiceSet();
+        int loot = roll.d10() + 1;
+        System.out.println(YELLOW_ITALIC+ "+" +loot + " coins");
+        setCoins(getCoins() + loot);
     }
 
     public int getMainAttribute() {

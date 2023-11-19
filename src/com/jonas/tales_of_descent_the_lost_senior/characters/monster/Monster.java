@@ -1,6 +1,7 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.monster;
 
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
+import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 
 public abstract class Monster extends Character {
 
@@ -14,10 +15,10 @@ public abstract class Monster extends Character {
                 dexterity,
                 baseDamage,
                 dead);
-        setStaminaMax(getStaminaMax() + ((getLevel()-1) * 2));
+        setStaminaMax(getStaminaMax() + ((getLevel() - 1) * 2));
         setStaminaCurrent(getStaminaMax());
-        setDexterity(getDexterity() + ((getLevel()-1) * 2));
-        setBaseDamage(getBaseDamage() + ((getLevel()-1) * 2));
+        setDexterity(getDexterity() + ((getLevel() - 1) * 2));
+        setBaseDamage(getBaseDamage() + ((getLevel() - 1) * 2));
     }
 
     @Override

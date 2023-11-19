@@ -10,6 +10,11 @@ public class DiceSet {
         return roll.nextInt(20) + 1;
     }
 
+    public int d10() {
+        Random roll = new Random();
+        return roll.nextInt(10) + 1;
+    }
+
     public int dCustom(int dSize) {
         Random roll = new Random();
         return roll.nextInt(dSize) + 1;

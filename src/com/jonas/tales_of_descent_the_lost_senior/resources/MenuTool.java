@@ -205,11 +205,11 @@ public class MenuTool extends Scene implements IColors {
             }
             case "Inventory" -> {
 
-
-
                 int items = getHero().printInventoryHashOwned();
                 if (items == 0) {
+
                     getOut().printNarrative("-- Inventory empty --");
+
                 } else {
 
                     AtomicReference<String> choice = new AtomicReference<>();
@@ -228,10 +228,15 @@ public class MenuTool extends Scene implements IColors {
                     switch (choice.toString()) {
                         case "Mystery Box" -> {
                             getHero().getItem("Mystery Box").use(getGame());
-
                         }
                         case "Dungeon Map" -> {
                             getHero().getItem("Dungeon Map").use(getGame());
+                        }
+                        case "Lucky Dice Set" ->{
+                            getHero().getItem("Lucky Dice Set").use(getGame());
+                        }
+                        case "Stamina Potion"-> {
+                            getHero().getItem("Stamina Potion").use(getGame());
                         }
                         default -> System.out.println("choose something you own..");
                     }
@@ -259,13 +264,11 @@ public class MenuTool extends Scene implements IColors {
                 getOut().printNarrative(getHero().getName() + " is moving on..");
                 room.setActionMenuActive(false);
                 sc.waitForEnter();
-
             }
             case "Move to Next Floor" -> {
                 getOut().printNarrative(getHero().getName() + " now descends to floor " + (getFloorNum() + 1));
                 room.setActionMenuActive(false);
                 sc.waitForEnter();
-
             }
 
             //case  -> System.out.println();

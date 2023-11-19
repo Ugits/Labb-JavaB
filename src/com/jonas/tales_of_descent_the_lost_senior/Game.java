@@ -45,7 +45,7 @@ public class Game {
         //player.setFriend2(new Mage());
 
         //player.getHero().getItem("Mystery Box").use(this);
-
+            getPlayer().getHero().setCoins(1000);
         do {
 
             while (!player.getHero().isDead()) {

@@ -73,6 +73,8 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
 
     // for HERO-- cant reach if I declare in Hero class
 
+    public void lootMonster() {
+    }
     public void searchRoom() {
     }
     public void gainExp(int monsterLevel) {

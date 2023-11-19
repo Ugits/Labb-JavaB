@@ -20,7 +20,6 @@ public class GameLogic {
 
         // roll for hit
         int roll = this.roll.d20();
-        roll = 1;
         System.out.println(RED_BOLD + "[DEBUG] \n" + "ROLL: " + roll + "\nDEX-MOD: " + dexMod + "\nTOTAL: "+ (roll + dexMod) + "\nHit over Defender DEX: " + defender.getDexterity()+"\n[DEBUG]\n");
         if (roll == 1) {
             // Critical Miss = free counterattack from defender, 100% hit chans
@@ -46,7 +45,9 @@ public class GameLogic {
         if (defender.getStaminaCurrent() <= 0) {
             defender.dies(game);
             if (attacker == hero) {
+                attacker.lootMonster();
                 attacker.gainExp(defender.getLevel());
+
                 sc.waitForEnter();
             }else {
                 out.printNarrative(defender.getName() + " is no more!");
@@ -56,6 +57,7 @@ public class GameLogic {
         if (attacker.getStaminaCurrent() <= 0) {
             attacker.dies(game);
             if (defender == hero) {
+                defender.lootMonster();
                 defender.gainExp(attacker.getLevel());
                 sc.waitForEnter();
             }else {

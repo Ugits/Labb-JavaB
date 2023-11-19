@@ -83,7 +83,7 @@ public class Room extends Scene {
     }
 
     private void monsterEncounter() {
-        if(hasMonster){
+        if (hasMonster) {
             getOut().printMonster(getMonster());
         }
 
@@ -101,6 +101,7 @@ public class Room extends Scene {
 
         }
     }
+
 
     public Monster fetchMonster(int roll) {
         this.hasMonster = true;
@@ -122,6 +123,51 @@ public class Room extends Scene {
             default -> throw new IllegalStateException("Unexpected value: " + roll.d20());
         };
     }
+
+    public void loot() {
+
+
+        DiceSet roll = new DiceSet();
+        switch (roll.d10()) {
+            case 1 -> {
+                // 10%    Lucky Dice Set  // +2 Luck -- mod to all rolls /ITEM
+                if (getHero().getItem("Lucky Dice Set").isOwned()){
+                    coinBig();
+                }else{
+                    getHero().getItem("Lucky Dice Set").setOwned(true);
+                }
+            }
+            case 2, 3 -> {
+                // 20%   Box Of Wealth //roll 30 - 60 coins
+                coinBig();
+            }
+            case 4, 5, 6 -> {
+                if (getHero().getItem("Stamina Potion").isOwned()){
+                        coinSmall();
+                }else{
+                    getHero().getItem("Stamina Potion").setOwned(true);
+                }
+
+            }
+            case 7, 8, 9, 10 -> {
+                // 40%   Coins //roll 2 - 11 coins
+                coinSmall();
+            }
+        }
+    }
+
+    public void coinSmall(){
+        int loot = roll.d10() + 1;
+        getOut().printItemPickUp(loot + " coins");
+        getHero().setCoins(getHero().getCoins() + loot);
+    }
+    public void coinBig(){
+        int loot = roll.dCustom(30) + 30;
+        getOut().printItemPickUp(loot + " coins");
+        getHero().setCoins(getHero().getCoins() + loot);
+    }
+
+
 
     public String shallowFloors() {
 

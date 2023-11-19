@@ -10,9 +10,6 @@ public class MysteryBox extends Item {
     boolean active;
     int inStock;
 
-    public MysteryBox(Boolean owned) {
-        super("Mystery Box", 0, owned);
-    }
 
     public MysteryBox() {
         super("Mystery Box", 0, true);
@@ -21,7 +18,7 @@ public class MysteryBox extends Item {
 
     @Override
     public void use(Game game) {
-        game.getPlayer().getHero().setCoins(50);
+
         getOut().printNarrative("description for the magic cube unfolds");
         magicShop(game);
         //Trigger store
@@ -83,7 +80,6 @@ public class MysteryBox extends Item {
             }
             default -> System.out.println("if you don't need it..");
         }
-
     }
 
     public int getIndex() {
