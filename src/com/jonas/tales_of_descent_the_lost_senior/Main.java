@@ -4,11 +4,12 @@ import com.jonas.tales_of_descent_the_lost_senior.resources.IColors;
 
 public class Main implements IColors {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
 
 
-        Game start = new Game();
-        start.run();
+        new Game();
+
+
 
 
 

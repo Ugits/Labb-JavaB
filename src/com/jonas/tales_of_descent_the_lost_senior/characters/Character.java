@@ -1,6 +1,5 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters;
 
-import com.jonas.tales_of_descent_the_lost_senior.characters.hero.IExpHandler;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.ICombat;
 import com.jonas.tales_of_descent_the_lost_senior.logic.GameLogic;
@@ -78,7 +77,18 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     }
     public void gainExp(int monsterLevel) {
     }
-
+    public int getRevives() {
+        return 0;
+    }
+    public void setRevives(int revives) {
+    }
+    public void revive() {
+    }
+    public int getCoins() {
+        return 0;
+    }
+    public void setCoins(int coins) {
+    }
 
     // Heroes inventory
     public void printInventoryHash() {
@@ -86,7 +96,11 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
     public Item getItem(String item){
         return getInventoryHash().get(item);
     }
-    public void printInventoryHashOwned() {
+    public int printInventoryHashOwned() {
+        return 0;
+    }
+    public int printStore() {
+        return 0;
     }
 
 

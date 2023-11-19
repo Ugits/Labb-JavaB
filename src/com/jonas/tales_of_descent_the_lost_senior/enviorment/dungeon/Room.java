@@ -27,7 +27,7 @@ public class Room extends Scene {
     public boolean beenHereBefore;
 
     public Room(Character hero, int floorNum, int roomNum, Game game) {
-        super(-floorNum, -floorNum);
+        super(game);
         this.hero = hero;
         this.difficulty = floorNum;
         this.floorNum = floorNum;
@@ -69,7 +69,7 @@ public class Room extends Scene {
 
     public void checkIfMonster() {
 
-        if (hasMonster) {
+        if (hasMonster || !getHero().isDead()) {
             monsterEncounter();
         }
     }
@@ -83,26 +83,22 @@ public class Room extends Scene {
     }
 
     private void monsterEncounter() {
-
-        getOut().printMonster(getMonster());
+        if(hasMonster){
+            getOut().printMonster(getMonster());
+        }
 
         getHero().setAttacking(true);
-        while (!getMonster().isDead()) {
+        while (!getMonster().isDead() && !getHero().isDead()) {
 
             getMenu().combatMenu();
 
-
-
-            if (!getMonster().isDead() && !getHero().isAttacking()) {
-                getMonster().attack(getHero());
+            if (!getMonster().isDead() && !getHero().isAttacking() && !getHero().isDead()) {
+                getMonster().attack(getHero(), getMenu().getGame());
             }
             if (getMonster().isDead()) {
                 setHasMonster(false);
             }
-            if (getHero().isDead()) {
-                getOut().printNarrative("The " + getHero().getName() + " is no more!");
-                // TODO: 2023-11-17
-            }
+
         }
     }
 
@@ -120,9 +116,9 @@ public class Room extends Scene {
     public String genDescription() {
 
         return switch (getFloorNum()) {
-            case 1, 2, 3 -> shallowFloors();
-            case 4, 5, 6, 7 -> midDepthFloors();
-            case 8, 9, 10 -> deeperFloors();
+            case 1 -> shallowFloors();
+            case 2, 3, 4 -> midDepthFloors();
+            case 5 -> deeperFloors();
             default -> throw new IllegalStateException("Unexpected value: " + roll.d20());
         };
     }

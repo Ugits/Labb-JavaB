@@ -1,5 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.hero.models;
 
+import com.jonas.tales_of_descent_the_lost_senior.Game;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.characters.hero.Hero;
 
@@ -9,7 +10,7 @@ public class Ranger extends Hero {
         super(
                 GREEN_BOLD + "The Ranger" + RESET,
                 1,
-                100,
+                1,
                 5,
                 5,
                 5,
@@ -18,12 +19,12 @@ public class Ranger extends Hero {
     }
 
     @Override
-    public void attack(Character monster) {
+    public void attack(Character monster, Game game) {
 
-        getOut().print(getName() + " fires an arrow!");
-        consumeStamina(ATTACK);
+        getOut().println(getName() + " fires an arrow!");
+        //consumeStamina(ATTACK);
 
-        attackLogics(this,this, monster);
+        attackLogics(this,this, monster, game);
         setAttacking(false);
 
     }

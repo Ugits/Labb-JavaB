@@ -1,14 +1,15 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea;
 
+import com.jonas.tales_of_descent_the_lost_senior.Game;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 
 
 public class IntoTheDark extends Scene {
 
-    public IntoTheDark(Player player) {
-        super(player, -1, -1);
-        setDescription(intoTheDarkDescription(player));
+    public IntoTheDark(Game game) {
+        super(game);
+        setDescription(intoTheDarkDescription(getGame().getPlayer()));
         description();
         part1();
     }
@@ -73,7 +74,7 @@ public class IntoTheDark extends Scene {
                 Emerging from the ladder's descent, you attempt to reassure yourself, murmuring..""");
 
         getOut().br();
-        getOut().printHeader(getPlayer().getHero().getName());
+        getOut().printHeader(getGame().getPlayer().getHero().getName());
         getOut().delayPrint(30, "This isn't so bad...");
         getOut().br();
 

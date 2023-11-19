@@ -1,5 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.hero.models;
 
+import com.jonas.tales_of_descent_the_lost_senior.Game;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.characters.hero.Hero;
 
@@ -18,9 +19,9 @@ public class Knight extends Hero {
     }
 
     @Override
-    public void attack(Character monster) {
+    public void attack(Character monster, Game game) {
         getOut().println(getName() + " swings his sword!");
-        attackLogics(this,this, monster);
+        attackLogics(this,this, monster,game);
     }
 
 

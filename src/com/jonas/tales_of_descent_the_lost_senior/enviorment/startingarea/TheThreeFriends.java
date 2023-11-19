@@ -1,4 +1,5 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea;
+import com.jonas.tales_of_descent_the_lost_senior.Game;
 import com.jonas.tales_of_descent_the_lost_senior.characters.hero.Hero;
 import com.jonas.tales_of_descent_the_lost_senior.characters.hero.models.Knight;
 import com.jonas.tales_of_descent_the_lost_senior.characters.hero.models.Mage;
@@ -12,15 +13,14 @@ import java.util.List;
 
 public class TheThreeFriends extends Scene {
 
-    Player player;
 
-    public TheThreeFriends(Player player)  {
-        super(player,0, 0);
-        setPlayer(player);
+
+    public TheThreeFriends(Game game)  {
+        super(game);
         setDescription(getOut().theThreeFriendsDescription());
         description();
         part1();
-        getPlayer().setHero(heroSwitch());
+        game.getPlayer().setHero(heroSwitch());
         part2();
     }
 
@@ -62,21 +62,21 @@ public class TheThreeFriends extends Scene {
 
     public void part2()  {
 
-        System.out.println(getPlayer().getHero().getName());
+        System.out.println(getGame().getPlayer().getHero().getName());
         // dialog continues
         getOut().br();
-        System.out.println(getPlayer().getHero().getName());
+        System.out.println(getGame().getPlayer().getHero().getName());
         System.out.println("I'll take the lead. Our Master's missing, and we need to find out why.");
         getOut().br();
         getOut().printNarrative(PURPLE_ITALIC + "The trio decides to cover more ground, splitting up to search for clues. You will head towards the waterfall." + RESET);
 
         assignFriendHeroes();
 
-        getOut().printHeader(getPlayer().getFriend1().getName());
-        getOut().delayPrint(50,"Me and " + getPlayer().getFriend2().getName() + " will scout ahead.");
+        getOut().printHeader(getGame().getPlayer().getFriend1().getName());
+        getOut().delayPrint(50,"Me and " + getGame().getPlayer().getFriend2().getName() + " will scout ahead.");
         getOut().br();
 
-        getOut().printHeader(getPlayer().getFriend2().getName());
+        getOut().printHeader(getGame().getPlayer().getFriend2().getName());
         getOut().delayPrint(50,"Let's meet back here later, be careful.");
         getOut().br();
 
@@ -86,18 +86,18 @@ public class TheThreeFriends extends Scene {
     }
 
     public void assignFriendHeroes() {
-        switch (getPlayer().getHero().getName()) {
+        switch (getGame().getPlayer().getHero().getName()) {
             case RED_BOLD + "The Knight" + RESET -> {
-                getPlayer().setFriend1(new Mage());
-                getPlayer().setFriend2(new Ranger());
+                getGame().getPlayer().setFriend1(new Mage());
+                getGame().getPlayer().setFriend2(new Ranger());
             }
             case  BLUE_BOLD + "The Mage" + RESET -> {
-                getPlayer().setFriend1(new Ranger());
-                getPlayer().setFriend2(new Knight());
+                getGame().getPlayer().setFriend1(new Ranger());
+                getGame().getPlayer().setFriend2(new Knight());
             }
             case GREEN_BOLD + "The Ranger" + RESET -> {
-                getPlayer().setFriend1(new Mage());
-                getPlayer().setFriend2(new Knight());
+                getGame().getPlayer().setFriend1(new Mage());
+                getGame().getPlayer().setFriend2(new Knight());
             }
         }
     }
@@ -105,11 +105,5 @@ public class TheThreeFriends extends Scene {
 
     //GET n SET
 
-    public Player getPlayer() {
-        return player;
-    }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
 }

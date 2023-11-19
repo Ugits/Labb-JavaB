@@ -1,5 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.characters.hero;
 
+import com.jonas.tales_of_descent_the_lost_senior.Game;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 import com.jonas.tales_of_descent_the_lost_senior.objects.Item;
@@ -8,8 +9,10 @@ import com.jonas.tales_of_descent_the_lost_senior.objects.items.MysteryBox;
 
 import java.util.*;
 
-public abstract class Hero extends Character implements IStaminaConsumption {
+public abstract class Hero extends Character {
 
+    int coins;
+    int revives;
     private int luck;
     private int experience;
     private boolean firstTimeInDungeon;
@@ -18,12 +21,14 @@ public abstract class Hero extends Character implements IStaminaConsumption {
     private boolean attacking;
     int itemNum = 0;
 
+
     public Hero(String name, int level, int staminaMax, int baseDamage, int strength, int intelligens, int dexterity, boolean dead) {
         super(name, level, staminaMax, strength, intelligens, dexterity, baseDamage, dead);
         this.experience = 0;
         this.luck = 0;
         this.firstTimeInDungeon = true;
         this.attacking = true;
+        this.revives = 2;
         //initInventory();
         initInventoryHash();
     }
@@ -58,13 +63,13 @@ public abstract class Hero extends Character implements IStaminaConsumption {
             setLevel(getLevel() + 1);
             setExperience(getExperience() % 100);
 
-            setStrength(getStrength() + ((getLevel()-1) * 2));
-            setIntelligence(getIntelligence() + ((getLevel()-1) * 2));
-            setDexterity(getDexterity() + ((getLevel()-1) * 2));
+            setStrength(getStrength() + ((getLevel() - 1) * 2));
+            setIntelligence(getIntelligence() + ((getLevel() - 1) * 2));
+            setDexterity(getDexterity() + ((getLevel() - 1) * 2));
             setMainAttribute(getMainAttribute() + 1);
-            setStaminaMax(getStaminaMax() + ((getLevel()-1) * 2));
+            setStaminaMax(getStaminaMax() + ((getLevel() - 1) * 2));
             setStaminaCurrent(getStaminaMax());
-            setBaseDamage(getBaseDamage() + (getLevel()-1));
+            setBaseDamage(getBaseDamage() + (getLevel() - 1));
 
             getOut().println(YELLOW_ITALIC + "You reached level " + getLevel() + RESET);
             getOut().println(YELLOW_ITALIC + "And you feel stronger and fresh" + RESET);
@@ -72,40 +77,54 @@ public abstract class Hero extends Character implements IStaminaConsumption {
     }
 
     //Implements IStaminaConsumption
-    @Override
-    public void consumeStamina(int staAmount) {
-        getOut().println(YELLOW_ITALIC + "  [ -" + staAmount + " stamina ]" + RESET);
-        setStaminaCurrent(getStaminaCurrent() - staAmount);
-    }
+
+    /**
+     * @Override public void consumeStamina(int staAmount) {
+     * getOut().println(YELLOW_ITALIC + "  [ -" + staAmount + " stamina ]" + RESET);
+     * setStaminaCurrent(getStaminaCurrent() - staAmount);
+     * }
+     */
 
     // Hash Inventory
-    public void initInventoryHash(){
-        inventoryHash.put("Mystery Box", new MysteryBox(true));
-        inventoryHash.put("Dungeon Map", new DungeonMap(true));
+    public void initInventoryHash() {
+
+        inventoryHash.put("Dungeon Map", new DungeonMap());
     }
 
-    public void printInventoryHash(){
+    public void printInventoryHash() {
         getInventoryHash().forEach((s, item) -> System.out.println(item.getName()));
     }
 
-    public Item getItem(String item){
+    public Item getItem(String item) {
         return getInventoryHash().get(item);
     }
 
 
-    public void printInventoryHashOwned(){
+    public int printInventoryHashOwned() {
+        System.out.println(YELLOW_ITALIC + "Inventory:" + RESET);
         itemNum = 0;
-        getInventoryHash().forEach((s,item) -> {
+        getInventoryHash().forEach((s, item) -> {
             if (item.isOwned()) {
                 itemNum++;
-                System.out.println(itemNum + ". " +item.getName());
+                System.out.println(itemNum + ". " + item.getName());
             }
         });
+        return itemNum;
     }
 
+    public int printStore() {
 
+        System.out.println(BLUE_ITALIC + "What would you like to buy?" + RESET);
+        itemNum = 0;
+        getInventoryHash().forEach((s, item) -> {
+            if (!item.isOwned()) {
+                itemNum++;
+                System.out.println(itemNum + ". " + item.getName() + "  " + YELLOW_BOLD +item.getPrice() + " c"+RESET);
+            }
+        });
+        return itemNum;
 
-
+    }
 
 
     // Implements IInventory
@@ -162,25 +181,25 @@ public abstract class Hero extends Character implements IStaminaConsumption {
     public void sortPrioNotOwnedItems() {
         getInventory().sort(Comparator.comparing(Item::isOwned));
     }
+
     @Override
     public void searchRoom() {
         DiceSet roll = new DiceSet();
         inventory.forEach(item -> {
             if (Objects.equals(item.getName(), DungeonMap.class.getName()) && item.isOwned()) {
                 System.out.println("DU ÄGER JONAS");
-            }else {
+            } else {
                 System.out.println("Tyvärrrrrr");
             }
         });
-        if (roll.d20() + getLuck() > 15){
+        if (roll.d20() + getLuck() > 15) {
 
         }
     }
 
-
     //Hero methods
-    private StringBuilder xpMeter(int exp) {
-
+    private StringBuilder xpMeter() {
+        int exp = getExperience();
         double expTemp = (double) exp / 4;
         StringBuilder meter = new StringBuilder();
 
@@ -199,18 +218,41 @@ public abstract class Hero extends Character implements IStaminaConsumption {
     }
 
     @Override
-    public void dies() {
+    public void dies(Game game) {
         setDead(true);
+    }
+
+    public void revive() {
+        setRevives(getRevives() - 1);
+        getOut().printNarrative(getName() + " rises again. Lets se how deep i can get this time..");
+        setDead(false);
+        setStaminaCurrent(getStaminaMax());
+    }
+
+    public String displayRevives() {
+        int tempRevives = getRevives();
+        StringBuilder rev = new StringBuilder();
+
+        for (int i = 0; i < 2; i++) {
+            if (tempRevives > 0) {
+                rev.append(GREEN_BOLD + "㋛ " + RESET);
+                tempRevives--;
+            } else {
+                rev.append(RED_BOLD + "㋛ " + RESET);
+            }
+        }
+        return rev.toString();
     }
 
     public void getStatus() {
         System.out.println(getName() + getLevelToStatus());
-        System.out.println("XP : " + xpMeter(getExperience()));
+        System.out.println("XP : " + xpMeter());
         System.out.println("STA: " + staminaMeter(getStaminaCurrent(), getStaminaMax()));
         System.out.println("STR: " + getStrength());
         System.out.println("INT: " + getIntelligence());
         System.out.println("DEX: " + getDexterity());
         System.out.println("DMG: " + getBaseDamage());
+        System.out.println("REVIVES: " + displayRevives());
     }
 
     public int getMainAttribute() {
@@ -223,16 +265,8 @@ public abstract class Hero extends Character implements IStaminaConsumption {
 
     public int calculateDamage() {
         DiceSet roll = new DiceSet();
-        //int mainAttMod = getMainAttribute() / 2;
-        //int test = roll.dCustom(mainAttMod);
-        //System.out.print(test);
-        //System.out.println(" Roll [CALCULATE]");
-        //System.out.println(mainAttMod + "  Main ATT Mod [CALCULATE]");
-        //System.out.print(test + mainAttMod);
-        //System.out.println("  Total [CALCULATE]");
         return getBaseDamage() + roll.dCustom(getMainAttribute() / 2);
     }
-
 
 
     // GET n SET
@@ -282,5 +316,21 @@ public abstract class Hero extends Character implements IStaminaConsumption {
 
     public void setInventoryHash(HashMap<String, Item> inventoryHash) {
         this.inventoryHash = inventoryHash;
+    }
+
+    public int getRevives() {
+        return revives;
+    }
+
+    public void setRevives(int revives) {
+        this.revives = revives;
+    }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
     }
 }

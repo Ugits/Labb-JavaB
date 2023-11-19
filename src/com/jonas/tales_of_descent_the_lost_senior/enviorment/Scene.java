@@ -1,5 +1,6 @@
 package com.jonas.tales_of_descent_the_lost_senior.enviorment;
 
+import com.jonas.tales_of_descent_the_lost_senior.Game;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 import com.jonas.tales_of_descent_the_lost_senior.resources.IColors;
 import com.jonas.tales_of_descent_the_lost_senior.resources.InputProcessing;
@@ -9,21 +10,16 @@ public abstract class Scene implements IColors{
     OutputManipulation out = new OutputManipulation();
     InputProcessing sc = new InputProcessing();
 
-    private Player player;
+    Game game;
     private String description;
-    private int visibility = 10;
-    private int breathability = 10;
 
-    public Scene(Player player, int visibilityMod, int breathabilityMod) {
-        setPlayer(player);
-        setVisibility(visibilityMod);
-        setBreathability(breathabilityMod);
+
+    public Scene(Game game) {
+        this.game = game;
 
     }
 
-    public Scene(int visibilityMod, int breathabilityMod) {
-        setVisibility(visibilityMod);
-        setBreathability(breathabilityMod);
+    public Scene() {
         //setDescription(description);
     }
 
@@ -36,7 +32,7 @@ public abstract class Scene implements IColors{
         System.out.println("this is a scene");
     }
 
-    public void description() throws InterruptedException {
+    public void description(){
         getOut().printScene(description);
     }
 
@@ -50,23 +46,6 @@ public abstract class Scene implements IColors{
         this.description = description;
     }
 
-    public int getVisibility() {
-        return visibility;
-    }
-
-    public int getBreathability() {
-        return breathability;
-    }
-
-
-
-    public void setVisibility(int visibility) {
-        this.visibility = visibility;
-    }
-
-    public void setBreathability(int breathability) {
-        this.breathability = breathability;
-    }
 
     public OutputManipulation getOut() {
         return out;
@@ -85,11 +64,11 @@ public abstract class Scene implements IColors{
         this.sc = sc;
     }
 
-    public Player getPlayer() {
-        return player;
+    public Game getGame() {
+        return game;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

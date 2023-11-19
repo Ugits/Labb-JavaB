@@ -85,4 +85,9 @@ public class OutputManipulation extends CustomStrings {
     }
 
 
+    public void printItemPickUp(String item) {
+        delayPrint(0,BLUE_ITALIC + "You obtained the " + item + "!"+RESET);
+        sleep(1000);
+        br();
+    }
 }

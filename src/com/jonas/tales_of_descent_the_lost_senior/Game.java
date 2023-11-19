@@ -7,61 +7,92 @@ import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Dungeon;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea.IntoTheDark;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea.TheThreeFriends;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.startingarea.Waterfall;
-import com.jonas.tales_of_descent_the_lost_senior.logic.GameLogic;
-import com.jonas.tales_of_descent_the_lost_senior.objects.Item;
-import com.jonas.tales_of_descent_the_lost_senior.objects.items.DungeonMap;
-import com.jonas.tales_of_descent_the_lost_senior.objects.items.MysteryBox;
 import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 import com.jonas.tales_of_descent_the_lost_senior.resources.InputProcessing;
-import com.jonas.tales_of_descent_the_lost_senior.resources.MenuTool;
 import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
-
-import java.util.Objects;
 
 public class Game {
 
-    /**
-     * InputProcessing sc = new InputProcessing();
-     * OutputManipulation console = new OutputManipulation();
-     */
+
+    InputProcessing sc = new InputProcessing();
+    OutputManipulation out = new OutputManipulation();
+
     Player player = new Player();
     private int floorIndex = 0;
     private int roomIndex = 0;
     private Dungeon map;
+    boolean gameOver;
+    boolean gameOn;
+
+    public Game() {
+        do {
+
+            run();
+            playAgain();
+
+        } while (isGameOn());
+        System.out.println("GAME OVER");
+    }
 
     public void run() {
 
-        //new TheThreeFriends(player);
-        //new Waterfall(player);
-        //new IntoTheDark(player);
+        new TheThreeFriends(this);
+        new Waterfall(this);
+        new IntoTheDark(this);
 
-        player.setHero(new Ranger());
-        player.setFriend1(new Knight());
-        player.setFriend2(new Mage());
-        //GameLogic logic = new GameLogic();
+        //player.setHero(new Ranger());
+        //player.setFriend1(new Knight());
+        //player.setFriend2(new Mage());
 
+        //player.getHero().getItem("Mystery Box").use(this);
 
-        //MenuTool menu = new MenuTool(roomIndex,floorIndex);
-        for (floorIndex = 1; floorIndex <= 5; floorIndex++) {
+        do {
 
-            map = new Dungeon(player.getHero(), floorIndex, this);
+            while (!player.getHero().isDead()) {
 
-            map.printMap();
-            for (roomIndex = 0; roomIndex < 5; roomIndex++) {
+                for (floorIndex = 1; floorIndex <= 5; floorIndex++) {
+                    if (player.getHero().isDead() && player.getHero().getRevives() <= 0) {
+                        //End loop
+                        getOut().printNarrative("This time," + player.getHero().getName() + " wont wake up..");
+                        gameOver = true;
+                        break;
+                    } else if (player.getHero().isDead() && player.getHero().getRevives() > 0) {
 
-                map.getHero().printInventoryHash();
+                        player.getHero().revive();
 
-                map.getFloor().get(roomIndex).runScene();
-                map.getFloor().get(roomIndex).checkIfMonster();
-                map.getFloor().get(roomIndex).runHeroAction();
+                    }
 
+                    setMap(new Dungeon(player.getHero(), floorIndex, this));
+
+                    for (roomIndex = 0; roomIndex < 5; roomIndex++) {
+
+                        //map.getHero().printInventoryHash();
+                        map.getFloor().get(roomIndex).runScene();
+                        map.getFloor().get(roomIndex).checkIfMonster();
+
+                        if (!player.getHero().isDead()) {
+                            map.getFloor().get(roomIndex).runHeroAction();
+                        } else {
+                            floorIndex = 0;
+                            roomIndex = 0;
+                            break;
+                        }
+                    }
+                }
             }
-        }
-        // TODO: 2023-11-05
 
-        //map.getFloor().forEach(room -> System.out.println(room.getMonster().getName()));
-        //map.getFloor().forEach(room -> System.out.println(room.isHasMonster()));
-        //map.printMap();
+        } while (!gameOver);
+        System.out.println("Will we ever get to know what happened to our master\n");
+
+    }
+
+    public void playAgain() {
+        System.out.println("Do you wish to play again?  [Y / N]");
+        String choice = getSc().nextAlphabeticalLine();
+        switch (choice.toLowerCase()) {
+            case "y", "yes" -> setGameOn(true);
+            case "n", "no" -> setGameOn(false);
+        }
     }
 
     public int getFloorIndex() {
@@ -86,5 +117,45 @@ public class Game {
 
     public void setMap(Dungeon map) {
         this.map = map;
+    }
+
+    public InputProcessing getSc() {
+        return sc;
+    }
+
+    public void setSc(InputProcessing sc) {
+        this.sc = sc;
+    }
+
+    public OutputManipulation getOut() {
+        return out;
+    }
+
+    public void setOut(OutputManipulation out) {
+        this.out = out;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
+
+    public boolean isGameOn() {
+        return gameOn;
+    }
+
+    public void setGameOn(boolean gameOn) {
+        this.gameOn = gameOn;
     }
 }

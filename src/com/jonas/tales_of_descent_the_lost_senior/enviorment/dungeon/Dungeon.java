@@ -11,13 +11,15 @@ import java.util.stream.IntStream;
 public class Dungeon extends OutputManipulation {
     //int floorNum;
     List<Room> floor = new ArrayList<>(5);
-    Character hero;
-
+    public Character hero;
+    Game game;
+    public Dungeon() {
+    }
 
     public Dungeon(Character hero, int floor, Game game) {
         setHero(hero);
-
-        IntStream.range(1, 6).forEach(i -> this.floor.add(new Room(getHero(), floor, i,game)));
+        this.game = game;
+        IntStream.range(1, 6).forEach(i -> this.floor.add(new Room(getHero(), floor, i, game)));
         System.out.println("creating floor"+ "[DEBUG]");
     }
 
@@ -61,4 +63,11 @@ public class Dungeon extends OutputManipulation {
         this.hero = hero;
     }
 
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
 }
