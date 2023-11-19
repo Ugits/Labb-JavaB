@@ -2,7 +2,7 @@ package com.jonas.tales_of_descent_the_lost_senior.characters;
 
 import com.jonas.tales_of_descent_the_lost_senior.interaction.DiceSet;
 import com.jonas.tales_of_descent_the_lost_senior.interaction.ICombat;
-import com.jonas.tales_of_descent_the_lost_senior.logic.GameLogic;
+import com.jonas.tales_of_descent_the_lost_senior.logic.CombatLogic;
 import com.jonas.tales_of_descent_the_lost_senior.objects.Item;
 import com.jonas.tales_of_descent_the_lost_senior.resources.IColors;
 import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
@@ -10,7 +10,7 @@ import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class Character extends GameLogic implements ICombat, IColors {
+public abstract class Character extends CombatLogic implements ICombat, IColors {
     OutputManipulation out = new OutputManipulation();
 
     private String name;
@@ -75,6 +75,8 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
 
     // for HERO-- cant reach if I declare in Hero class
 
+    public int getMainAttribute() {return 0;}
+    public void setMainAttribute(int newValue) {}
     public boolean isFleeing() {
         return false;
     }
@@ -247,6 +249,12 @@ public abstract class Character extends GameLogic implements ICombat, IColors {
         return null;
     }
 
+    public int getExperience() {
+        return 0;
+    }
+
+    public void setExperience(int experience) {
+    }
 
 
 }

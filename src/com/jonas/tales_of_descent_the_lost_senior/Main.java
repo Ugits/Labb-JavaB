@@ -7,8 +7,8 @@ public class Main implements IColors {
     public static void main(String[] args){
 
 
-        new Game();
-
+        Game game = new Game();
+        game.newGame();
 
 
 

@@ -25,6 +25,10 @@ public class Game {
     boolean gameOn;
 
     public Game() {
+
+    }
+
+    public void newGame(){
         do {
 
             run();
@@ -76,7 +80,6 @@ public class Game {
 
                         if (!player.getHero().isDead() && !player.getHero().isFleeing()) {
                             map.getFloor().get(roomIndex).runHeroAction();
-
                         }
 
                         if (player.getHero().isDead()){

@@ -4,7 +4,7 @@ import com.jonas.tales_of_descent_the_lost_senior.Game;
 import com.jonas.tales_of_descent_the_lost_senior.characters.Character;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.Scene;
 import com.jonas.tales_of_descent_the_lost_senior.enviorment.dungeon.Room;
-import com.jonas.tales_of_descent_the_lost_senior.logic.GameLogic;
+import com.jonas.tales_of_descent_the_lost_senior.logic.CombatLogic;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class MenuTool extends Scene implements IColors {
     OutputManipulation out = new OutputManipulation();
     InputProcessing sc = new InputProcessing();
-    GameLogic logic = new GameLogic();
+    CombatLogic logic = new CombatLogic();
 
     // Menus
     private int num;
@@ -348,11 +348,11 @@ public class MenuTool extends Scene implements IColors {
         this.num = num;
     }
 
-    public GameLogic getLogic() {
+    public CombatLogic getLogic() {
         return logic;
     }
 
-    public void setLogic(GameLogic logic) {
+    public void setLogic(CombatLogic logic) {
         this.logic = logic;
     }
 

@@ -309,13 +309,7 @@ public abstract class Hero extends Character {
         setCoins(getCoins() + loot);
     }
 
-    public int getMainAttribute() {
-        return 0;
-    }
 
-    public void setMainAttribute(int newValue) {
-
-    }
 
     public int calculateDamage() {
         DiceSet roll = new DiceSet();

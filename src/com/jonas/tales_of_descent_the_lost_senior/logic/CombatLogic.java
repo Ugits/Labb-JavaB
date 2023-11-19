@@ -8,7 +8,7 @@ import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 
 import static com.jonas.tales_of_descent_the_lost_senior.resources.IColors.RED_BOLD;
 
-public class GameLogic {
+public class CombatLogic {
     DiceSet roll = new DiceSet();
     OutputManipulation out = new OutputManipulation();
     InputProcessing sc = new InputProcessing();
