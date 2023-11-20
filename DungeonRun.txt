@@ -1,0 +1,4 @@
+[1;31mThe Knight[0m's stats:
+Level: 1
+Coins: 4
+Mystery Box: No 

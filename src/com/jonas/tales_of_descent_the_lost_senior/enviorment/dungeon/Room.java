@@ -153,6 +153,7 @@ public class Room extends Scene {
                 if (getHero().getItem("Lucky Dice Set").isOwned()) {
                     coinBig();
                 } else {
+                    getOut().printItemPickUp("Lucky Dice Set");
                     getHero().getItem("Lucky Dice Set").setOwned(true);
                 }
             }
@@ -164,6 +165,7 @@ public class Room extends Scene {
                 if (getHero().getItem("Stamina Potion").isOwned()) {
                     coinSmall();
                 } else {
+                    getOut().printItemPickUp("Stamina Potion");
                     getHero().getItem("Stamina Potion").setOwned(true);
                 }
 

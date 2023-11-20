@@ -13,14 +13,12 @@ public class Dungeon extends OutputManipulation {
     List<Room> floor = new ArrayList<>(5);
     public Character hero;
     Game game;
-    public Dungeon() {
-    }
 
     public Dungeon(Character hero, int floor, Game game) {
         setHero(hero);
         this.game = game;
         IntStream.range(1, 6).forEach(i -> this.floor.add(new Room(getHero(), floor, i, game)));
-        System.out.println("creating floor"+ "[DEBUG]");
+
     }
 
     public void printMap() {

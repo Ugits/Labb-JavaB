@@ -266,7 +266,9 @@ public class MenuTool extends Scene implements IColors {
                 sc.waitForEnter();
             }
             case "Move to Next Floor" -> {
-                getOut().printNarrative(getHero().getName() + " now descends to floor " + (getFloorNum() + 1));
+                if (getFloorNum() < 5) {
+                    getOut().printNarrative(getHero().getName() + " now descends to floor " + (getFloorNum() + 1));
+                }
                 room.setActionMenuActive(false);
                 sc.waitForEnter();
             }
@@ -274,7 +276,7 @@ public class MenuTool extends Scene implements IColors {
             default -> {
 
                 if (option.equals("Escape -> " + RED_BOLD + "[ " + RED_ITALIC + "Room " + getFloorNum() + "." + (getRoomNum() - 1) + RESET + RED_BOLD + " ]" + RESET)) {
-                    getHero().flee(room,getGame());
+                    getHero().flee(room, getGame());
                 } else {
                     setUserChoiceActive(true);
                     System.out.println("[DEBUG]    Fail in execute Choice    [DEBUG]");

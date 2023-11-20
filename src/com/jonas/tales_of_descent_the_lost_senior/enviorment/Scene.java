@@ -10,7 +10,7 @@ public abstract class Scene implements IColors{
     OutputManipulation out = new OutputManipulation();
     InputProcessing sc = new InputProcessing();
 
-    Game game;
+    private Game game;
     private String description;
 
 

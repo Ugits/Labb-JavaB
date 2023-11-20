@@ -248,7 +248,7 @@ public abstract class Hero extends Character {
         System.out.println(YELLOW_BOLD + "Pouch: " + getCoins() + " Coins" + RESET);
 
         // debug
-        System.out.println("stamina: " + getStaminaCurrent());
+        //System.out.println("stamina: " + getStaminaCurrent());
         // TODO: 2023-11-19
     }
 

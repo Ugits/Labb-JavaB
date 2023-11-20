@@ -11,6 +11,10 @@ import com.jonas.tales_of_descent_the_lost_senior.player.Player;
 import com.jonas.tales_of_descent_the_lost_senior.resources.InputProcessing;
 import com.jonas.tales_of_descent_the_lost_senior.resources.OutputManipulation;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Game {
 
 
@@ -28,7 +32,7 @@ public class Game {
 
     }
 
-    public void newGame(){
+    public void newGame() {
         do {
 
             run();
@@ -49,12 +53,13 @@ public class Game {
 
             while (!getPlayer().getHero().isDead()) {
 
-                for (setFloorIndex(1); getFloorIndex() <= 5; setFloorIndex(getFloorIndex()+1)) {
+                for (setFloorIndex(1); getFloorIndex() <= 5; setFloorIndex(getFloorIndex() + 1)) {
                     if (getPlayer().getHero().isDead() && getPlayer().getHero().getRevives() <= 0) {
 
                         getOut().printNarrative("This time," + getPlayer().getHero().getName() + " wont wake up..");
+
                         setGameOver(true);
-                        break;
+                        return;
 
                     } else if (getPlayer().getHero().isDead() && getPlayer().getHero().getRevives() > 0) {
 
@@ -64,7 +69,7 @@ public class Game {
 
                     setMap(new Dungeon(getPlayer().getHero(), getFloorIndex(), this));
 
-                    for (setRoomIndex(0); getRoomIndex() < 5; setRoomIndex(getRoomIndex()+1)) {
+                    for (setRoomIndex(0); getRoomIndex() < 5; setRoomIndex(getRoomIndex() + 1)) {
                         getPlayer().getHero().setFleeing(false);
                         if (getPlayer().getHero().getItem("Lucky Dice Set").isOwned()) {
                             getPlayer().getHero().setLuck(2);
@@ -78,25 +83,53 @@ public class Game {
                             getMap().getFloor().get(getRoomIndex()).runHeroAction();
                         }
 
-                        if (getPlayer().getHero().isDead()){
+                        if (getPlayer().getHero().isDead() && getPlayer().getHero().getRevives() <= 0){
+                            writeGameInfoToFile();
+                        }
+
+                        if (getPlayer().getHero().isDead()) {
                             setFloorIndex(0);
                             setRoomIndex(0);
                             break;
                         }
 
                     }
-                    getOut().printNarrative("After wandering a while in the dungeon caves, you now see the light.");
-                    getOut().printNarrative("could it be?.. ");
-                    getOut().sleep(3);
-                    getOut().printNarrative("To be continued ;) ");
-                    break;
 
                 }
+                getOut().printNarrative("After wandering a while in the dungeon caves, you now see the light.");
+                getOut().printNarrative("could it be?.. ");
+                getOut().sleep(3);
+                getOut().printNarrative("To be continued ;) ");
+                writeGameInfoToFile();
+                return;
             }
 
         } while (!isGameOver());
         System.out.println("Will we ever get to know what happened to our master\n");
 
+    }
+
+    public void writeGameInfoToFile() {
+        try {
+
+            String filePath = "DungeonRun.txt";
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+
+            writer.write(getPlayer().getHero().getName() + "'s stats:");
+            writer.write("\nLevel: " + getPlayer().getHero().getLevel());
+            writer.write("\nCoins: " + getPlayer().getHero().getCoins());
+            if (getPlayer().getHero().getInventoryHash().get("Mystery Box") != null) {
+                writer.write("\nMystery Box: Yes ");
+            } else {
+                writer.write("\nMystery Box: No ");
+            }
+
+            writer.close();
+            System.out.println("Game info has been written to " + filePath);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void playAgain() {
